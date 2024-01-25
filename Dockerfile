@@ -21,7 +21,7 @@ RUN composer update
 COPY ./docker-conf/apache2.conf /etc/apache2/apache2.conf
 COPY ./docker-conf/000-default.conf /etc/apache2/sites-enabled/000-default.conf
 
-# [php] copy MAMA-REST directoy
+# [php] set correct ownership on files
 COPY . /var/www/html/
 
 # [MAMA] init cron jobs
@@ -35,7 +35,9 @@ RUN chown -R www-data:www-data /var/www/html/
 # VOLUME /mnt/mama_uploaded_files:/var/www/html/uploaded_files 
 
 # [final] restart apache2
-RUN echo "service apache2 start && tail -f /var/log/apache2/*.log" >> /startup.sh &&\
+RUN echo "service apache2 start &&\
+        service memcached start &&\
+        tail -f /var/log/apache2/*.log" >> /startup.sh &&\
     chmod +x /startup.sh
 
 CMD ["/bin/bash", "-c", "/startup.sh"]

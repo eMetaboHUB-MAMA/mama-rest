@@ -67,12 +67,48 @@ class ProjectManagementServiceTest extends PHPUnit\Framework\TestCase
         // Other Financial
         $financialContextIsProjectOtherValue = "rainbows and unicorns";
 
+        // mama#60
+        $labRNSR = "jean-PFEM ~ mama#60";
+
         // create
         $title = "junit.test.create." . microtime() . " TITLE";
-        $idProject = ProjectManagementService::create($title, $user, $mthStuff, $demand_type_eq, $demand_type_labRout, $demand_type_feasibility, $demand_type_formation, $demand_type_data_processing, $demand_type_other, $demand_sample_nb, $cloudWords, $subCloudWords, $targeted, $mthPF, $forwardAR2copartner, $scientificContext, $scientificContextFile, $financialContextIsProjectFinanced, $financialContextIsProjectInProvisioning, $financialContextIsProjectOnOwnSupply, $financialContextIsProjectNotFinanced, $financialContextIsProjectEU, $financialContextIsProjectANR, $financialContextIsProjectNational, $financialContextIsProjectRegional, $financialContextIsProjectCompagnyTutorship, $financialContextIsProjectOwnResourcesLaboratory, $financialContextIsProjectInternationalOutsideEU, $financialContextIsProjectOther, $financialContextIsProjectOtherValue);
+        $idProject = ProjectManagementService::create( //
+            $title,
+            $user,
+            $mthStuff,
+            $demand_type_eq,
+            $demand_type_labRout,
+            $demand_type_feasibility,
+            $demand_type_formation,
+            $demand_type_data_processing,
+            $demand_type_other,
+            $demand_sample_nb,
+            $cloudWords,
+            $subCloudWords,
+            $targeted,
+            $mthPF,
+            $forwardAR2copartner,
+            $scientificContext,
+            $scientificContextFile,
+            $financialContextIsProjectFinanced,
+            $financialContextIsProjectInProvisioning,
+            $financialContextIsProjectOnOwnSupply,
+            $financialContextIsProjectNotFinanced,
+            $financialContextIsProjectEU,
+            $financialContextIsProjectANR,
+            $financialContextIsProjectNational,
+            $financialContextIsProjectRegional,
+            $financialContextIsProjectCompagnyTutorship,
+            $financialContextIsProjectOwnResourcesLaboratory,
+            $financialContextIsProjectInternationalOutsideEU,
+            $financialContextIsProjectOther,
+            $financialContextIsProjectOtherValue,
+            $labRNSR
+        );
         // check 1
         $newProject = ProjectManagementService::get($idProject);
         $this->assertEquals($title, $newProject->getTitle(), "[error] 'create' or 'get' (by id) does not work (1)");
+        $this->assertEquals($labRNSR, $newProject->getLabRNSR(), "[error] project create | labRNSR");
 
         // check 2
         $newProject2 = ProjectManagementService::search($title);
@@ -131,52 +167,136 @@ class ProjectManagementServiceTest extends PHPUnit\Framework\TestCase
         $financialContextIsProjectOther = true;
         // Other Financial
         $financialContextIsProjectOtherValue = "rainbows and unicorns";
+        // mama#60
+        $labRNSR = "jean-PFEM ~ mama#60";
         // create
         $title = "junit.test.create." . microtime() . " TITLE";
-        $idProject = ProjectManagementService::create($title, $user, $mthStuff, $demand_type_eq, $demand_type_labRout, $demand_type_feasibility, $demand_type_formation, $demand_type_data_processing, $demand_type_other, $demand_sample_nb, $cloudWords, $subCloudWords, $targeted, $mthPF, $forwardAR2copartner, $scientificContext, $scientificContextFile, $financialContextIsProjectFinanced, $financialContextIsProjectInProvisioning, $financialContextIsProjectOnOwnSupply, $financialContextIsProjectNotFinanced, $financialContextIsProjectEU, $financialContextIsProjectANR, $financialContextIsProjectNational, $financialContextIsProjectRegional, $financialContextIsProjectCompagnyTutorship, $financialContextIsProjectOwnResourcesLaboratory, $financialContextIsProjectInternationalOutsideEU, $financialContextIsProjectOther, $financialContextIsProjectOtherValue);
+        $idProject = ProjectManagementService::create( //
+            $title,
+            $user,
+            $mthStuff,
+            $demand_type_eq,
+            $demand_type_labRout,
+            $demand_type_feasibility,
+            $demand_type_formation,
+            $demand_type_data_processing,
+            $demand_type_other,
+            $demand_sample_nb,
+            $cloudWords,
+            $subCloudWords,
+            $targeted,
+            $mthPF,
+            $forwardAR2copartner,
+            $scientificContext,
+            $scientificContextFile,
+            $financialContextIsProjectFinanced,
+            $financialContextIsProjectInProvisioning,
+            $financialContextIsProjectOnOwnSupply,
+            $financialContextIsProjectNotFinanced,
+            $financialContextIsProjectEU,
+            $financialContextIsProjectANR,
+            $financialContextIsProjectNational,
+            $financialContextIsProjectRegional,
+            $financialContextIsProjectCompagnyTutorship,
+            $financialContextIsProjectOwnResourcesLaboratory,
+            $financialContextIsProjectInternationalOutsideEU,
+            $financialContextIsProjectOther,
+            $financialContextIsProjectOtherValue,
+            $labRNSR
+        );
 
         // test FAIL
-        $success1 = ProjectManagementService::update(- 1, "bob-marcel dans la place",
+        $success1 = ProjectManagementService::update(
+            -1,
+            "bob-marcel dans la place",
             /* -- */
             // 			$analystInCharge, $analystsInvolved,
             /* -- */
             "free vacation for bob-marcel",
             /* -- */
-            true, false, true, true, true, false,
+            true,
+            false,
+            true,
+            true,
+            true,
+            false,
             /* -- */
             "",
             /* -- */
-            null, null, false, null, false,
+            null,
+            null,
+            false,
+            null,
+            false,
             /* -- */
-            "", "",
+            "",
+            "",
             /* -- */
-            false, false, false, false,
+            false,
+            false,
+            false,
+            false,
             /* -- */
-            false, false, false, false, false, false, false, false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
             /* -- */
-            "");
+            "",
+            /* -- */
+            ""
+        );
         $this->assertEquals(false, $success1, "[error] 'create' or 'get' (by id) does not work");
 
         // test SUCCESS
-        $success2 = ProjectManagementService::update($idProject, "bob-marcel à la plage",
+        $success2 = ProjectManagementService::update(
+            $idProject,
+            "bob-marcel à la plage",
             /* -- */
             // 			$analystInCharge, $analystsInvolved,
             /* -- */
             "free vacation for bob-marcel",
             /* -- */
-            false, false, false, false, false, false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
             /* -- */
             "",
             /* -- */
-            null, null, false, null, false,
+            null,
+            null,
+            false,
+            null,
+            false,
             /* -- */
-            "ADC power", "nope",
+            "ADC power",
+            "nope",
             /* -- */
-            false, false, false, false,
+            false,
+            false,
+            false,
+            false,
             /* -- */
-            false, false, false, false, false, false, false, false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
             /* -- */
-            "abonnement VIC");
+            "abonnement VIC",
+            /* -- */
+            "lab RNSR updated"
+        );
         $this->assertEquals(true, $success2, "[error] 'create' or 'get' (by id) does not work");
 
         // test if update worker
@@ -208,6 +328,7 @@ class ProjectManagementServiceTest extends PHPUnit\Framework\TestCase
         $this->assertEquals(false, $projectUpdated->getFinancialContextIsProjectOwnResourcesLaboratory(), "[error] 'update' does not work (getFinancialContextIsProjectOwnResourcesLaboratory)");
         $this->assertEquals(false, $projectUpdated->getFinancialContextIsProjectOther(), "[error] 'update' does not work (getFinancialContextIsProjectOther)");
         $this->assertEquals("abonnement VIC", $projectUpdated->getFinancialContextIsProjectOtherValue(), "[error] 'update' does not work (getFinancialContextIsProjectOtherValue)");
+        $this->assertEquals("lab RNSR updated", $projectUpdated->getLabRNSR(), "[error] 'update' does not work (getLabRNSR)");
     }
 
     // public function testUpdateObject()

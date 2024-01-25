@@ -23,6 +23,7 @@ class ProjectExtraDataClassTest extends PHPUnit\Framework\TestCase
         $obj = new ProjectExtraData($t);
         // getters 1
         $this->assertEquals(null, $obj->getAdministrativeContext());
+        $this->assertEquals(null, $obj->getManagerContext()); //mama#61
         $this->assertEquals(null, $obj->getBlockedReason());
         $this->assertEquals(null, $obj->getBudgetConstraint());
         $this->assertEquals(null, $obj->getDeadline());
@@ -32,6 +33,7 @@ class ProjectExtraDataClassTest extends PHPUnit\Framework\TestCase
         $this->assertEquals(null, $obj->getKnowMTHviaCoworkerOrFriend());
         $this->assertEquals(null, $obj->getKnowMTHviaPublication());
         $this->assertEquals(null, $obj->getKnowMTHviaSearchEngine());
+        $this->assertEquals(null, $obj->getKnowMTHviaFormalUser()); // mama#64
         $this->assertEquals(null, $obj->getKnowMTHviaWebsite());
         $this->assertEquals("", $obj->getLaboType());
         $this->assertEquals(null, $obj->getProjectMaturity());
@@ -40,6 +42,7 @@ class ProjectExtraDataClassTest extends PHPUnit\Framework\TestCase
         $this->assertEquals(null, $obj->getSyntheticUserNeeds());
         // setters
         $obj->setAdministrativeContext("setAdministrativeContext");
+        $obj->setManagerContext("setManagerContext"); //mama#61
         $obj->setBlockedReason("setBlockedReason");
         $obj->setBudgetConstraint("setBudgetConstraint");
         $obj->setDeadline("setDeadline");
@@ -49,14 +52,17 @@ class ProjectExtraDataClassTest extends PHPUnit\Framework\TestCase
         $obj->setKnowMTHviaCoworkerOrFriend(true);
         $obj->setKnowMTHviaPublication(false);
         $obj->setKnowMTHviaSearchEngine(true);
+        $obj->setKnowMTHviaFormalUser(true); // mama#64
         $obj->setKnowMTHviaWebsite(false);
         $obj->setLaboType("setLaboType");
         $obj->setProjectMaturity("setProjectMaturity");
         $obj->setRejectedReason("setRejectedReason");
         $obj->setStoppedReason("setStoppedReason");
         $obj->setSyntheticUserNeeds("setSyntheticUserNeeds");
+        $obj->setExternalManagerIdentifier("setExternalManagerIdentifier");
         // getters 2
         $this->assertEquals("setAdministrativeContext", $obj->getAdministrativeContext());
+        $this->assertEquals("setManagerContext", $obj->getManagerContext()); // mama#61
         $this->assertEquals("", $obj->getBlockedReason());
         $this->assertEquals("setBudgetConstraint", $obj->getBudgetConstraint());
         $this->assertEquals("setDeadline", $obj->getDeadline());
@@ -66,26 +72,28 @@ class ProjectExtraDataClassTest extends PHPUnit\Framework\TestCase
         $this->assertEquals(true, $obj->getKnowMTHviaCoworkerOrFriend());
         $this->assertEquals(false, $obj->getKnowMTHviaPublication());
         $this->assertEquals(true, $obj->getKnowMTHviaSearchEngine());
+        $this->assertEquals(true, $obj->getKnowMTHviaFormalUser()); // mama#64
         $this->assertEquals(false, $obj->getKnowMTHviaWebsite());
         $this->assertEquals("", $obj->getLaboType());
         $this->assertEquals("setProjectMaturity", $obj->getProjectMaturity());
         $this->assertEquals("", $obj->getRejectedReason());
         $this->assertEquals("setStoppedReason", $obj->getStoppedReason());
         $this->assertEquals("setSyntheticUserNeeds", $obj->getSyntheticUserNeeds());
+        $this->assertEquals("setExternalManagerIdentifier", $obj->getExternalManagerIdentifier());
 
         // test array dump
         ob_start();
         var_dump($obj->getArrayData());
         $getArrayData = ob_get_clean();
         $getArrayData = preg_replace("/DateTime#\d+|ClassTest.php:\d+/", "x", $getArrayData);
-        $this->assertStringStartsWith('array(19) {', $getArrayData);
+        $this->assertStringStartsWith('array(24) {', $getArrayData);
 
         // test json dump
         ob_start();
         var_dump($obj->getJsonData());
         $getJsonData = ob_get_clean();
         $getJsonData = preg_replace("/DateTime#\d+|ClassTest.php:\d+/", "x", $getJsonData);
-        $this->assertStringStartsWith('array(19) {', $getJsonData);
+        $this->assertStringStartsWith('array(24) {', $getJsonData);
     }
 
     public function testGetSetLaboType()

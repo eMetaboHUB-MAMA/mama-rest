@@ -597,7 +597,9 @@ class ProjectManagementService
 		$financialContextIsProjectInternationalOutsideEU,
 		$financialContextIsProjectOther,
 		/* -- */
-		$financialContextIsProjectOtherValue
+		$financialContextIsProjectOtherValue,
+		/* mama#60 lab RNSR */
+		$labRNSR
 	) {
 
 		// init
@@ -657,6 +659,9 @@ class ProjectManagementService
 		$project->setFinancialContextIsProjectOther($financialContextIsProjectOther);
 		$project->setFinancialContextIsProjectOtherValue($financialContextIsProjectOtherValue);
 
+		// mama#60
+		$project->setLabRNSR($labRNSR);
+
 		$entityManager->persist($project);
 		$entityManager->flush();
 
@@ -709,6 +714,7 @@ class ProjectManagementService
 		$financialContextIsProjectOther,
 		/* -- */
 		$financialContextIsProjectOtherValue,
+		$labRNSR,
 		/* -- */
 		$userSource = null
 	) {
@@ -778,7 +784,7 @@ class ProjectManagementService
 		$project->setFinancialContextIsProjectOther($financialContextIsProjectOther);
 		// $financialContextIsProjectOtherValue
 		$project->setFinancialContextIsProjectOtherValue($financialContextIsProjectOtherValue);
-
+		$project->setLabRNSR($labRNSR);
 		$project->setUpdated();
 
 		$entityManager->persist($project);
@@ -1016,6 +1022,12 @@ class ProjectManagementService
 				$updateBasicData = true;
 				$updated = true;
 			}
+			// mama#60 labRNSR
+			if ($projectInDB->getLabRNSR() != $project->getLabRNSR()) {
+				$projectInDB->setLabRNSR($project->getLabRNSR());
+				$updateBasicData = true;
+				$updated = true;
+			}
 		} else { // case of json object
 			$projectInDB = ProjectManagementService::get($project['id']);
 
@@ -1034,7 +1046,8 @@ class ProjectManagementService
 			EventManagementService::createProjectEvent($userSource, Event::$EVENT_TYPE_UPDATE_PROJECT__informations, $projectInDB);
 		}
 
-		return true;
+		// mama#78: return true only if an update occured 
+		return $updated;
 	}
 
 	// //////////////////////////////////////////////////////////////////////////////////////////////

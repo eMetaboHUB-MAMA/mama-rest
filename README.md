@@ -18,7 +18,7 @@ Note: the command examples are all for a **debian** system with **apache2** and 
 - Ubuntu server 22.04+
 - php 8.1 (`sudo apt install -y php8.1`)
   - php-mcrypt, php-ldap, php-xml, ... ⇒ `sudo apt install -y php8.1-ldap php8.1-curl php8.1-xml php8.1-mysql php8.1-gd php8.1-zip && sudo phpenmod mcrypt`
-  - php-memcached ⇒ `sudo apt install -y memcached php-memcached`
+  - [php-memcached](https://devdocs.magento.com/guides/v2.3/config-guide/memcache/memcache_ubuntu.html) ⇒ `sudo apt install -y memcached php-memcached`
   - for phpoffice ⇒ `sudo apt install -y php8.1-gd php8.1-mbstring php8.1-zip`
   - install mycrypt ⇒ `sudo apt -y install gcc make autoconf libc-dev pkg-config && sudo apt -y install php8.1-dev && sudo apt -y install libmcrypt-dev && sudo pecl install mcrypt`; then add `extension=mcrypt.so` in `php.ini` file
 - MySQL 5+ or PostgreSQL 9+ (`sudo apt install -y mysql-server`)
@@ -125,9 +125,13 @@ cd /path/to/mama-rest && docker build -t metabohub/mama-rest-tests -f Dockerfile
 
 # run with shared volum for work. dir.
 docker run --rm -it \
-   -v $(pwd):/var/www/html/ \
+   -v $(pwd):/var/www/html_dev/ \
    -p 8888:80 \
+   --name mama-rest-tests \
    metabohub/mama-rest-tests
+
+# update live code into container
+docker exec -it mama-rest-tests bash -c "cp -r /var/www/html_dev/* /var/www/html/"
 ```
 
 Then edit `MAMA - WebApp` config file `` like this:
@@ -172,7 +176,7 @@ phpunit --bootstrap ../vendor/autoload.php tokenManagementServiceTest.php
 ```
 
 Functionnal tests: test REST requests with curl\
-(e.g. `curl -X POST --data "email=nils.paulhe@gmail.com&password=XXXXXXX" -i -H "Accept: application/json" http://localhost/mama-rest/public/user`)
+(e.g. `curl -X POST --data "email=my-email@domain.dns&password=XXXXXXX" -i -H "Accept: application/json" http://localhost/mama-rest/public/user`)
 
 ## Services provided
 

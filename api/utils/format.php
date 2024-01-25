@@ -283,15 +283,27 @@ function getXLSfile($type, $data)
 		$objPHPExcel->setActiveSheetIndex(0)->setCellValue($magicAlphabet[$h++] . '1', 'financing');
 		$objPHPExcel->setActiveSheetIndex(0)->setCellValue($magicAlphabet[$h++] . '1', 'financing_type');
 		$objPHPExcel->setActiveSheetIndex(0)->setCellValue($magicAlphabet[$h++] . '1', 'financing_other');
+		$objPHPExcel->setActiveSheetIndex(0)->setCellValue($magicAlphabet[$h++] . '1', 'lab_RNSR'); // issue mama#60
 		// if is admin ⇒ display "extra data" related data
 		if (isAdmin() || isProjectManager()) {
 			// mama#33 - reject / blocker reason
 			$objPHPExcel->setActiveSheetIndex(0)->setCellValue($magicAlphabet[$h++] . '1', 'reject_or_blocked_reason_type');
 			$objPHPExcel->setActiveSheetIndex(0)->setCellValue($magicAlphabet[$h++] . '1', 'reject_or_blocked_reason_text');
-			// mama#43 - col. administratif context |  col. geographical context | col. public/private context
+			// mama#43 - col. administratif context
 			$objPHPExcel->setActiveSheetIndex(0)->setCellValue($magicAlphabet[$h++] . '1', 'administratif_context');
+			// mama#61 - col. manager context
+			$objPHPExcel->setActiveSheetIndex(0)->setCellValue($magicAlphabet[$h++] . '1', 'manager_context');
+			// mama#43 - col. geographical context | col. public/private context
 			$objPHPExcel->setActiveSheetIndex(0)->setCellValue($magicAlphabet[$h++] . '1', 'geographical_context');
 			$objPHPExcel->setActiveSheetIndex(0)->setCellValue($magicAlphabet[$h++] . '1', 'public_private_context');
+			// mama#77 - col. how did you know MTH 
+			$objPHPExcel->setActiveSheetIndex(0)->setCellValue($magicAlphabet[$h++] . '1', 'how_did_you_known_mth');
+			// mama#66 - col. manager keywords
+			$objPHPExcel->setActiveSheetIndex(0)->setCellValue($magicAlphabet[$h++] . '1', 'manager_thematic_words');
+			// mama#68 - col. ext. manager id
+			$objPHPExcel->setActiveSheetIndex(0)->setCellValue($magicAlphabet[$h++] . '1', 'external_manager_reference');
+			// mama#65 - col. sub-platform
+			$objPHPExcel->setActiveSheetIndex(0)->setCellValue($magicAlphabet[$h++] . '1', 'mth_sub_plateforms');
 			// mama#35 - add "response delay" indicator
 			$objPHPExcel->setActiveSheetIndex(0)->setCellValue($magicAlphabet[$h++] . '1', 'response_delay_days');
 		}
@@ -422,6 +434,7 @@ function getXLSfile($type, $data)
 			}
 			$objPHPExcel->setActiveSheetIndex(0)->setCellValue($magicAlphabet[$t++] . $i, $financingType);
 			$objPHPExcel->setActiveSheetIndex(0)->setCellValue($magicAlphabet[$t++] . $i, $value->getFinancialContextIsProjectOtherValue());
+			$objPHPExcel->setActiveSheetIndex(0)->setCellValue($magicAlphabet[$t++] . $i, $value->getLabRNSR()); // issue#60
 			// if is amdin ⇒ display moar data
 			if (isAdmin() || isProjectManager()) {
 				// mama#33  - rejected / blocked reasons type
@@ -437,13 +450,62 @@ function getXLSfile($type, $data)
 				// mama#33 - rejected or blocked text
 				$stoppedReasons = ($value->getProjectExtraData() != null) ? $value->getProjectExtraData()->getStoppedReason() : "";
 				$objPHPExcel->setActiveSheetIndex(0)->setCellValue($magicAlphabet[$t++] . $i, $stoppedReasons);
-				// mama#43 - col. administratif context |  col. geographical context | col. public/private context
+				// mama#43 - col. administratif context
 				$administratifContext = ($value->getProjectExtraData() != null) ? $value->getProjectExtraData()->getAdministrativeContext() : "";
 				$objPHPExcel->setActiveSheetIndex(0)->setCellValue($magicAlphabet[$t++] . $i, $administratifContext);
+				// mama#61 - manager context
+				$managerContext = ($value->getProjectExtraData() != null) ? $value->getProjectExtraData()->getManagerContext() : "";
+				$objPHPExcel->setActiveSheetIndex(0)->setCellValue($magicAlphabet[$t++] . $i, $managerContext);
+				// mama#43 - col. geographical context | col. public/private context
 				$geographicalContext = ($value->getProjectExtraData() != null) ? $value->getProjectExtraData()->getGeographicContext() : "";
 				$objPHPExcel->setActiveSheetIndex(0)->setCellValue($magicAlphabet[$t++] . $i, $geographicalContext);
 				$publicPrivateContext = ($value->getProjectExtraData() != null) ? $value->getProjectExtraData()->getLaboType() : "";
 				$objPHPExcel->setActiveSheetIndex(0)->setCellValue($magicAlphabet[$t++] . $i, $publicPrivateContext);
+				// mama#77 - how did you know MTH 
+				$howDidYouKnownMTH = "";
+				if ($value->getProjectExtraData() != null) {
+					if ($value->getProjectExtraData()->getKnowMTHviaCoworkerOrFriend()) {
+						$howDidYouKnownMTH .= $howDidYouKnownMTH != "" ? ", " : "";
+						$howDidYouKnownMTH .= "coworker";
+					}
+					if ($value->getProjectExtraData()->getKnowMTHviaPublication()) {
+						$howDidYouKnownMTH .= $howDidYouKnownMTH != "" ? ", " : "";
+						$howDidYouKnownMTH .= "publication";
+					}
+					if ($value->getProjectExtraData()->getKnowMTHviaWebsite()) {
+						$howDidYouKnownMTH .= $howDidYouKnownMTH != "" ? ", " : "";
+						$howDidYouKnownMTH .= "website";
+					}
+					if ($value->getProjectExtraData()->getKnowMTHviaSearchEngine()) {
+						$howDidYouKnownMTH .= $howDidYouKnownMTH != "" ? ", " : "";
+						$howDidYouKnownMTH .= "search_engine";
+					}
+					if ($value->getProjectExtraData()->getKnowMTHviaFormalUser()) {
+						$howDidYouKnownMTH .= $howDidYouKnownMTH != "" ? ", " : "";
+						$howDidYouKnownMTH .= "formal_user";
+					}
+				}
+				$objPHPExcel->setActiveSheetIndex(0)->setCellValue($magicAlphabet[$t++] . $i, $howDidYouKnownMTH);
+				// mama#66 - manager keywords
+				$managerCloudWords = "";
+				if ($value->getProjectExtraData() != null) {
+					foreach ($value->getProjectExtraData()->getManagerThematicWords() as $k => $v) {
+						$managerCloudWords .= $v->getWord() . "; ";
+					}
+				}
+				$objPHPExcel->setActiveSheetIndex(0)->setCellValue($magicAlphabet[$t++] . $i, $managerCloudWords);
+				// mama#68 - col. ext. manager id
+				$externalManagerIdentifier = ($value->getProjectExtraData() != null) ? //
+					$value->getProjectExtraData()->getExternalManagerIdentifier() : "";
+				$objPHPExcel->setActiveSheetIndex(0)->setCellValue($magicAlphabet[$t++] . $i, $externalManagerIdentifier);
+				// mama#65 - col. sub-platform
+				$mthSubPF = "";
+				if ($value->getProjectExtraData() != null) {
+					foreach ($value->getProjectExtraData()->getMthSubPlatforms() as $k => $v) {
+						$mthSubPF .= $v->getName() . "; ";
+					}
+				}
+				$objPHPExcel->setActiveSheetIndex(0)->setCellValue($magicAlphabet[$t++] . $i, $mthSubPF);
 				// mama#35 - add "response delay" indicator
 				$objPHPExcel->setActiveSheetIndex(0)->setCellValue($magicAlphabet[$t++] . $i, $value->getResponseDelay());
 			}

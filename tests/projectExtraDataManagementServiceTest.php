@@ -70,7 +70,39 @@ class ProjectExtraDataManagementServiceTest extends PHPUnit\Framework\TestCase
 
         // create project
         $title = "junit.test.create." . microtime() . " TITLE";
-        $idProject = ProjectManagementService::create($title, $user, $mthStuff, $demand_type_eq, $demand_type_labRout, $demand_type_feasibility, $demand_type_formation, $demand_type_data_processing, $demand_type_other, $demand_sample_nb, $cloudWords, $subCloudWords, $targeted, $mthPF, $forwardAR2copartner, $scientificContext, $scientificContextFile, $financialContextIsProjectFinanced, $financialContextIsProjectInProvisioning, $financialContextIsProjectOnOwnSupply, $financialContextIsProjectNotFinanced, $financialContextIsProjectEU, $financialContextIsProjectANR, $financialContextIsProjectNational, $financialContextIsProjectRegional, $financialContextIsProjectCompagnyTutorship, $financialContextIsProjectOwnResourcesLaboratory, $financialContextIsProjectInternationalOutsideEU, $financialContextIsProjectOther, $financialContextIsProjectOtherValue);
+        $idProject = ProjectManagementService::create( //
+            $title,
+            $user,
+            $mthStuff,
+            $demand_type_eq,
+            $demand_type_labRout,
+            $demand_type_feasibility,
+            $demand_type_formation,
+            $demand_type_data_processing,
+            $demand_type_other,
+            $demand_sample_nb,
+            $cloudWords,
+            $subCloudWords,
+            $targeted,
+            $mthPF,
+            $forwardAR2copartner,
+            $scientificContext,
+            $scientificContextFile,
+            $financialContextIsProjectFinanced,
+            $financialContextIsProjectInProvisioning,
+            $financialContextIsProjectOnOwnSupply,
+            $financialContextIsProjectNotFinanced,
+            $financialContextIsProjectEU,
+            $financialContextIsProjectANR,
+            $financialContextIsProjectNational,
+            $financialContextIsProjectRegional,
+            $financialContextIsProjectCompagnyTutorship,
+            $financialContextIsProjectOwnResourcesLaboratory,
+            $financialContextIsProjectInternationalOutsideEU,
+            $financialContextIsProjectOther,
+            $financialContextIsProjectOtherValue,
+            null
+        );
         $newProject = ProjectManagementService::get($idProject);
         $this->assertEquals($title, $newProject->getTitle(), "[error] 'create' or 'get' (by id) does not work (1)");
 

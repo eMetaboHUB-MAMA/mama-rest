@@ -41,7 +41,7 @@ $app->put('/admin/clean-uploaded-files', function ($request, $response, $args) {
         ));
         $allProjects = ProjectManagementService::getProjects(null, null);
         foreach ($allProjects as $k => $project) {
-            if (! is_null($project->getScientificContextFile())) {
+            if (!is_null($project->getScientificContextFile())) {
                 if (($key = array_search($project->getScientificContextFile(), $listOfFiles)) !== false) {
                     unset($listOfFiles[$key]);
                 }
@@ -50,7 +50,7 @@ $app->put('/admin/clean-uploaded-files', function ($request, $response, $args) {
         $count = 0;
         foreach ($listOfFiles as $k => $file) {
             if (unlink(projects_files_dir . $file)) {
-                $count ++;
+                $count++;
             }
         }
         $data = array(
@@ -150,7 +150,7 @@ $app->get('/admin/show-logs[/{file}]', function ($request, $response, $args) {
                 break;
         }
         // set file / from / to
-        $from = - 1;
+        $from = -1;
         $to = 999;
         if (isset($_GET['from']) && $_GET['from'] != "") {
             $from = intval($_GET['from']);
@@ -163,20 +163,20 @@ $app->get('/admin/show-logs[/{file}]', function ($request, $response, $args) {
         header('Content-Type: text/plain; charset=utf-8');
 
         // check
-        if (! file_exists("../" . $file)) {
+        if (!file_exists("../" . $file)) {
             return null;
         }
 
         // display file
         $file = fopen("../" . $file, "r");
         $lineCpt = 0;
-        while (! feof($file)) {
+        while (!feof($file)) {
             if ($lineCpt >= $from && $lineCpt <= $to) {
                 echo fgets($file);
             } else {
                 fgets($file);
             }
-            $lineCpt ++;
+            $lineCpt++;
         }
         fclose($file);
     } else {

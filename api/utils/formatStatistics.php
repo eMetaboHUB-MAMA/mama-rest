@@ -107,6 +107,27 @@ function buildUsersStatsSheet($objPHPExcel)
 	$objPHPExcel->setActiveSheetIndex($currentSheet)->setCellValue('B1', $_GET['from']);
 	$objPHPExcel->setActiveSheetIndex($currentSheet)->setCellValue('C1', 'to');
 	$objPHPExcel->setActiveSheetIndex($currentSheet)->setCellValue('D1', $_GET['to']);
+	// headers for mama#62 - filter on MTH platforms
+	if (isset($_GET['isPlatForm'])) {
+		// get list of platforms
+		$listPF = MTHPlatformManagementService::getMTHPlatforms();
+		$mthPFTab = array();
+		foreach ($listPF as $k => $v) {
+			$mthPFTab[$v->getId()] = $v->getName();
+		}
+		$listPlatformToDisplay = "";
+		foreach (preg_split('/,/', $_GET['isPlatForm']) as $k => $v) {
+			$pfId = intval($v);
+			if ($pfId . "" == $v) {
+				if ($listPlatformToDisplay != "") {
+					$listPlatformToDisplay .= " and ";
+				}
+				$listPlatformToDisplay .= $mthPFTab[$pfId];
+			}
+		}
+		$objPHPExcel->setActiveSheetIndex($currentSheet)->setCellValue('E1', 'platform(s)');
+		$objPHPExcel->setActiveSheetIndex($currentSheet)->setCellValue('F1', $listPlatformToDisplay);
+	}
 
 	// //////////////////////////////////////
 	// get all users (generic)
@@ -208,25 +229,41 @@ function buildProjectsStatsSheet($objPHPExcel)
 	// init
 	$currentSheet = 0;
 
-	// //////////////////////////////////////
-	// header
-	$objPHPExcel->setActiveSheetIndex($currentSheet)->setCellValue('A1', 'from');
-	$objPHPExcel->setActiveSheetIndex($currentSheet)->setCellValue('B1', $_GET['from']);
-	$objPHPExcel->setActiveSheetIndex($currentSheet)->setCellValue('C1', 'to');
-	$objPHPExcel->setActiveSheetIndex($currentSheet)->setCellValue('D1', $_GET['to']);
-
-	// //////////////////////////////////////
 	// get all project (generic)
 	$allProject = StatisticManagementService::getProjectsStats();
 
-	// //////////////////////////////////////
-	// TABLE 1: projects status x projects pf
+	// get list of platforms
 	$listPF = MTHPlatformManagementService::getMTHPlatforms();
 	// var_dump($listPF); exit;
 	$mthPFTab = array();
 	foreach ($listPF as $k => $v) {
 		$mthPFTab[$v->getId()] = $v->getName();
 	}
+
+	// header
+	$objPHPExcel->setActiveSheetIndex($currentSheet)->setCellValue('A1', 'from');
+	$objPHPExcel->setActiveSheetIndex($currentSheet)->setCellValue('B1', $_GET['from']);
+	$objPHPExcel->setActiveSheetIndex($currentSheet)->setCellValue('C1', 'to');
+	$objPHPExcel->setActiveSheetIndex($currentSheet)->setCellValue('D1', $_GET['to']);
+	// headers for mama#62 - filter on MTH platforms
+	if (isset($_GET['isPlatForm'])) {
+		$listPlatformToDisplay = "";
+		foreach (preg_split('/,/', $_GET['isPlatForm']) as $k => $v) {
+			$pfId = intval($v);
+			if ($pfId . "" == $v) {
+				if ($listPlatformToDisplay != "") {
+					$listPlatformToDisplay .= " and ";
+				}
+				$listPlatformToDisplay .= $mthPFTab[$pfId];
+			}
+		}
+		$objPHPExcel->setActiveSheetIndex($currentSheet)->setCellValue('E1', 'platform(s)');
+		$objPHPExcel->setActiveSheetIndex($currentSheet)->setCellValue('F1', $listPlatformToDisplay);
+	}
+
+	// //////////////////////////////////////
+
+	// TABLE 1: projects status x projects pf
 
 	// TABLE 1: headers
 	$currentRow = 3;
@@ -315,7 +352,64 @@ function buildProjectsStatsSheet($objPHPExcel)
 	$colTotal = $colMax + 2;
 	printXLSrowPjStatusKeys($objPHPExcel, $currentSheet, $currentRow, $colNone, $colTotal);
 	$_GET['group'] = "subkeywords";
-	printXLSrowPjStatusContent($objPHPExcel, $listSubKeywordsTab, $colNone, $colTotal, $currentRow, $projectsStatus, 'tw_ids', $listSubKeywordsDelTab, $currentSheet, $allProject);
+	printXLSrowPjStatusContent($objPHPExcel, $listSubKeywordsTab, $colNone, $colTotal, $currentRow, $projectsStatus, 'stw_ids', $listSubKeywordsDelTab, $currentSheet, $allProject);
+
+	// TABLE 2 ter: projects status X manager-keywords
+	$currentRow = $currentRow + 12;
+	$objPHPExcel->setActiveSheetIndex($currentSheet)->setCellValue('A' . $currentRow, 'projects status X projects manager-keywords');
+	$objPHPExcel->setActiveSheetIndex($currentSheet)->setCellValue('A' . ($currentRow + 1), 'x');
+	// print PF
+	$colMax = 0;
+	$listManagerKeywords = KeywordManagementService::getManagerKeywords();
+	$listManagerKeywordsTab = array();
+	$listManagerKeywordsDelTab = array();
+	foreach ($listManagerKeywords as $k => $v) {
+		$listManagerKeywordsTab[$v->getId()] = $v->getWord();
+		$listManagerKeywordsDelTab[$v->getId()] = $v->isDeleted();
+	}
+	foreach ($listManagerKeywordsTab as $k => $v) {
+		$objPHPExcel->setActiveSheetIndex($currentSheet)->setCellValue($magicAlphabet[$k] . ($currentRow + 1), '' . $v);
+		if ($listManagerKeywordsDelTab[$k]) {
+			$objPHPExcel->getActiveSheet()->getStyle($magicAlphabet[$k] . ($currentRow + 1))->applyFromArray($styleRed);
+		} else {
+			$objPHPExcel->getActiveSheet()->getStyle($magicAlphabet[$k] . ($currentRow + 1))->applyFromArray($styleGeen);
+		}
+		$colMax = $k;
+	}
+	$colNone = $colMax + 1;
+	$colTotal = $colMax + 2;
+	printXLSrowPjStatusKeys($objPHPExcel, $currentSheet, $currentRow, $colNone, $colTotal);
+	$_GET['group'] = "manager-keywords";
+	printXLSrowPjStatusContent($objPHPExcel, $listManagerKeywordsTab, $colNone, $colTotal, $currentRow, $projectsStatus, 'mtw_ids', $listManagerKeywordsDelTab, $currentSheet, $allProject);
+
+	// TABLE 2 quater: projects status X sub-platforms
+	$currentRow = $currentRow + 12;
+	$objPHPExcel->setActiveSheetIndex($currentSheet)->setCellValue('A' . $currentRow, 'projects status X projects sub-platforms');
+	$objPHPExcel->setActiveSheetIndex($currentSheet)->setCellValue('A' . ($currentRow + 1), 'x');
+	// print PF
+	$colMax = 0;
+	$listManagerSubPFs = MTHSubPlatformManagementService::getMTHSubPlatforms();
+	$listManagerSubPFsTab = array();
+	$listManagerSubPFsDelTab = array();
+	foreach ($listManagerSubPFs as $k => $v) {
+		$listManagerSubPFsTab[$v->getId()] = $v->getName();
+		$listManagerSubPFsDelTab[$v->getId()] = $v->isDeleted();
+	}
+	foreach ($listManagerSubPFsTab as $k => $v) {
+		$objPHPExcel->setActiveSheetIndex($currentSheet)->setCellValue($magicAlphabet[$k] . ($currentRow + 1), '' . $v);
+		if ($listManagerSubPFsDelTab[$k]) {
+			$objPHPExcel->getActiveSheet()->getStyle($magicAlphabet[$k] . ($currentRow + 1))->applyFromArray($styleRed);
+		} else {
+			$objPHPExcel->getActiveSheet()->getStyle($magicAlphabet[$k] . ($currentRow + 1))->applyFromArray($styleGeen);
+		}
+		$colMax = $k;
+	}
+	$colNone = $colMax + 1;
+	$colTotal = $colMax + 2;
+	printXLSrowPjStatusKeys($objPHPExcel, $currentSheet, $currentRow, $colNone, $colTotal);
+	$_GET['group'] = "mth-sub-platforms";
+	printXLSrowPjStatusContent($objPHPExcel, $listManagerSubPFsTab, $colNone, $colTotal, $currentRow, $projectsStatus, 'sub_pf_ids', $listManagerSubPFsDelTab, $currentSheet, $allProject);
+
 
 	// //////////////////////////////////////
 
@@ -642,7 +736,36 @@ function buildProjectsPFStatsSheet($objPHPExcel)
 	$colTotal = $colMax + 2;
 	printXLSrowPjPfKeys($objPHPExcel, $currentSheet, $currentRow, $colNone, $colTotal, $mthPFTab);
 	$_GET['group'] = "subkeywords";
-	printXLSrowPjPfContent($objPHPExcel, $listSubKeywordsTab, $colNone, $colTotal, $currentRow, $projectsMthPf, 'tw_ids', $listSubKeywordsDelTab, $currentSheet, null, $mthPFTab);
+	printXLSrowPjPfContent($objPHPExcel, $listSubKeywordsTab, $colNone, $colTotal, $currentRow, $projectsMthPf, 'stw_ids', $listSubKeywordsDelTab, $currentSheet, null, $mthPFTab);
+
+	// TABLE 2 ter: projects status X manager keywords
+	$currentRow = $currentRow + (sizeof($mthPFTab) + 5);
+	$objPHPExcel->setActiveSheetIndex($currentSheet)->setCellValue('A' . $currentRow, 'projects PF X projects manager-keywords');
+	$objPHPExcel->setActiveSheetIndex($currentSheet)->setCellValue('A' . ($currentRow + 1), 'x');
+	// print PF
+	$colMax = 0;
+	$listManagerKeywords = KeywordManagementService::getManagerKeywords();
+	$listManagerKeywordsTab = array();
+	$listManagerKeywordsDelTab = array();
+	foreach ($listManagerKeywords as $k => $v) {
+		$listManagerKeywordsTab[$v->getId()] = $v->getWord();
+		$listManagerKeywordsDelTab[$v->getId()] = $v->isDeleted();
+	}
+	foreach ($listManagerKeywordsTab as $k => $v) {
+		$objPHPExcel->setActiveSheetIndex($currentSheet)->setCellValue($magicAlphabet[$k] . ($currentRow + 1), '' . $v);
+		if ($listManagerKeywordsDelTab[$k]) {
+			$objPHPExcel->getActiveSheet()->getStyle($magicAlphabet[$k] . ($currentRow + 1))->applyFromArray($styleRed);
+		} else {
+			$objPHPExcel->getActiveSheet()->getStyle($magicAlphabet[$k] . ($currentRow + 1))->applyFromArray($styleGeen);
+		}
+		$colMax = $k;
+	}
+	$colNone = $colMax + 1;
+	$colTotal = $colMax + 2;
+	printXLSrowPjPfKeys($objPHPExcel, $currentSheet, $currentRow, $colNone, $colTotal, $mthPFTab);
+	$_GET['group'] = "manager-keywords";
+	printXLSrowPjPfContent($objPHPExcel, $listManagerKeywordsTab, $colNone, $colTotal, $currentRow, $projectsMthPf, 'mtw_ids', $listManagerKeywordsDelTab, $currentSheet, null, $mthPFTab);
+
 
 	// //////////////////////////////////////
 
@@ -868,7 +991,7 @@ function printXLSrowPjStatusKeys($objPHPExcel, $currentSheet, $currentRow, $colN
  *
  * @param unknown $objPHPExcel        	
  * @param unknown $currentSheet        	
- * @param unknown $currentRow        	
+ * @param int $currentRow        	
  * @param unknown $tabMthPf        	
  */
 function printXLSrowPjPfKeys($objPHPExcel, $currentSheet, $currentRow, $colNone, $colTotal, $tabMthPf)
@@ -895,7 +1018,7 @@ function printXLSrowPjPfKeys($objPHPExcel, $currentSheet, $currentRow, $colNone,
  * @param unknown $mthPFTab        	
  * @param unknown $colNone        	
  * @param unknown $colTotal        	
- * @param unknown $currentRow        	
+ * @param int $currentRow        	
  * @param unknown $projectsStatus        	
  * @param unknown $p_key        	
  */
@@ -927,7 +1050,7 @@ function printXLSrowPjStatusContent($objPHPExcel, $mthPFTab, $colNone, $colTotal
  * @param unknown $mthPFTab        	
  * @param unknown $colNone        	
  * @param unknown $colTotal        	
- * @param unknown $currentRow        	
+ * @param int $currentRow        	
  * @param unknown $projectsStatus        	
  * @param unknown $p_key        	
  * @param unknown $listKeywordsDelTab        	
@@ -990,12 +1113,26 @@ function cleanRequestGET()
 	// p00n regular $_GET
 	$from = $_GET['from'];
 	$to = $_GET['to'];
+	// new mama#62 - support filter MTH PF
+	$isPlatForm = (isset($_GET['isPlatForm']) && $_GET['isPlatForm'] != "" && $_GET['isPlatForm'] != "null") ? $_GET['isPlatForm'] : null;
+	$isPlatForm_ori = (isset($_GET['isPlatForm_ori']) && $_GET['isPlatForm_ori'] != "") ? $_GET['isPlatForm_ori'] : null;
+	// unset all GET parameters
 	foreach ($_GET as $k => $v) {
 		$_GET[$k] = null;
 		unset($_GET[$k]);
 	}
+	// re-set relevant
 	$_GET['from'] = $from;
 	$_GET['to'] = $to;
+	// mama#62 - re-set platform filter (if relevent)
+	if ($isPlatForm != null) {
+		$_GET['isPlatForm'] = $isPlatForm;
+		$_GET['isPlatForm_ori'] = $isPlatForm;
+	}
+	// mama#62 - platform filter GET param is erased during 'buildProjectsPFStatsSheet' method; use its backup
+	else if ($isPlatForm_ori != null) {
+		$_GET['isPlatForm'] = $isPlatForm_ori;
+	}
 }
 
 /**

@@ -1,26 +1,28 @@
 <?php
 
-// //////////////////////////////////////////////////////////////////////////////////////////////
+// ==============================================================================================
 // MAMA PORJECTS FUNCTIONS
 require_once "../vendor/autoload.php";
 // Data Model
 require_once "../data-model/ThematicCloudWord.class.php";
 require_once "../data-model/SubThematicCloudWord.class.php";
+require_once "../data-model/ProjectExtraDataThematicCloudWord.class.php"; //mama#66
 // ext DM
 require_once "../data-model/Project.class.php";
 
-// //////////////////////////////////////////////////////////////////////////////////////////////
+// ==============================================================================================
 /**
  *
  * @param Event $a        	
  * @param Event $b        	
  * @return number
  */
-function sortByKeywordsIds($a, $b) {
-	if ($a->getId () == $b->getId ()) {
+function sortByKeywordsIds($a, $b)
+{
+	if ($a->getId() == $b->getId()) {
 		return 0;
 	}
-	return ($a->getId () < $b->getId ()) ? - 1 : 1;
+	return ($a->getId() < $b->getId()) ? -1 : 1;
 }
 
 /**
@@ -28,56 +30,62 @@ function sortByKeywordsIds($a, $b) {
  * @author Nils Paulhe
  *        
  */
-class KeywordManagementService {
-	// //////////////////////////////////////////////////////////////////////////////////////////////
+class KeywordManagementService
+{
+
+	// ==============================================================================================
+	// === KEYWORDS MGMT
+	// ==============================================================================================
+
 	// GET ALL
 	/**
 	 * Get all events (or filter with $_GET fields)
 	 *
 	 * @return List of Keyword(s)
 	 */
-	public static function getKeywords() {
-		
+	public static function getKeywords()
+	{
+
 		// init
-		$entityManager = $GLOBALS ['entityManager'];
-		
+		$entityManager = $GLOBALS['entityManager'];
+
 		// check filters
 		$filter = false;
 		$filterStart = false;
 		$filterLimit = false;
-		
+
 		$where = "";
 		$filterDeleted = false;
 		$deleted = null;
 		$join = "";
-		
-		if (isset ( $_GET ['start'] ) && $_GET ['start'] != "") {
+
+		if (isset($_GET['start']) && $_GET['start'] != "") {
 			$filter = true;
 			$filterStart = true;
-			$offset = intval ( $_GET ['start'] );
+			$offset = intval($_GET['start']);
 		}
-		
-		if (isset ( $_GET ['limit'] ) && $_GET ['limit'] != "") {
+
+		if (isset($_GET['limit']) && $_GET['limit'] != "") {
 			$filter = true;
 			$filterLimit = true;
-			$maxResults = intval ( $_GET ['limit'] );
+			$maxResults = intval($_GET['limit']);
 		}
-		
-		if (isset ( $_GET ['deleted'] ) && $_GET ['deleted'] != "") {
+
+		if (isset($_GET['deleted']) && $_GET['deleted'] != "") {
 			$filter = true;
 			$filterDeleted = true;
-			
+
 			// get deleted value
-			if (is_bool ( $_GET ['deleted'] ))
-				$deleted = boolval ( $_GET ['deleted'] );
+			if (is_bool($_GET['deleted']))
+				$deleted = boolval($_GET['deleted']);
 			else {
-				if (strtolower ( $_GET ['deleted'] ) == "true") {
+				if (strtolower($_GET['deleted']) == "true") {
 					$deleted = true;
 				} else {
 					$deleted = false;
 				}
 			}
-			
+
 			// construct where
 			if ($where == "") {
 				$where = " WHERE ";
@@ -86,193 +94,202 @@ class KeywordManagementService {
 			}
 			$where .= " k.deleted = :deleted ";
 		}
-		
+
 		$order = " ";
-		if (isset ( $_GET ['order'] ) && $_GET ['order'] != "") {
+		if (isset($_GET['order']) && $_GET['order'] != "") {
 			$filter = true;
-			switch (strtolower ( $_GET ['order'] )) {
-				case "desc" :
+			switch (strtolower($_GET['order'])) {
+				case "desc":
 					$order = " ORDER BY k.id DESC";
 					break;
-				case "asc" :
-				default :
+				case "asc":
+				default:
 					$order = " ORDER BY k.id ASC";
 					break;
 			}
 		}
-		
+
 		if ($filter) {
-			$query = $entityManager->createQuery ( 'SELECT k FROM ThematicCloudWord k ' . $join . $where . $order );
-			$queryParam = Array ();
+			$query = $entityManager->createQuery('SELECT k FROM ThematicCloudWord k ' . $join . $where . $order);
+			$queryParam = array();
 			if ($filterDeleted)
-				$queryParam ['deleted'] = $deleted;
-			$query->setParameters ( $queryParam );
+				$queryParam['deleted'] = $deleted;
+			$query->setParameters($queryParam);
 			if ($filterStart)
-				$query->setFirstResult ( $offset );
+				$query->setFirstResult($offset);
 			if ($filterLimit)
-				$query->setMaxResults ( $maxResults );
-			$keywords = $query->getResult ();
+				$query->setMaxResults($maxResults);
+			$keywords = $query->getResult();
 			return $keywords;
 		}
-		
+
 		// no filters
-		$keywords = $entityManager->getRepository ( 'ThematicCloudWord' )->findAll ();
+		$keywords = $entityManager->getRepository('ThematicCloudWord')->findAll();
 		return $keywords;
 	}
-	// //////////////////////////////////////////////////////////////////////////////////////////////
+	// ==============================================================================================
 	// GET ONE
-	public static function get($id) {
-		
+	public static function get($id)
+	{
+
 		// init
-		$entityManager = $GLOBALS ['entityManager'];
-		
+		$entityManager = $GLOBALS['entityManager'];
+
 		// no filters
-		$project = $entityManager->getRepository ( 'ThematicCloudWord' )->find ( $id );
+		$project = $entityManager->getRepository('ThematicCloudWord')->find($id);
 		return $project;
 	}
-	public static function getKeywordsByIDs($tabOfIds) {
-		
+	public static function getKeywordsByIDs($tabOfIds)
+	{
+
 		// init
-		$entityManager = $GLOBALS ['entityManager'];
-		
+		$entityManager = $GLOBALS['entityManager'];
+
 		// process
 		$where = "";
-		$queryParam = Array ();
+		$queryParam = array();
 		$i = 0;
-		foreach ( $tabOfIds as $k => $v ) {
+		foreach ($tabOfIds as $k => $v) {
 			if ($where != "")
 				$where .= " OR ";
 			$where .= " k.id = :id_" . $i;
-			$queryParam ['id_' . $i] = intval ( $v );
-			$i ++;
+			$queryParam['id_' . $i] = intval($v);
+			$i++;
 		}
-		
+
 		// run
-		$query = $entityManager->createQuery ( 'SELECT k FROM ThematicCloudWord k WHERE (' . $where . ')' );
-		$query->setParameters ( $queryParam );
-		
-		$keywords = $query->getResult ();
+		$query = $entityManager->createQuery('SELECT k FROM ThematicCloudWord k WHERE (' . $where . ')');
+		$query->setParameters($queryParam);
+
+		$keywords = $query->getResult();
 		return $keywords;
 	}
-	
-	// //////////////////////////////////////////////////////////////////////////////////////////////
+
+	// ==============================================================================================
 	// CREATE
-	public static function create($word, $user) {
-		
+	public static function create($word, $user)
+	{
+
 		// init
-		$entityManager = $GLOBALS ['entityManager'];
-		
+		$entityManager = $GLOBALS['entityManager'];
+
 		// // create and save in the database
-		$thematicCloudWord = new ThematicCloudWord ( $word );
-		
-		$thematicCloudWord->setUpdated ();
-		
-		$entityManager->persist ( $thematicCloudWord );
-		$entityManager->flush ();
-		
+		$thematicCloudWord = new ThematicCloudWord($word);
+
+		$thematicCloudWord->setUpdated();
+
+		$entityManager->persist($thematicCloudWord);
+		$entityManager->flush();
+
 		// create event admin lvl
-		EventManagementService::createAdminEvent ( $user, Event::$EVENT_TYPE_ADMIN_NEW_KEYWORD, $word, null );
-		
-		return $thematicCloudWord->getId ();
+		EventManagementService::createAdminEvent($user, Event::$EVENT_TYPE_ADMIN_NEW_KEYWORD, $word, null);
+
+		return $thematicCloudWord->getId();
 	}
-	
-	// //////////////////////////////////////////////////////////////////////////////////////////////
+
+	// ==============================================================================================
 	// UPDATE
-	public static function update($id, $keyword, $deleted, $user) {
-		
+	public static function update($id, $keyword, $deleted, $user)
+	{
+
 		// init
-		$entityManager = $GLOBALS ['entityManager'];
-		
+		$entityManager = $GLOBALS['entityManager'];
+
 		// get
-		$thematicCloudWord = KeywordManagementService::get ( $id );
-		$oldName = $thematicCloudWord->getWord ();
+		$thematicCloudWord = KeywordManagementService::get($id);
+		$oldName = $thematicCloudWord->getWord();
 		$newName = null;
 		$action = Event::$EVENT_TYPE_ADMIN;
-		
-		if (is_null ( $thematicCloudWord ))
+
+		if (is_null($thematicCloudWord))
 			return false;
-			
-			// update
-		if (! is_null ( $keyword )) {
-			$thematicCloudWord->setWord ( $keyword );
+
+		// update
+		if (!is_null($keyword)) {
+			$thematicCloudWord->setWord($keyword);
 			$newName = $keyword;
 			$action = Event::$EVENT_TYPE_ADMIN_UPDATE_KEYWORD;
 		}
-		if (! is_null ( $deleted )) {
-			$thematicCloudWord->setDeleted ( $deleted );
+		if (!is_null($deleted)) {
+			$thematicCloudWord->setDeleted($deleted);
 			if ($deleted)
 				$action = Event::$EVENT_TYPE_ADMIN_DELETE_KEYWORD;
 			else
 				$action = Event::$EVENT_TYPE_ADMIN_RESTORE_KEYWORD;
 		}
-		$thematicCloudWord->setUpdated ();
-		
+		$thematicCloudWord->setUpdated();
+
 		// save
-		$entityManager->persist ( $thematicCloudWord );
-		$entityManager->flush ();
-		
+		$entityManager->persist($thematicCloudWord);
+		$entityManager->flush();
+
 		// create event admin lvl
-		EventManagementService::createAdminEvent ( $user, $action, $oldName, $newName );
-		
+		EventManagementService::createAdminEvent($user, $action, $oldName, $newName);
+
 		return true;
 	}
-	// //////////////////////////////////////////////////////////////////////////////////////////////
+	// ==============================================================================================
 	// DELETE
-	
-	// //////////////////////////////////////////////////////////////////////////////////////////////
+
+	// ==============================================================================================
 	// OTHER
-	
+
 	// ...
-	
-	// //////////////////////////////////////////////////////////////////////////////////////////////
+
+	// ==============================================================================================
+	// === SUB-KEYWORDS MGMT
+	// ==============================================================================================
+
+
 	// GET ALL
 	/**
 	 * Get all events (or filter with $_GET fields)
 	 *
 	 * @return List of Keyword(s)
 	 */
-	public static function getSubKeywords() {
-		
+	public static function getSubKeywords()
+	{
+
 		// init
-		$entityManager = $GLOBALS ['entityManager'];
-		
+		$entityManager = $GLOBALS['entityManager'];
+
 		// check filters
 		$filter = false;
 		$filterStart = false;
 		$filterLimit = false;
-		
+
 		$where = "";
 		$filterDeleted = false;
 		$deleted = null;
 		$join = "";
-		
-		if (isset ( $_GET ['start'] ) && $_GET ['start'] != "") {
+
+		if (isset($_GET['start']) && $_GET['start'] != "") {
 			$filter = true;
 			$filterStart = true;
-			$offset = intval ( $_GET ['start'] );
+			$offset = intval($_GET['start']);
 		}
-		
-		if (isset ( $_GET ['limit'] ) && $_GET ['limit'] != "") {
+
+		if (isset($_GET['limit']) && $_GET['limit'] != "") {
 			$filter = true;
 			$filterLimit = true;
-			$maxResults = intval ( $_GET ['limit'] );
+			$maxResults = intval($_GET['limit']);
 		}
-		
-		if (isset ( $_GET ['deleted'] ) && $_GET ['deleted'] != "") {
+
+		if (isset($_GET['deleted']) && $_GET['deleted'] != "") {
 			$filter = true;
 			$filterDeleted = true;
-			
+
 			// get deleted value
-			if (is_bool ( $_GET ['deleted'] ))
-				$deleted = boolval ( $_GET ['deleted'] );
+			if (is_bool($_GET['deleted']))
+				$deleted = boolval($_GET['deleted']);
 			else {
-				if (strtolower ( $_GET ['deleted'] ) == "true") {
+				if (strtolower($_GET['deleted']) == "true") {
 					$deleted = true;
 				} else {
 					$deleted = false;
 				}
 			}
-			
+
 			// construct where
 			if ($where == "") {
 				$where = " WHERE ";
@@ -281,141 +298,351 @@ class KeywordManagementService {
 			}
 			$where .= " k.deleted = :deleted ";
 		}
-		
+
 		$order = " ";
-		if (isset ( $_GET ['order'] ) && $_GET ['order'] != "") {
+		if (isset($_GET['order']) && $_GET['order'] != "") {
 			$filter = true;
-			switch (strtolower ( $_GET ['order'] )) {
-				case "desc" :
+			switch (strtolower($_GET['order'])) {
+				case "desc":
 					$order = " ORDER BY k.id DESC";
 					break;
-				case "asc" :
-				default :
+				case "asc":
+				default:
 					$order = " ORDER BY k.id ASC";
 					break;
 			}
 		}
-		
+
 		if ($filter) {
-			$query = $entityManager->createQuery ( 'SELECT k FROM SubThematicCloudWord k ' . $join . $where . $order );
-			$queryParam = Array ();
+			$query = $entityManager->createQuery('SELECT k FROM SubThematicCloudWord k ' . $join . $where . $order);
+			$queryParam = array();
 			if ($filterDeleted)
-				$queryParam ['deleted'] = $deleted;
-			$query->setParameters ( $queryParam );
+				$queryParam['deleted'] = $deleted;
+			$query->setParameters($queryParam);
 			if ($filterStart)
-				$query->setFirstResult ( $offset );
+				$query->setFirstResult($offset);
 			if ($filterLimit)
-				$query->setMaxResults ( $maxResults );
-			$keywords = $query->getResult ();
+				$query->setMaxResults($maxResults);
+			$keywords = $query->getResult();
 			return $keywords;
 		}
-		
+
 		// no filters
-		$keywords = $entityManager->getRepository ( 'SubThematicCloudWord' )->findAll ();
+		$keywords = $entityManager->getRepository('SubThematicCloudWord')->findAll();
 		return $keywords;
 	}
-	// //////////////////////////////////////////////////////////////////////////////////////////////
+	// ==============================================================================================
 	// GET ONE
-	public static function getSub($id) {
-		
+	public static function getSub($id)
+	{
+
 		// init
-		$entityManager = $GLOBALS ['entityManager'];
-		
+		$entityManager = $GLOBALS['entityManager'];
+
 		// no filters
-		$project = $entityManager->getRepository ( 'SubThematicCloudWord' )->find ( $id );
+		$project = $entityManager->getRepository('SubThematicCloudWord')->find($id);
 		return $project;
 	}
-	public static function getSubKeywordsByIDs($tabOfIds) {
-		
+	public static function getSubKeywordsByIDs($tabOfIds)
+	{
+
 		// init
-		$entityManager = $GLOBALS ['entityManager'];
-		
+		$entityManager = $GLOBALS['entityManager'];
+
 		// process
 		$where = "";
-		$queryParam = Array ();
+		$queryParam = array();
 		$i = 0;
-		foreach ( $tabOfIds as $k => $v ) {
+		foreach ($tabOfIds as $k => $v) {
 			if ($where != "")
 				$where .= " OR ";
 			$where .= " k.id = :id_" . $i;
-			$queryParam ['id_' . $i] = intval ( $v );
-			$i ++;
+			$queryParam['id_' . $i] = intval($v);
+			$i++;
 		}
-		
+
 		// run
-		$query = $entityManager->createQuery ( 'SELECT k FROM SubThematicCloudWord k WHERE (' . $where . ')' );
-		$query->setParameters ( $queryParam );
-		
-		$keywords = $query->getResult ();
+		$query = $entityManager->createQuery('SELECT k FROM SubThematicCloudWord k WHERE (' . $where . ')');
+		$query->setParameters($queryParam);
+
+		$keywords = $query->getResult();
 		return $keywords;
 	}
-	
-	// //////////////////////////////////////////////////////////////////////////////////////////////
+
+	// ==============================================================================================
 	// CREATE
-	public static function createSub($word, $user) {
-		
+	public static function createSub($word, $user)
+	{
+
 		// init
-		$entityManager = $GLOBALS ['entityManager'];
-		
+		$entityManager = $GLOBALS['entityManager'];
+
 		// // create and save in the database
-		$thematicCloudWord = new SubThematicCloudWord ( $word );
-		
-		$thematicCloudWord->setUpdated ();
-		
-		$entityManager->persist ( $thematicCloudWord );
-		$entityManager->flush ();
-		
+		$thematicCloudWord = new SubThematicCloudWord($word);
+
+		$thematicCloudWord->setUpdated();
+
+		$entityManager->persist($thematicCloudWord);
+		$entityManager->flush();
+
 		// create event admin lvl
-		EventManagementService::createAdminEvent ( $user, Event::$EVENT_TYPE_ADMIN_NEW_SUBKEYWORD, $word, null );
-		
-		return $thematicCloudWord->getId ();
+		EventManagementService::createAdminEvent($user, Event::$EVENT_TYPE_ADMIN_NEW_SUBKEYWORD, $word, null);
+
+		return $thematicCloudWord->getId();
 	}
-	
-	// //////////////////////////////////////////////////////////////////////////////////////////////
+
+	// ==============================================================================================
 	// UPDATE
-	public static function updateSub($id, $keyword, $deleted, $user) {
-		
+	public static function updateSub($id, $keyword, $deleted, $user)
+	{
+
 		// init
-		$entityManager = $GLOBALS ['entityManager'];
-		
+		$entityManager = $GLOBALS['entityManager'];
+
 		// get
-		$thematicCloudWord = KeywordManagementService::getSub ( $id );
-		$oldName = $thematicCloudWord->getWord ();
+		$thematicCloudWord = KeywordManagementService::getSub($id);
+		$oldName = $thematicCloudWord->getWord();
 		$newName = null;
 		$action = Event::$EVENT_TYPE_ADMIN;
-		
-		if (is_null ( $thematicCloudWord ))
+
+		if (is_null($thematicCloudWord))
 			return false;
-			
-			// update
-		if (! is_null ( $keyword )) {
-			$thematicCloudWord->setWord ( $keyword );
+
+		// update
+		if (!is_null($keyword)) {
+			$thematicCloudWord->setWord($keyword);
 			$newName = $keyword;
 			$action = Event::$EVENT_TYPE_ADMIN_UPDATE_SUBKEYWORD;
 		}
-		if (! is_null ( $deleted )) {
-			$thematicCloudWord->setDeleted ( $deleted );
+		if (!is_null($deleted)) {
+			$thematicCloudWord->setDeleted($deleted);
 			if ($deleted)
 				$action = Event::$EVENT_TYPE_ADMIN_DELETE_SUBKEYWORD;
 			else
 				$action = Event::$EVENT_TYPE_ADMIN_RESTORE_SUBKEYWORD;
 		}
-		$thematicCloudWord->setUpdated ();
-		
+		$thematicCloudWord->setUpdated();
+
 		// save
-		$entityManager->persist ( $thematicCloudWord );
-		$entityManager->flush ();
-		
+		$entityManager->persist($thematicCloudWord);
+		$entityManager->flush();
+
 		// create event admin lvl
-		EventManagementService::createAdminEvent ( $user, $action, $oldName, $newName );
-		
+		EventManagementService::createAdminEvent($user, $action, $oldName, $newName);
+
 		return true;
 	}
-	// //////////////////////////////////////////////////////////////////////////////////////////////
+	// ==============================================================================================
 	// DELETE
-	
-	// //////////////////////////////////////////////////////////////////////////////////////////////
+
+	// ==============================================================================================
 	// OTHER
-	
+
 	// ...
+
+
+	// ==============================================================================================
+	// === MANAGER-KEYWORDS MGMT
+	// ==============================================================================================
+
+	// ==============================================================================================
+	// GET ALL
+	/**
+	 * Get all events (or filter with $_GET fields)
+	 *
+	 * @return List of Keyword(s)
+	 */
+	public static function getManagerKeywords()
+	{
+
+		// init
+		$entityManager = $GLOBALS['entityManager'];
+
+		// check filters
+		$filter = false;
+		$filterStart = false;
+		$filterLimit = false;
+
+		$where = "";
+		$filterDeleted = false;
+		$deleted = null;
+		$join = "";
+
+		if (isset($_GET['start']) && $_GET['start'] != "") {
+			$filter = true;
+			$filterStart = true;
+			$offset = intval($_GET['start']);
+		}
+
+		if (isset($_GET['limit']) && $_GET['limit'] != "") {
+			$filter = true;
+			$filterLimit = true;
+			$maxResults = intval($_GET['limit']);
+		}
+
+		if (isset($_GET['deleted']) && $_GET['deleted'] != "") {
+			$filter = true;
+			$filterDeleted = true;
+
+			// get deleted value
+			if (is_bool($_GET['deleted']))
+				$deleted = boolval($_GET['deleted']);
+			else {
+				if (strtolower($_GET['deleted']) == "true") {
+					$deleted = true;
+				} else {
+					$deleted = false;
+				}
+			}
+
+			// construct where
+			if ($where == "") {
+				$where = " WHERE ";
+			} else {
+				$where .= " AND ";
+			}
+			$where .= " k.deleted = :deleted ";
+		}
+
+		$order = " ";
+		if (isset($_GET['order']) && $_GET['order'] != "") {
+			$filter = true;
+			switch (strtolower($_GET['order'])) {
+				case "desc":
+					$order = " ORDER BY k.id DESC";
+					break;
+				case "asc":
+				default:
+					$order = " ORDER BY k.id ASC";
+					break;
+			}
+		}
+
+		if ($filter) {
+			$query = $entityManager->createQuery('SELECT k FROM ProjectExtraDataThematicCloudWord k ' . $join . $where . $order);
+			$queryParam = array();
+			if ($filterDeleted)
+				$queryParam['deleted'] = $deleted;
+			$query->setParameters($queryParam);
+			if ($filterStart)
+				$query->setFirstResult($offset);
+			if ($filterLimit)
+				$query->setMaxResults($maxResults);
+			$keywords = $query->getResult();
+			return $keywords;
+		}
+
+		// no filters
+		$keywords = $entityManager->getRepository('ProjectExtraDataThematicCloudWord')->findAll();
+		return $keywords;
+	}
+	// ==============================================================================================
+	// GET ONE
+	public static function getManager($id)
+	{
+
+		// init
+		$entityManager = $GLOBALS['entityManager'];
+
+		// no filters
+		$project = $entityManager->getRepository('ProjectExtraDataThematicCloudWord')->find($id);
+		return $project;
+	}
+	public static function getManagerKeywordsByIDs($tabOfIds)
+	{
+
+		// init
+		$entityManager = $GLOBALS['entityManager'];
+
+		// process
+		$where = "";
+		$queryParam = array();
+		$i = 0;
+		foreach ($tabOfIds as $k => $v) {
+			if ($where != "")
+				$where .= " OR ";
+			$where .= " k.id = :id_" . $i;
+			$queryParam['id_' . $i] = intval($v);
+			$i++;
+		}
+
+		// run
+		$query = $entityManager->createQuery('SELECT k FROM ProjectExtraDataThematicCloudWord k WHERE (' . $where . ')');
+		$query->setParameters($queryParam);
+
+		$keywords = $query->getResult();
+		return $keywords;
+	}
+
+	// ==============================================================================================
+	// CREATE
+	public static function createManager($word, $user)
+	{
+
+		// init
+		$entityManager = $GLOBALS['entityManager'];
+
+		// // create and save in the database
+		$thematicCloudWord = new ProjectExtraDataThematicCloudWord($word);
+
+		$thematicCloudWord->setUpdated();
+
+		$entityManager->persist($thematicCloudWord);
+		$entityManager->flush();
+
+		// create event admin lvl
+		EventManagementService::createAdminEvent($user, Event::$EVENT_TYPE_ADMIN_NEW_MANAGERKEYWORD, $word, null);
+
+		return $thematicCloudWord->getId();
+	}
+
+	// ==============================================================================================
+	// UPDATE
+	public static function updateManager($id, $keyword, $deleted, $user)
+	{
+
+		// init
+		$entityManager = $GLOBALS['entityManager'];
+
+		// get
+		$thematicCloudWord = KeywordManagementService::getManager($id);
+		$oldName = $thematicCloudWord->getWord();
+		$newName = null;
+		$action = Event::$EVENT_TYPE_ADMIN;
+
+		if (is_null($thematicCloudWord))
+			return false;
+
+		// update
+		if (!is_null($keyword)) {
+			$thematicCloudWord->setWord($keyword);
+			$newName = $keyword;
+			$action = Event::$EVENT_TYPE_ADMIN_UPDATE_MANAGERKEYWORD;
+		}
+		if (!is_null($deleted)) {
+			$thematicCloudWord->setDeleted($deleted);
+			if ($deleted)
+				$action = Event::$EVENT_TYPE_ADMIN_DELETE_MANAGERKEYWORD;
+			else
+				$action = Event::$EVENT_TYPE_ADMIN_RESTORE_MANAGERKEYWORD;
+		}
+		$thematicCloudWord->setUpdated();
+
+		// save
+		$entityManager->persist($thematicCloudWord);
+		$entityManager->flush();
+
+		// create event admin lvl
+		EventManagementService::createAdminEvent($user, $action, $oldName, $newName);
+
+		return true;
+	}
+	// ==============================================================================================
+	// DELETE
+
+	// ==============================================================================================
+	// OTHER
+
+	// ...
+
 }

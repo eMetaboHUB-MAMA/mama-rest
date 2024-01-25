@@ -2,7 +2,7 @@
 FROM php:7.0-apache
 
 # set author
-MAINTAINER Nils Paulhe <nils.paulhe@inra.fr>
+LABEL maintainer="nils.paulhe@inrae.fr"
 
 # [unix] Install third part tool
 RUN apt-get update \

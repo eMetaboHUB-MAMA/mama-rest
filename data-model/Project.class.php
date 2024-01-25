@@ -343,6 +343,17 @@ class Project extends AbstractMAMAobject
 	 */
 	private $projectEvents;
 
+	// transilient field
+	private $response_delay;
+
+	/**
+	 * @Column(type="string", unique=false, nullable=true, length=2048)
+	 *
+	 * @var String
+	 * @access private
+	 */
+	private $labRNSR;
+
 	// ////////////////////////////////////////////////////////////////////////
 	// CONSTRUCTORS
 	/**
@@ -731,12 +742,21 @@ class Project extends AbstractMAMAobject
 	{
 		$this->analysisRequestExtraData = $analysisRequestExtraData;
 	}
+	// mama#60 lab RNSR
+	public function getLabRNSR()
+	{
+		return $this->labRNSR;
+	}
+	public function setLabRNSR($labRNSR)
+	{
+		$this->labRNSR = $labRNSR;
+	}
 	// ////////////////////////////////////////////////////////////////////////
 	// json
 	public function getIdLong()
 	{
 		$prefix = $this->getCreated()->format('ym'); // Ymd
-		$suffix = $this->getId();
+		$suffix = $this->getId() . "";
 		while (strlen($suffix) < 5) {
 			$suffix = "0" . $suffix;
 		}
@@ -831,9 +851,13 @@ class Project extends AbstractMAMAobject
 
 		$this->scientificContextFile = (preg_replace('/^(\d+)-/i', "", $this->scientificContextFile));
 
+		// mama#60
+		$this->labRNSR = $this->labRNSR;
+
 		// mama#35 - prune events
-		$this->response_delay = $this->getResponseDelay();
 		$this->projectEvents = array();
+		// response delay
+		$this->response_delay = $this->getResponseDelay();
 	}
 
 	/**

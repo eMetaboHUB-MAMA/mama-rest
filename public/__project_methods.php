@@ -41,11 +41,11 @@ $app->get('/projects', function ($request, $response, $args) {
 $app->get('/projects-stats', function ($request, $response, $args) {
 
     // init response
-    $data = Array();
+    $data = array();
 
     if (TokenManagementService::isValide(getToken())) {
         $user = TokenManagementService::getUserFromToken(getToken());
-        $data = Array(
+        $data = array(
             'userRight' => $user->getRight()
         );
         // $data ['userStatus'] = $user->getStatus ();
@@ -117,8 +117,10 @@ $app->get('/project[/{id}]', function ($request, $response, $args) {
     $dataSec = ProjectManagementService::get($id);
     if (isAdmin() || isProjectManager()) {
         $data = $dataSec;
-    } else if ($user->getId() == $dataSec->getOwner()
-        ->getId()) {
+    } else if (
+        $user->getId() == $dataSec->getOwner()
+        ->getId()
+    ) {
         $data = $dataSec;
         // user need extra data if pj stopped / blocked!
         if ($dataSec->getProjectExtraData() != null) {
@@ -145,7 +147,7 @@ $app->get('/project[/{id}]', function ($request, $response, $args) {
     ->setArgument('id', null);
 
 $app->post('/project', function ($request, $response, $args) {
-    if (! (isset($_POST['projectTitle']) && $_POST['projectTitle'] != "")) {
+    if (!(isset($_POST['projectTitle']) && $_POST['projectTitle'] != "")) {
         return formatResponse400($request, $response);
     }
 
@@ -175,8 +177,8 @@ $app->post('/project', function ($request, $response, $args) {
     // $thematicWords,
     $thematicWords = null;
     (isset($_POST["cloudWords"]) && $_POST['cloudWords'] != "") ? $thematicWords = $_POST["cloudWords"] : $thematicWords = null;
-    if (! is_null($thematicWords)) {
-        $converted = Array();
+    if (!is_null($thematicWords)) {
+        $converted = array();
         foreach (explode(",", $thematicWords) as $k => $v) {
             array_push($converted, intval($v));
         }
@@ -185,8 +187,8 @@ $app->post('/project', function ($request, $response, $args) {
     // $subThematicWords,
     $subThematicWords = null;
     (isset($_POST["subCloudWords"]) && $_POST['subCloudWords'] != "") ? $subThematicWords = $_POST["subCloudWords"] : $subThematicWords = null;
-    if (! is_null($subThematicWords)) {
-        $converted = Array();
+    if (!is_null($subThematicWords)) {
+        $converted = array();
         foreach (explode(",", $subThematicWords) as $k => $v) {
             array_push($converted, intval($v));
         }
@@ -205,8 +207,8 @@ $app->post('/project', function ($request, $response, $args) {
     $mthPlatforms = null;
     // (isset ( $_POST ["mthPlatforms"] ) && $_POST ['mthPlatforms'] != "") ? $mthPlatforms = $_POST ["mthPlatforms"] : $mthPlatforms = null;
     (isset($_POST["mthPlatforms"]) && $_POST['mthPlatforms'] != "") ? $mthPlatforms = $_POST["mthPlatforms"] : $mthPlatforms = null;
-    if (! is_null($mthPlatforms)) {
-        $converted = Array();
+    if (!is_null($mthPlatforms)) {
+        $converted = array();
         foreach (explode(",", $mthPlatforms) as $k => $v) {
             array_push($converted, intval($v));
         }
@@ -284,13 +286,51 @@ $app->post('/project', function ($request, $response, $args) {
     // financialContext:null
     // financialContextBis:null
 
+    // mama#60 lab RNSR
+    $labRNSR = null;
+    if (isset($_POST["labRNSR"]) && $_POST['labRNSR'] != "") {
+        $labRNSR = $_POST['labRNSR'];
+    }
+
     // return 201
     http_response_code(201);
     $response = $response->withStatus(201);
 
-    $data = ProjectManagementService::create($title, $user, $interestInMthCollaboration, $demandTypeEqProvisioning, $demandTypeCatalogAllowance, $demandTypeFeasibilityStudy, $demandTypeTraining, $demandTypeDataProcessing, $demandTypeOther, $samplesNumber, $thematicWords, $subThematicWords, $targeted, $mthPlatforms, $canBeForwardedToCoPartner, $scientificContext, $scientificContextFile, $financialContextIsProjectFinanced, $financialContextIsProjectInProvisioning, $financialContextIsProjectOnOwnSupply, $financialContextIsProjectNotFinanced, $financialContextIsProjectEU, $financialContextIsProjectANR, $financialContextIsProjectNational, $financialContextIsProjectRegional, $financialContextIsProjectCompagnyTutorship, $financialContextIsProjectOwnResourcesLaboratory, $financialContextIsProjectInternationalOutsideEU, $financialContextIsProjectOther, $financialContextIsProjectOtherValue);
+    $data = ProjectManagementService::create( //
+        $title,
+        $user,
+        $interestInMthCollaboration, //
+        $demandTypeEqProvisioning,
+        $demandTypeCatalogAllowance,
+        $demandTypeFeasibilityStudy,
+        $demandTypeTraining,
+        $demandTypeDataProcessing,
+        $demandTypeOther, //
+        $samplesNumber,
+        $thematicWords,
+        $subThematicWords,
+        $targeted, //
+        $mthPlatforms,
+        $canBeForwardedToCoPartner,
+        $scientificContext,
+        $scientificContextFile,
+        $financialContextIsProjectFinanced,
+        $financialContextIsProjectInProvisioning,
+        $financialContextIsProjectOnOwnSupply,
+        $financialContextIsProjectNotFinanced,
+        $financialContextIsProjectEU,
+        $financialContextIsProjectANR,
+        $financialContextIsProjectNational,
+        $financialContextIsProjectRegional,
+        $financialContextIsProjectCompagnyTutorship,
+        $financialContextIsProjectOwnResourcesLaboratory,
+        $financialContextIsProjectInternationalOutsideEU,
+        $financialContextIsProjectOther,
+        $financialContextIsProjectOtherValue,
+        $labRNSR
+    );
 
-    if (! is_null($data) && $data > 0) {
+    if (!is_null($data) && $data > 0) {
         SpecialEventMailler::sendEmailNewProject($data, $title, $user);
     }
 
@@ -305,7 +345,8 @@ $app->post('/project', function ($request, $response, $args) {
     return formatResponse($request, $response, $args, $data);
 });
 
-$app->put('/project[/{id}]',
+$app->put(
+    '/project[/{id}]',
     function ($request, $response, $args) {
         $id = intval($args['id']);
 
@@ -323,8 +364,10 @@ $app->put('/project[/{id}]',
         $isAdmin = false;
         if (isAdmin() || isProjectManager()) {
             $isAdmin = true;
-        } else if ($user->getId() == $dataSec->getOwner()
-            ->getId()) {
+        } else if (
+            $user->getId() == $dataSec->getOwner()
+            ->getId()
+        ) {
             $isAdmin = false;
         } else {
             // user if neither admin/pm/owner of the project
@@ -344,7 +387,7 @@ $app->put('/project[/{id}]',
         }
         if (isset($putData['analystsInvolved']) && $putData['analystsInvolved'] != "") {
             // new analyst in charge
-            $arrayAnalystsInvolved = Array();
+            $arrayAnalystsInvolved = array();
             foreach (explode(",", $putData['analystsInvolved']) as $k => $v) {
                 $userT = UserManagementService::get(intval($v));
                 array_push($arrayAnalystsInvolved, $userT);
@@ -443,8 +486,8 @@ $app->put('/project[/{id}]',
         // select multiple
         $mthPlatforms = null;
         (isset($putData["mthPlatforms"]) && $putData['mthPlatforms'] != "") ? $mthPlatforms = $putData["mthPlatforms"] : $mthPlatforms = null;
-        if (! is_null($mthPlatforms)) {
-            $converted = Array();
+        if (!is_null($mthPlatforms)) {
+            $converted = array();
             foreach (explode(",", $mthPlatforms) as $k => $v) {
                 array_push($converted, intval($v));
             }
@@ -515,8 +558,8 @@ $app->put('/project[/{id}]',
         // cloud words
         $thematicWords = null;
         (isset($putData["cloudWords"]) && $putData['cloudWords'] != "") ? $thematicWords = $putData["cloudWords"] : $thematicWords = null;
-        if (! is_null($thematicWords)) {
-            $converted = Array();
+        if (!is_null($thematicWords)) {
+            $converted = array();
             foreach (explode(",", $thematicWords) as $k => $v) {
                 array_push($converted, intval($v));
             }
@@ -525,20 +568,28 @@ $app->put('/project[/{id}]',
         // sub cloud words
         $subThematicWords = null;
         (isset($putData["subCloudWords"]) && $putData['subCloudWords'] != "") ? $subThematicWords = $putData["subCloudWords"] : $subThematicWords = null;
-        if (! is_null($subThematicWords)) {
-            $converted = Array();
+        if (!is_null($subThematicWords)) {
+            $converted = array();
             foreach (explode(",", $subThematicWords) as $k => $v) {
                 array_push($converted, intval($v));
             }
             $dataSec->setSubThematicWords(KeywordManagementService::getSubKeywordsByIDs($converted));
         }
+        // mama#60 lab RNSR 
+        if (isset($putData["labRNSR"]) && $putData["labRNSR"] != "") {
+            $dataSec->setLabRNSR($putData["labRNSR"]);
+        } else {
+            $dataSec->setLabRNSR(null);
+        }
 
         // update in database
-        $projectID = $dataSec->getId();
         $data = ProjectManagementService::updateObject($dataSec, $isAdmin, $user);
 
-        // send email
-        SpecialEventMailler::sendEmailProjectUpdate($dataSec);
+        // mama#78 send an email only if basic data have been updated
+        if ($data) {
+            // send email
+            SpecialEventMailler::sendEmailProjectUpdate($dataSec);
+        }
 
         // extra data
         if ($data && $isAdmin) {
@@ -553,6 +604,10 @@ $app->put('/project[/{id}]',
             // extra_adminContext
             if (isset($putData['extra_adminContext']) && $putData['extra_adminContext'] != "") {
                 $extraDataSec->setAdministrativeContext($putData['extra_adminContext']);
+            }
+            // mama#61 - extra_managerContext
+            if (isset($putData['extra_managerContext']) && $putData['extra_managerContext'] != "") {
+                $extraDataSec->setManagerContext($putData['extra_managerContext']);
             }
             // extra_geoContext
             if (isset($putData['extra_geoContext']) && $putData['extra_geoContext'] != "") {
@@ -616,6 +671,15 @@ $app->put('/project[/{id}]',
                     $extraDataSec->setKnowMTHviaSearchEngine(false);
                 }
             }
+            // mama#64 - add 'formal user' value for "how did you know MTH" question (field in 'MTH stats' box)
+            // extra_hdykm_formalUser
+            if (isset($putData['extra_hdykm_formalUser']) && $putData['extra_hdykm_formalUser'] != "" && $putData['extra_hdykm_formalUser'] != "undefined") {
+                if ($putData['extra_hdykm_formalUser'] == "true") {
+                    $extraDataSec->setKnowMTHviaFormalUser(true);
+                } else if ($putData['extra_hdykm_formalUser'] == "false") {
+                    $extraDataSec->setKnowMTHviaFormalUser(false);
+                }
+            }
             // update TEXTAREA data
             if (isset($putData['extra_userNeeds']) && $putData['extra_userNeeds'] != "") {
                 $extraDataSec->setSyntheticUserNeeds($putData['extra_userNeeds']);
@@ -629,14 +693,42 @@ $app->put('/project[/{id}]',
             if (isset($putData['extra_dialogBoxTxt']) && $putData['extra_dialogBoxTxt'] != "") {
                 $extraDataSec->setDialogBoxTxt($putData['extra_dialogBoxTxt']);
             }
-
+            // mama#66 sub cloud words
+            $managerThematicWords = null;
+            (isset($putData["extra_managerThematicWords"]) && $putData['extra_managerThematicWords'] != "") ? //
+                $managerThematicWords = $putData["extra_managerThematicWords"] : //
+                $managerThematicWords = null;
+            if (!is_null($managerThematicWords)) {
+                $converted = array();
+                foreach (explode(",", $managerThematicWords) as $k => $v) {
+                    array_push($converted, intval($v));
+                }
+                $extraDataSec->setManagerThematicWords(KeywordManagementService::getManagerKeywordsByIDs($converted));
+            }
+            // mama#68 - ext. manager id
+            if (isset($putData['extra_extManagerId']) && $putData['extra_extManagerId'] != "") {
+                $extraDataSec->setExternalManagerIdentifier($putData['extra_extManagerId']);
+            }
+            // mama#65 - mth sub-PF
+            $mthSubPlatforms = null;
+            (isset($putData["extra_mthSubPlatforms"]) && $putData['extra_mthSubPlatforms'] != "") ? //
+                $mthSubPlatforms = $putData["extra_mthSubPlatforms"] : //
+                $mthSubPlatforms = null;
+            if (!is_null($mthSubPlatforms)) {
+                $converted = array();
+                foreach (explode(",", $mthSubPlatforms) as $k => $v) {
+                    array_push($converted, intval($v));
+                }
+                $extraDataSec->setMthSubPlatforms(MTHSubPlatformManagementService::getMTHSubPlatformsByIDs($converted));
+            }
             // update in database
             // $projectUpdated->setProjectExtraData ( $extraDataSec );
             $data = ProjectExtraDataManagementService::updateObject($extraDataSec, $isAdmin);
         }
 
         return formatResponse($request, $response, $args, $data);
-    })
+    }
+)
     ->setArgument('id', null);
 
 $app->put('/stop-project[/{id}]', function ($request, $response, $args) {
@@ -656,8 +748,10 @@ $app->put('/stop-project[/{id}]', function ($request, $response, $args) {
     $isAdmin = false;
     if (isAdmin() || isProjectManager()) {
         $isAdmin = true;
-    } else if ($user->getId() == $dataSec->getOwner()
-        ->getId()) {
+    } else if (
+        $user->getId() == $dataSec->getOwner()
+        ->getId()
+    ) {
         $isAdmin = false;
     } else {
         // user if neither admin/pm/owner of the project
@@ -748,8 +842,10 @@ $app->get('/project-file[/{id}]', function ($request, $response, $args) {
     $isAdmin = false;
     if (isAdmin() || isProjectManager()) {
         $isAdmin = true;
-    } else if ($user->getId() == $dataSec->getOwner()
-        ->getId()) {
+    } else if (
+        $user->getId() == $dataSec->getOwner()
+        ->getId()
+    ) {
         $isAdmin = false;
     } else {
         // user if neither admin/pm/owner of the project
@@ -793,8 +889,10 @@ $app->delete('/project-file[/{id}]', function ($request, $response, $args) {
     $isAdmin = false;
     if (isAdmin() || isProjectManager()) {
         $isAdmin = true;
-    } else if ($user->getId() == $project->getOwner()
-        ->getId()) {
+    } else if (
+        $user->getId() == $project->getOwner()
+        ->getId()
+    ) {
         $isAdmin = false;
     } else {
         // user if neither admin /pm / owner of the project
@@ -803,7 +901,7 @@ $app->delete('/project-file[/{id}]', function ($request, $response, $args) {
 
     // if we get here, we are eitheradmin /pm / owner of the project
     $project->setScientificContextFile(null);
-    $success = ProjectManagementService::updateObject($project, true, $user);
+    $success = ProjectManagementService::updateObject($project, $isAdmin, $user);
     $data = array(
         "success" => $success
     );

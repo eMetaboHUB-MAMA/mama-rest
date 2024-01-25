@@ -486,7 +486,7 @@ class UserManagementService
 				$dn = $info[$i]["dn"];
 				$lastName = $info[$i]["sn"][0];
 				$firstName = $info[$i]["givenname"][0];
-				$phoneNumber = $info[$i]["telephonenumber"][0];
+				// $phoneNumber = $info[$i]["telephonenumber"][0];
 				$userEmail = strtolower($info[$i]["mail"][0]);
 				// var_dump ( $info [$i] ["mail"][0] );
 			}

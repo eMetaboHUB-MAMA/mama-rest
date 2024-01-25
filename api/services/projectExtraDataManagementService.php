@@ -8,9 +8,11 @@ require_once __DIR__ . "/../../vendor/autoload.php";
 require_once __DIR__ . "/../../data-model/Project.class.php";
 require_once __DIR__ . "/../../data-model/ProjectExtraData.class.php";
 
-// require_once __DIR__ . "/../../data-model/Message.class.php";
-// require_once __DIR__ . "/../../data-model/ThematicCloudWord.class.php";
-// require_once __DIR__ . "/../../data-model/MTHplatform.class.php";
+// mama#66
+require_once __DIR__ . "/../../data-model/ProjectExtraDataThematicCloudWord.class.php";
+
+// mama#65
+require_once __DIR__ . "/../../data-model/MTHsub_platform.class.php";
 
 /**
  *
@@ -52,7 +54,7 @@ class ProjectExtraDataManagementService
     /**
      *
      * @param long $id
-     * @return Project
+     * @return ProjectExtraData data
      */
     public static function get($id)
     {
@@ -88,11 +90,12 @@ class ProjectExtraDataManagementService
 
     // //////////////////////////////////////////////////////////////////////////////////////////////
     // UPDATE
-    public static function update($id, 
-			/* -- */
-			/* -- */
-			$userSource = null)
-    {
+    public static function update(
+        $id,
+        /* -- */
+        /* -- */
+        $userSource = null
+    ) {
 
         // init
         $entityManager = $GLOBALS['entityManager'];
@@ -131,7 +134,7 @@ class ProjectExtraDataManagementService
      */
     public static function updateObject($projectExtraData, $isAdmin = false, $userSource = null)
     {
-        if (is_null($projectExtraData) || ! $isAdmin)
+        if (is_null($projectExtraData) || !$isAdmin)
             return false;
 
         $projectExtraDataInDB = null;
@@ -160,6 +163,11 @@ class ProjectExtraDataManagementService
             }
             if ($projectExtraDataInDB->getKnowMTHviaSearchEngine() != $projectExtraData->getKnowMTHviaSearchEngine()) {
                 $projectExtraDataInDB->setKnowMTHviaSearchEngine($projectExtraData->getKnowMTHviaSearchEngine());
+                $updated = true;
+            }
+            // mama#64 - add 'formal user' value for "how did you know MTH" question (field in 'MTH stats' box)
+            if ($projectExtraDataInDB->getKnowMTHviaFormalUser() != $projectExtraData->getKnowMTHviaFormalUser()) {
+                $projectExtraDataInDB->setKnowMTHviaFormalUser($projectExtraData->getKnowMTHviaFormalUser());
                 $updated = true;
             }
             // radio
@@ -202,6 +210,11 @@ class ProjectExtraDataManagementService
                 $projectExtraDataInDB->setAdministrativeContext($projectExtraData->getAdministrativeContext());
                 $updated = true;
             }
+            // mama#61
+            if ($projectExtraDataInDB->getManagerContext() != $projectExtraData->getManagerContext()) {
+                $projectExtraDataInDB->setManagerContext($projectExtraData->getManagerContext());
+                $updated = true;
+            }
             if ($projectExtraDataInDB->getGeographicContext() != $projectExtraData->getGeographicContext()) {
                 $projectExtraDataInDB->setGeographicContext($projectExtraData->getGeographicContext());
                 $updated = true;
@@ -229,9 +242,23 @@ class ProjectExtraDataManagementService
                 $updateDialogBoxData = true;
                 $updated = true;
             }
+            // mama#66 - managerCloudwords
+            if ($projectExtraDataInDB->getManagerThematicWords() != $projectExtraData->getManagerThematicWords()) {
+                $projectExtraDataInDB->setManagerThematicWords($projectExtraData->getManagerThematicWords());
+                $updated = true;
+            }
+            // mama#68 - ext id
+            if ($projectExtraDataInDB->getExternalManagerIdentifier() != $projectExtraData->getExternalManagerIdentifier()) {
+                $projectExtraDataInDB->setExternalManagerIdentifier($projectExtraData->getExternalManagerIdentifier());
+                $updated = true;
+            }
+            // mama#65 - mth sub-platofrm 
+            if ($projectExtraDataInDB->getMthSubPlatforms() != $projectExtraData->getMthSubPlatforms()) {
+                $projectExtraDataInDB->setMthSubPlatforms($projectExtraData->getMthSubPlatforms());
+                $updated = true;
+            }
         } else { // case of json object
             $projectExtraDataInDB = ProjectExtraDataManagementService::get($projectExtraData['id']);
-
             // TODO update via JSON
         }
 

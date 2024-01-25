@@ -203,7 +203,7 @@ class StatisticManagementService
 				if (intval($v) . "" == $v) {
 					$join .= " LEFT JOIN projects_to_metabohub_platforms pj2mthpf" . $countJointTable . " ON p.id = pj2mthpf" . $countJointTable . ".project_id ";
 					if ($filterPlatForm != "") {
-						$filterPlatForm .= " OR ";
+						$filterPlatForm .= " AND ";
 					}
 					$filterPlatForm .= " pj2mthpf" . $countJointTable . ".metabohub_platform_id = " . intval($v) . " ";
 					$countJointTable++;
@@ -564,13 +564,31 @@ class StatisticManagementService
 				$join .= " ON pj2kw.thematic_word_id = tw.id";
 				$group_by .= " GROUP BY tw.id ";
 			} else if ($_GET['group'] == "subkeywords") {
-				$group_concat .= " , GROUP_CONCAT(DISTINCT(pj2kw.sub_thematic_word_id)) tw_ids ";
+				$group_concat .= " , GROUP_CONCAT(DISTINCT(pj2kw.sub_thematic_word_id)) stw_ids ";
 				$group_concat .= " , GROUP_CONCAT(DISTINCT(tw.word)) tw_words ";
 				$join .= " LEFT JOIN projects_to_sub_thematic_words pj2kw ";
 				$join .= " ON p.id = pj2kw.project_id ";
 				$join .= " LEFT JOIN sub_thematic_words tw ";
 				$join .= " ON pj2kw.sub_thematic_word_id = tw.id";
 				$group_by .= " GROUP BY tw.id ";
+			} else if ($_GET['group'] == "manager-keywords") { // mama#66
+				$group_concat .= " , GROUP_CONCAT(DISTINCT(pj2kw.projects_managers_thematic_word_id)) mtw_ids ";
+				$group_concat .= " , GROUP_CONCAT(DISTINCT(tw.word)) tw_words ";
+				// $join .= " LEFT JOIN projects_extra_datum pje ";
+				// $join .= " ON p.id = pje.project_id ";
+				$join .= " LEFT JOIN projects_to_managers_thematic_words pj2kw ";
+				$join .= " ON p.id = pj2kw.project_id ";//project_ext_data_id
+				$join .= " LEFT JOIN manager_thematic_words tw ";
+				$join .= " ON pj2kw.projects_managers_thematic_word_id = tw.id";
+				$group_by .= " GROUP BY tw.id ";
+			} else if ($_GET['group'] == "mth-sub-platforms") { // mama#65
+				$group_concat .= " , GROUP_CONCAT(DISTINCT(pj2spf.metabohub_sub_platform_id)) sub_pf_ids ";
+				$group_concat .= " , GROUP_CONCAT(DISTINCT(sub_pf.sub_platform_name)) sub_pf_names ";
+				$join .= " LEFT JOIN projects_ext_data_to_metabohub_sub_platforms pj2spf ";
+				$join .= " ON p.id = pj2spf.project_id ";//project_ext_data_id
+				$join .= " LEFT JOIN metabohub_sub_platform sub_pf ";
+				$join .= " ON pj2spf.metabohub_sub_platform_id = sub_pf.id";
+				$group_by .= " GROUP BY sub_pf.id ";
 			} else if ($_GET['group'] == "type") {
 				$group_concat .= " , COUNT(CASE WHEN p.demand_type_eq_provisioning   =  '1' THEN 1 END) AS dt__eqprov ";
 				$group_concat .= " , COUNT(CASE WHEN p.demand_type_eq_provisioning   <> '1' THEN 1 END) AS dt__NOT_eqprov ";
@@ -584,7 +602,6 @@ class StatisticManagementService
 				$group_concat .= " , COUNT(CASE WHEN p.demand_type_data_processing   <> '1' THEN 1 END) AS dt__NOT_data_proc ";
 				$group_concat .= " , COUNT(CASE WHEN p.demand_type_other             =  '1' THEN 1 END) AS dt__other ";
 				$group_concat .= " , COUNT(CASE WHEN p. demand_type_other            <> '1' THEN 1 END) AS dt__NOT_other ";
-
 				$group_by .= " ";
 			} else if ($_GET['group'] == "targeted") {
 				$group_concat .= " , COUNT(CASE WHEN p.targeted = '1'   THEN 1 END) AS is_targeted ";
@@ -670,8 +687,11 @@ class StatisticManagementService
 		$rsm->addScalarResult('pf_ids', 'pf_ids');
 		$rsm->addScalarResult('pf_names', 'pf_names');
 		$rsm->addScalarResult('tw_ids', 'tw_ids');
+		$rsm->addScalarResult('stw_ids', 'stw_ids');
+		$rsm->addScalarResult('mtw_ids', 'mtw_ids'); // mama#66
 		$rsm->addScalarResult('tw_words', 'tw_words');
-
+		$rsm->addScalarResult('sub_pf_ids', 'sub_pf_ids'); // mama#65
+		$rsm->addScalarResult('sub_pf_names', 'sub_pf_names'); // mama#65
 		$rsm->addScalarResult('dt__eqprov', 'dt__eqprov');
 		$rsm->addScalarResult('dt__NOT_eqprov', 'dt__NOT_eqprov');
 		$rsm->addScalarResult('dt__catallo', 'dt__catallo');
@@ -844,6 +864,50 @@ class StatisticManagementService
 			$where .= " ( " . $filterUserLaboType . " ) ";
 		}
 
+		// => step 2: filter PJ MTH PF
+		$filterPlatForm = "";
+		$countJointTable = 0;
+		if (isset($_GET['isPlatForm'])) {
+			foreach (preg_split('/,/', $_GET['isPlatForm']) as $k => $v) {
+				// query with PF id
+				if (intval($v) . "" == $v) {
+					$join .= " LEFT JOIN projects_to_metabohub_platforms pj2mthpf" . $countJointTable . " ON p.id = pj2mthpf" . $countJointTable . ".project_id ";
+					if ($filterPlatForm != "") {
+						$filterPlatForm .= " AND ";
+					}
+					$filterPlatForm .= " pj2mthpf" . $countJointTable . ".metabohub_platform_id = " . intval($v) . " ";
+					$countJointTable++;
+				}
+				// query with PF name
+				// else {
+				// }
+			}
+		}
+		if (isset($_GET['isNotPlatForm'])) {
+			foreach (preg_split('/,/', $_GET['isNotPlatForm']) as $k => $v) {
+				// query with PF id
+				if (intval($v) . "" == $v) {
+					$join .= " LEFT JOIN projects_to_metabohub_platforms pj2mthpf" . $countJointTable . " ON p.id = pj2mthpf" . $countJointTable . ".project_id ";
+					if ($filterPlatForm != "") {
+						$filterPlatForm .= " AND ";
+					}
+					$filterPlatForm .= " pj2mthpf" . $countJointTable . ".metabohub_platform_id <> " . intval($v) . " ";
+					$countJointTable++;
+				}
+				// query with PF name
+				// else {
+				// }
+			}
+		}
+		if ($filterPlatForm != "") {
+			if ($where == "") {
+				$where = " WHERE ";
+			} else {
+				$where .= " AND ";
+			}
+			$where .= " ( " . $filterPlatForm . " ) ";
+		}
+
 		// TODO list all groups
 		// => group contact
 		if (isset($_GET['group'])) {
@@ -1002,6 +1066,50 @@ class StatisticManagementService
 				$where .= " AND ";
 			}
 			$where .= " ( " . $filterProjectLaboType . " ) ";
+		}
+
+		// => step 2: filter PJ MTH PF
+		$filterPlatForm = "";
+		$countJointTable = 0;
+		if (isset($_GET['isPlatForm'])) {
+			foreach (preg_split('/,/', $_GET['isPlatForm']) as $k => $v) {
+				// query with PF id
+				if (intval($v) . "" == $v) {
+					$join .= " LEFT JOIN projects_to_metabohub_platforms pj2mthpf" . $countJointTable . " ON p.id = pj2mthpf" . $countJointTable . ".project_id ";
+					if ($filterPlatForm != "") {
+						$filterPlatForm .= " AND ";
+					}
+					$filterPlatForm .= " pj2mthpf" . $countJointTable . ".metabohub_platform_id = " . intval($v) . " ";
+					$countJointTable++;
+				}
+				// query with PF name
+				// else {
+				// }
+			}
+		}
+		if (isset($_GET['isNotPlatForm'])) {
+			foreach (preg_split('/,/', $_GET['isNotPlatForm']) as $k => $v) {
+				// query with PF id
+				if (intval($v) . "" == $v) {
+					$join .= " LEFT JOIN projects_to_metabohub_platforms pj2mthpf" . $countJointTable . " ON p.id = pj2mthpf" . $countJointTable . ".project_id ";
+					if ($filterPlatForm != "") {
+						$filterPlatForm .= " AND ";
+					}
+					$filterPlatForm .= " pj2mthpf" . $countJointTable . ".metabohub_platform_id <> " . intval($v) . " ";
+					$countJointTable++;
+				}
+				// query with PF name
+				// else {
+				// }
+			}
+		}
+		if ($filterPlatForm != "") {
+			if ($where == "") {
+				$where = " WHERE ";
+			} else {
+				$where .= " AND ";
+			}
+			$where .= " ( " . $filterPlatForm . " ) ";
 		}
 
 		// TODO list all groups

@@ -5,7 +5,7 @@ session_start();
 parse_str(file_get_contents("php://input"), $putData);
 
 // API
-require '../vendor/autoload.php';
+require_once '../vendor/autoload.php';
 
 // UTILS
 require_once '../api/utils/format.php';
@@ -22,12 +22,15 @@ require_once '../api/services/eventManagementService.php';
 require_once '../api/services/messageManagementService.php';
 require_once '../api/services/appointmentManagementService.php';
 
-require_once '../api/services/keywordManagementService.php';
+require_once '../api/services/keywordManagementService.php';// also for sub-keywords and mgmer-keywords
 require_once '../api/services/mthPlatformManagementService.php';
 
 require_once '../api/services/statisticManagementService.php';
 
 require_once '../email_jobs/specialEventMailler.php';
+
+// mama#65
+require_once '../api/services/mthSubPlatformManagementService.php';
 
 $app = new Slim\App();
 

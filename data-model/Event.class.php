@@ -15,7 +15,7 @@
  *      @DiscriminatorColumn(name="type", type="smallint")
  *      @DiscriminatorMap({"100" = "UserEvent", "200" = "ProjectEvent", "300" = "MessageEvent", "400" = "AppointmentEvent", "500" = "AdminEvent"})
  */
-require_once ('AbstractMAMAobject.class.php');
+require_once('AbstractMAMAobject.class.php');
 
 abstract class Event extends AbstractMAMAobject
 {
@@ -45,6 +45,15 @@ abstract class Event extends AbstractMAMAobject
     public static $EVENT_TYPE_ADMIN_NEW_MTH_PF = 550;
 
     public static $EVENT_TYPE_ADMIN_UPDATE_MTH_PF = 555;
+
+    // mama#66 - admin
+    public static $EVENT_TYPE_ADMIN_NEW_MANAGERKEYWORD = 560;
+
+    public static $EVENT_TYPE_ADMIN_UPDATE_MANAGERKEYWORD = 561;
+
+    public static $EVENT_TYPE_ADMIN_RESTORE_MANAGERKEYWORD = 562;
+
+    public static $EVENT_TYPE_ADMIN_DELETE_MANAGERKEYWORD = 563;
 
     // appointment
     public static $EVENT_TYPE_NEW_APPOINTMENT = 400;
@@ -84,7 +93,7 @@ abstract class Event extends AbstractMAMAobject
     public static $EVENT_TYPE_UPDATE_PROJECT__rejected = 211;
 
     public static $EVENT_TYPE_UPDATE_PROJECT__informations = 220;
-    
+
     public static $EVENT_TYPE_UPDATE_PROJECT__back_to_waiting = 221;
 
     // public static $EVENT_TYPE_UPDATE_PROJECT__dialog_box = 221;
@@ -93,7 +102,7 @@ abstract class Event extends AbstractMAMAobject
     public static $EVENT_TYPE_UPDATE_PROJECT__new_analyst_in_charge = 230;
 
     public static $EVENT_TYPE_UPDATE_PROJECT__new_analyst_involved = 231;
-    
+
     public static $EVENT_TYPE_UPDATE_PROJECT__remove_analyst_in_charge = 232;
 
     public static $EVENT_TYPE_UPDATE_PROJECT__new_extra_data = 250;
@@ -122,7 +131,7 @@ abstract class Event extends AbstractMAMAobject
     public static $EVENT_TYPE_UPDATE_USER__set_in_charge = 130;
 
     public static $EVENT_TYPE_UPDATE_USER__set_involved = 131;
-    
+
     public static $EVENT_TYPE_UPDATE_USER__remove_in_charge = 132;
 
     // ////////////////////////////////////////////////////////////////////////
@@ -196,7 +205,7 @@ abstract class Event extends AbstractMAMAobject
     public function getType()
     {
         switch ($this->eventType) {
-            // ////////////////////////////////////////////////////// UERS
+                // ////////////////////////////////////////////////////// UERS
             case Event::$EVENT_TYPE_NEW_USER:
                 return "_user_created";
             case Event::$EVENT_TYPE_UPDATE_USER__informations:
@@ -222,7 +231,7 @@ abstract class Event extends AbstractMAMAobject
             case Event::$EVENT_TYPE_UPDATE_USER__remove_in_charge:
                 return "_user_new_remove_project_in_charge";
 
-            // ////////////////////////////////////////////////////// PROJECTS
+                // ////////////////////////////////////////////////////// PROJECTS
             case Event::$EVENT_TYPE_NEW_PROJECT:
                 return "_project_created";
             case Event::$EVENT_TYPE_UPDATE_PROJECT__new_analyst_in_charge:
@@ -249,10 +258,10 @@ abstract class Event extends AbstractMAMAobject
                 return "_project_set_back_to_waiting";
             case Event::$EVENT_TYPE_UPDATE_PROJECT__informations:
                 return "_project_set_basic_informations";
-            // case Event::$EVENT_TYPE_UPDATE_PROJECT__dialog_box:
-            // return "_project_set_dialog_box";
+                // case Event::$EVENT_TYPE_UPDATE_PROJECT__dialog_box:
+                // return "_project_set_dialog_box";
 
-            // ////////////////////////////////////////////////////// ADMIN
+                // ////////////////////////////////////////////////////// ADMIN
             case Event::$EVENT_TYPE_ADMIN_NEW_KEYWORD:
                 return "_new_keyword";
             case Event::$EVENT_TYPE_ADMIN_UPDATE_KEYWORD:
@@ -273,10 +282,19 @@ abstract class Event extends AbstractMAMAobject
                 return "_new_mth_platform";
             case Event::$EVENT_TYPE_ADMIN_UPDATE_MTH_PF:
                 return "_update_mth_platform";
+                // mama#66
+            case Event::$EVENT_TYPE_ADMIN_NEW_MANAGERKEYWORD:
+                return "_new_managerkeyword";
+            case Event::$EVENT_TYPE_ADMIN_UPDATE_MANAGERKEYWORD:
+                return "_update_managerkeyword";
+            case Event::$EVENT_TYPE_ADMIN_RESTORE_MANAGERKEYWORD:
+                return "_restore_managerkeyword";
+            case Event::$EVENT_TYPE_ADMIN_DELETE_MANAGERKEYWORD:
+                return "_delete_managerkeyword";
 
-            // TODO message(s)
+                // TODO message(s)
 
-            // ////////////////////////////////////////////////////// APPOINTMENTS
+                // ////////////////////////////////////////////////////// APPOINTMENTS
             case Event::$EVENT_TYPE_NEW_APPOINTMENT:
                 return "_new_appointment";
             case Event::$EVENT_TYPE_UPDATE_APPOINTMENT:
@@ -285,7 +303,7 @@ abstract class Event extends AbstractMAMAobject
                 return "_lock_appointment";
             case Event::$EVENT_TYPE_FAIL_APPOINTMENT:
                 return "_fail_appointment";
-            // ////////////////////////////////////////////////////// OTHER
+                // ////////////////////////////////////////////////////// OTHER
             default:
                 return "__error__";
         }
@@ -330,4 +348,3 @@ abstract class Event extends AbstractMAMAobject
         $this->eventType = $this->getType();
     }
 }
-?>
