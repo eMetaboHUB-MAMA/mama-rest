@@ -9,16 +9,35 @@ Technical change between REST API releases
 - **@notes**:
   - describe this release's reasons
 - **@new**:
-  - mama-webapp#xx - short description - short_sha or merge_request
+  - mama#xx - short description - short_sha or merge_request
 - **@bugs fixed**:
-  - mama-webapp#xx - short description - short_sha or merge_request
+  - mama#xx - short description - short_sha or merge_request
 - **@other**:
-  - mama-webapp#xx - short description - short_sha or merge_request
+  - mama#xx - short description - short_sha or merge_request
 - **@known bugs**:
-  - mama-webapp#xx - short description
+  - mama#xx - short description
 -->
 
 ## Latest
+
+- **@tag**: `v1.0.4`
+- **@version**: `v1.0.4`
+- **@bugs fixed**:
+  - mama#22 - fix HTTP/HTML links in emails
+  - mama#23 - fix "clean restricted informations on NULL object" error
+- **@other**:
+  - mama#20 - update CI to match prod. env. - mama@f7ce718d
+  - mama#21 - display webapp and rest api versions in footer
+  - mama#12 - switch an analysis request back to `waiting` status
+  - mama#24 - manage reject a project because `saved twice` reason
+
+<!--
+- **@known bugs**:
+  - mama#xx - short description -->
+
+## Previous releases
+
+### 2020-05-14
 
 - **@tag**: `v1.0.3`
 - **@version**: `1.0.3`
@@ -49,8 +68,6 @@ mysql> UPDATE   users
     -> SET      email = CONCAT(LEFT(email, INSTR(email, '@')), 'inrae.fr')
     -> WHERE    email LIKE '%@inra.fr%' AND login NOT LIKE '%@%';
 ```
-
-## Previous releases
 
 ### 2017-12-15
 

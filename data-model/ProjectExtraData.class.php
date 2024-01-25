@@ -46,6 +46,8 @@ class ProjectExtraData extends AbstractMAMAobject
     public static $REJECTED_REASON__TRANSFERED_TO_PRIVILEGIED_MTH_PARTNER = 206;
 
     public static $REJECTED_REASON__NOT_FUNDED = 207;
+    
+    public static $REJECTED_REASON__SAVED_TWICE = 208;
 
     // DIALOG BOX
     public static $DIALOG_BOX__REQUEST_NOT_CHECKED = 300;
@@ -457,6 +459,8 @@ class ProjectExtraData extends AbstractMAMAobject
                 return "transfered_to_privilegied_mth_partner";
             case ProjectExtraData::$REJECTED_REASON__NOT_FUNDED:
                 return "not_funded";
+            case ProjectExtraData::$REJECTED_REASON__SAVED_TWICE:
+                return "saved_twice";
             default:
                 return "";
         }
@@ -505,6 +509,10 @@ class ProjectExtraData extends AbstractMAMAobject
             case "not_funded":
             case "_not_funded":
                 $rejectedReasonInt = ProjectExtraData::$REJECTED_REASON__NOT_FUNDED;
+                break;
+            case "saved_twice":
+            case "_saved_twice":
+                $rejectedReasonInt = ProjectExtraData::$REJECTED_REASON__SAVED_TWICE;
                 break;
         }
         $this->rejectedReason = $rejectedReasonInt;

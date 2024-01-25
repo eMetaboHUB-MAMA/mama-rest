@@ -112,9 +112,13 @@ $app->get('/project[/{id}]', function ($request, $response, $args) {
         ->getId()) {
         $data = $dataSec;
         // user need extra data if pj stopped / blocked!
-        $newExtraData = $dataSec->getProjectExtraData()
-            ->cleanPrivateData();
-        $data->setProjectExtraData($newExtraData);
+        if ($dataSec->getProjectExtraData() != null) {
+            $newExtraData = $dataSec->getProjectExtraData()
+                ->cleanPrivateData();
+            $data->setProjectExtraData($newExtraData);
+        } else {
+            $data->setProjectExtraData(null);
+        }
     } else {
         return formatResponse401($request, $response);
     }

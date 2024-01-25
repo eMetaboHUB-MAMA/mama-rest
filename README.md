@@ -123,9 +123,9 @@ cd /path/to/mama-rest && docker build -t metabohub/mama-rest .
 cd /path/to/mama-rest && docker build -t metabohub/mama-rest-tests -f Dockerfile-tests .
 
 # run with shared volum for work. dir.
-docker run --rm -it                      \
-	-v /path/to/mama-rest:/var/www/html/ \
-	-p 8888:80                           \
+docker run --rm -it \
+	-v $(pwd):/var/www/html/ \
+	-p 8888:80 \
 	metabohub/mama-rest-tests
 ```
 

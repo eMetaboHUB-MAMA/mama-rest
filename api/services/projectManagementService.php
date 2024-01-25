@@ -685,9 +685,9 @@ class ProjectManagementService {
 				$projectInDB->setStatus ( $project->getStatus () );
 				$updated = true;
 				if ($userSource != null) {
-					if ($project->getStatus () == "assigned") {
-						EventManagementService::createProjectEvent ( $userSource, Event::$EVENT_TYPE_UPDATE_PROJECT__assigned, $projectInDB );
-					} else if ($project->getStatus () == "accepted") {
+				    if ($project->getStatus () == "assigned") {
+				        EventManagementService::createProjectEvent ( $userSource, Event::$EVENT_TYPE_UPDATE_PROJECT__assigned, $projectInDB );
+				    } else if ($project->getStatus () == "accepted") {
 						EventManagementService::createProjectEvent ( $userSource, Event::$EVENT_TYPE_UPDATE_PROJECT__accepted, $projectInDB );
 					} else if ($project->getStatus () == "completed") {
 						EventManagementService::createProjectEvent ( $userSource, Event::$EVENT_TYPE_UPDATE_PROJECT__completed, $projectInDB );
@@ -699,6 +699,16 @@ class ProjectManagementService {
 						EventManagementService::createProjectEvent ( $userSource, Event::$EVENT_TYPE_UPDATE_PROJECT__blocked, $projectInDB );
 					} else if ($project->getStatus () == "archived") {
 						EventManagementService::createProjectEvent ( $userSource, Event::$EVENT_TYPE_UPDATE_PROJECT__archived, $projectInDB );
+					} else if ($project->getStatus () == "waiting") {
+					    EventManagementService::createProjectEvent ( $userSource, Event::$EVENT_TYPE_UPDATE_PROJECT__back_to_waiting, $projectInDB );
+					    // mama#12 -> remove 'in charge'
+					    $oldUser = $projectInDB->getAnalystInCharge();
+					    if ($userSource != null && $oldUser != null) {
+					        $projectInDB->setAnalystInCharge ( null );
+					        $project->setAnalystInCharge ( null );
+					        EventManagementService::createUserEvent ( $userSource, Event::$EVENT_TYPE_UPDATE_USER__remove_in_charge, $oldUser );
+					        EventManagementService::createProjectEvent ( $userSource, Event::$EVENT_TYPE_UPDATE_PROJECT__remove_analyst_in_charge, $projectInDB );
+					    }
 					}
 				}
 			}

@@ -104,3 +104,5 @@ copy to dev:
     - ssh $SSH_OPTS $SSH_USER@$SSH_HOST "docker run --restart unless-stopped --name $DOCKER_CONTAINER -it -p $DOCKER_SOCKET:80 -d $DOCKER_IMAGE ";
     - echo "[gitlab-ci] update database schema";
     - ssh $SSH_OPTS $SSH_USER@$SSH_HOST "docker exec -i $DOCKER_CONTAINER \"bash\" \"-c\" \"cd /var/www/html/ && php vendor/bin/doctrine orm:schema-tool:update --force\"   "
+    - echo "[gitlab-ci] remove docker image on test server";
+    - ssh $SSH_OPTS $SSH_USER@$SSH_HOST "rm -rf /tmp/$IMAGE_FILE ";

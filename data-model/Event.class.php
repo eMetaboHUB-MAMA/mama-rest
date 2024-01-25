@@ -84,6 +84,8 @@ abstract class Event extends AbstractMAMAobject
     public static $EVENT_TYPE_UPDATE_PROJECT__rejected = 211;
 
     public static $EVENT_TYPE_UPDATE_PROJECT__informations = 220;
+    
+    public static $EVENT_TYPE_UPDATE_PROJECT__back_to_waiting = 221;
 
     // public static $EVENT_TYPE_UPDATE_PROJECT__dialog_box = 221;
     public static $EVENT_TYPE_UPDATE_PROJECT__deleted = 290;
@@ -91,6 +93,8 @@ abstract class Event extends AbstractMAMAobject
     public static $EVENT_TYPE_UPDATE_PROJECT__new_analyst_in_charge = 230;
 
     public static $EVENT_TYPE_UPDATE_PROJECT__new_analyst_involved = 231;
+    
+    public static $EVENT_TYPE_UPDATE_PROJECT__remove_analyst_in_charge = 232;
 
     public static $EVENT_TYPE_UPDATE_PROJECT__new_extra_data = 250;
 
@@ -118,6 +122,8 @@ abstract class Event extends AbstractMAMAobject
     public static $EVENT_TYPE_UPDATE_USER__set_in_charge = 130;
 
     public static $EVENT_TYPE_UPDATE_USER__set_involved = 131;
+    
+    public static $EVENT_TYPE_UPDATE_USER__remove_in_charge = 132;
 
     // ////////////////////////////////////////////////////////////////////////
     // ATTRIBUTES
@@ -213,6 +219,8 @@ abstract class Event extends AbstractMAMAobject
                 return "_user_new_new_project_in_charge";
             case Event::$EVENT_TYPE_UPDATE_USER__set_involved:
                 return "_user_new_new_project_involved";
+            case Event::$EVENT_TYPE_UPDATE_USER__remove_in_charge:
+                return "_user_new_remove_project_in_charge";
 
             // ////////////////////////////////////////////////////// PROJECTS
             case Event::$EVENT_TYPE_NEW_PROJECT:
@@ -221,6 +229,8 @@ abstract class Event extends AbstractMAMAobject
                 return "_project_new_in_charge";
             case Event::$EVENT_TYPE_UPDATE_PROJECT__new_analyst_involved:
                 return "_project_new_involved";
+            case Event::$EVENT_TYPE_UPDATE_PROJECT__remove_analyst_in_charge:
+                return "_project_remove_in_charge";
             case Event::$EVENT_TYPE_UPDATE_PROJECT__assigned:
                 return "_project_set_to_assigned";
             case Event::$EVENT_TYPE_UPDATE_PROJECT__accepted:
@@ -235,6 +245,8 @@ abstract class Event extends AbstractMAMAobject
                 return "_project_set_to_blocked";
             case Event::$EVENT_TYPE_UPDATE_PROJECT__rejected:
                 return "_project_set_to_rejected";
+            case Event::$EVENT_TYPE_UPDATE_PROJECT__back_to_waiting:
+                return "_project_set_back_to_waiting";
             case Event::$EVENT_TYPE_UPDATE_PROJECT__informations:
                 return "_project_set_basic_informations";
             // case Event::$EVENT_TYPE_UPDATE_PROJECT__dialog_box:

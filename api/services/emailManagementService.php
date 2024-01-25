@@ -716,7 +716,7 @@ class EmailManagementService
         $message = str_replace('%%EMAIL_SIGNATURE%%', $signature, $message);
 
         // webapp URL
-        $message = str_replace('%%WEBAPP_URL%%', 'app_webapp_url', $message);
+        $message = str_replace('%%WEBAPP_URL%%', app_webapp_url, $message);
 
         return $message;
     }

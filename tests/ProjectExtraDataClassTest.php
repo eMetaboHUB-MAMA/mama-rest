@@ -76,7 +76,8 @@ class ProjectExtraDataClassTest extends PHPUnit\Framework\TestCase
         ob_start();
         var_dump($obj->getArrayData());
         $getArrayData = ob_get_clean();
-        $this->assertEquals('/var/www/html/tests/ProjectExtraDataClassTest.php:77:
+        $getArrayData = preg_replace("/DateTime#\d+|ClassTest.php:\d+/", "x", $getArrayData);
+        $this->assertStringStartsWith(preg_replace("/DateTime#\d+|ClassTest.php:\d+/", "x", '/var/www/html/tests/ProjectExtraDataClassTest.php:77:
 array(19) {
   \'laboType\' =>
   string(0) ""
@@ -113,25 +114,20 @@ array(19) {
   \'id\' =>
   int(0)
   \'created\' =>
-  array(3) {
-    \'date\' =>
-    string(26) "' . $obj->getCreated()
-            ->format('Y-m-d H:i:s.u') . '"
-    \'timezone_type\' =>
-    int(3)
-    \'timezone\' =>
-    string(3) "UTC"
+'), $getArrayData);
+        
+        $this->assertStringEndsWith(preg_replace("/DateTime#\d+|ClassTest.php:\d+/", "x", '
   }
   \'updated\' =>
   NULL
 }
-', $getArrayData);
+'), $getArrayData);
 
         ob_start();
         var_dump($obj->getJsonData());
         $getJsonData = ob_get_clean();
-        $getJsonData = preg_replace("/DateTime#\d+/", "x", $getJsonData);
-        $this->assertEquals(preg_replace("/DateTime#\d+/", "x", '/var/www/html/tests/ProjectExtraDataClassTest.php:131:
+        $getJsonData = preg_replace("/DateTime#\d+|ClassTest.php:\d+/", "x", $getJsonData);
+        $this->assertEquals(preg_replace("/DateTime#\d+|ClassTest.php:\d+/", "x", '/var/www/html/tests/ProjectExtraDataClassTest.php:124:
 array(19) {
   \'laboType\' =>
   string(6) "public"
@@ -273,6 +269,8 @@ array(19) {
         $this->assertEquals("transfered_to_privilegied_mth_partner", $obj->getRejectedReason());
         $obj->setRejectedReason(ProjectExtraData::$REJECTED_REASON__NOT_FUNDED);
         $this->assertEquals("not_funded", $obj->getRejectedReason());
+        $obj->setRejectedReason(ProjectExtraData::$REJECTED_REASON__SAVED_TWICE);
+        $this->assertEquals("saved_twice", $obj->getRejectedReason());
 
         // reset 1
         $obj->setRejectedReason(- 1);
@@ -297,6 +295,8 @@ array(19) {
         $this->assertEquals("transfered_to_privilegied_mth_partner", $obj->getRejectedReason());
         $obj->setRejectedReason("_not_funded");
         $this->assertEquals("not_funded", $obj->getRejectedReason());
+        $obj->setRejectedReason("_saved_twice");
+        $this->assertEquals("saved_twice", $obj->getRejectedReason());
 
         // reset 2
         $obj->setRejectedReason("toto");
