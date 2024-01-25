@@ -76,6 +76,10 @@ if ($memcacheD->get("database_driver")) {
 
     $projects_files_dir = $memcacheD->get("projects_files_dir");
 
+    // mama#95 - load variables used by jobby (cron task like daily / weekly emails)
+    $cron_daily_mailler = $memcacheD->get("cron_daily_mailler");
+    $cron_weekly_mailler = $memcacheD->get("cron_weekly_mailler");
+    $cron_monthly_users_inactiver = $memcacheD->get("cron_monthly_users_inactiver");
     $cron_daily_mailler_log = $memcacheD->get("cron_daily_mailler_log");
     $cron_weekly_mailler_log = $memcacheD->get("cron_weekly_mailler_log");
     $cron_monthly_users_inactiver_log = $memcacheD->get("cron_monthly_users_inactiver_log");
@@ -152,9 +156,16 @@ if ($memcacheD->get("database_driver")) {
     $memcacheD->set("contact_email", $ini_array['contact']['email']);
     $memcacheD->set("contact_name", $ini_array['contact']['name']);
 
+    // mama#95 - load variables used by jobby (cron task like daily / weekly emails)
+    $cron_daily_mailler = $ini_array['cron']['daily_mailler'];
+    $cron_weekly_mailler = $ini_array['cron']['weekly_mailler'];
+    $cron_monthly_users_inactiver = $ini_array['cron']['monthly_users_inactiver'];
     $cron_daily_mailler_log = $ini_array['cron']['daily_mailler_log'];
     $cron_weekly_mailler_log = $ini_array['cron']['weekly_mailler_log'];
     $cron_monthly_users_inactiver_log = $ini_array['cron']['monthly_users_inactiver_log'];
+    $memcacheD->set("cron_daily_mailler", $cron_daily_mailler);
+    $memcacheD->set("cron_weekly_mailler", $cron_weekly_mailler);
+    $memcacheD->set("cron_monthly_users_inactiver", $cron_monthly_users_inactiver);
     $memcacheD->set("cron_daily_mailler_log", $cron_daily_mailler_log);
     $memcacheD->set("cron_weekly_mailler_log", $cron_weekly_mailler_log);
     $memcacheD->set("cron_monthly_users_inactiver_log", $cron_monthly_users_inactiver_log);
@@ -179,6 +190,10 @@ define("smtp_replyto_displayname", $smtp_replyto_displayname);
 
 define("projects_files_dir", $projects_files_dir);
 
+// mama#95 - load variables used by jobby (cron task like daily / weekly emails)
+define("cron_daily_mailler", $cron_daily_mailler);
+define("cron_weekly_mailler", $cron_weekly_mailler);
+define("cron_monthly_users_inactiver", $cron_monthly_users_inactiver);
 define("cron_daily_mailler_log", $cron_daily_mailler_log);
 define("cron_weekly_mailler_log", $cron_weekly_mailler_log);
 define("cron_monthly_users_inactiver_log", $cron_monthly_users_inactiver_log);

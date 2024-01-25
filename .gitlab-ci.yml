@@ -14,10 +14,6 @@ variables:
   DOCKER_IMAGE: "metabohub/mama-rest:1.2.0"
   DOCKER_CONTAINER: "mama-rest"
   DOCKER_SOCKET: "6382"
-  # SSH / SCP
-  SSH_OPTS: " -q -t "
-  SSH_USER: "gitlab-bot"
-  SSH_HOST: "unh-pfemlindev.ara.inrae.fr"
   # cache
   IMAGE_FILE: "mama-rest.image"
   CACHE_BASH: "/tmp/gitlab-ci-cache"
@@ -38,15 +34,14 @@ stages:
 build docker image:
   stage: docker_env
   tags:
-    - shell-sauron
+    - shell
   except:
     refs:
       - master
       - tags
   before_script:
     - echo "==================================";
-    # - echo "[info] set config. files ";
-    # - echo "$CONFIG_SALT_FILE" >> config/salt.txt
+    - echo "[info] set config. files ";
     - test -f config/mama-config.ini && rm config/mama-config.ini
     - cp config/mama-config.ini.sample config/mama-config.ini
     - >
@@ -74,7 +69,7 @@ build docker image:
 tests:
   stage: tests
   tags:
-    - docker-sauron
+    - docker
   services:
     - name: mysql:5.7
       alias: mysql-test-server
@@ -103,7 +98,7 @@ tests:
 copy to dev:
   stage: copy_to_dev
   tags:
-    - docker-sauron
+    - docker
   except:
     refs:
       - master
@@ -115,24 +110,24 @@ copy to dev:
     - ssh-add <(echo "$SSH_PRIVATE_KEY" | base64 -d)
   script:
     - echo "[gitlab-ci] remove old code report on test server";
-    - ssh $SSH_OPTS $SSH_USER@$SSH_HOST "rm -rf /var/www/html/code_report_mama/rest "
+    - ssh $SSH_OPTS $SSH_USER@$SSH_HOST_PFEMLINDEV "rm -rf /var/www/html/code_report_mama/rest "
     - echo "[gitlab-ci] copy code report to test server";
-    - scp -r $CACHE_DOCKER/coverage-report $SSH_USER@$SSH_HOST:/var/www/html/code_report_mama/rest
+    - scp -r $CACHE_DOCKER/coverage-report $SSH_USER@$SSH_HOST_PFEMLINDEV:/var/www/html/code_report_mama/rest
     - echo "[gitlab-ci] remove old docker image";
-    - ssh $SSH_OPTS $SSH_USER@$SSH_HOST "rm -rf /tmp/$IMAGE_FILE "
+    - ssh $SSH_OPTS $SSH_USER@$SSH_HOST_PFEMLINDEV "rm -rf /tmp/$IMAGE_FILE "
     - echo "[gitlab-ci] stop and remove docker container";
-    - ssh $SSH_OPTS $SSH_USER@$SSH_HOST "docker stop $DOCKER_CONTAINER || echo \"container not started\" ";
-    - ssh $SSH_OPTS $SSH_USER@$SSH_HOST "docker rm $DOCKER_CONTAINER || echo \"container not init\" ";
+    - ssh $SSH_OPTS $SSH_USER@$SSH_HOST_PFEMLINDEV "docker stop $DOCKER_CONTAINER || echo \"container not started\" ";
+    - ssh $SSH_OPTS $SSH_USER@$SSH_HOST_PFEMLINDEV "docker rm $DOCKER_CONTAINER || echo \"container not init\" ";
     - echo "[gitlab-ci] copy new docker image to test server ";
-    - scp -r $CACHE_DOCKER/$IMAGE_FILE $SSH_USER@$SSH_HOST:/tmp/
+    - scp -r $CACHE_DOCKER/$IMAGE_FILE $SSH_USER@$SSH_HOST_PFEMLINDEV:/tmp/
     - echo "[gitlab-ci] load new docker image ";
-    - ssh $SSH_OPTS $SSH_USER@$SSH_HOST "cat /tmp/$IMAGE_FILE | docker load";
+    - ssh $SSH_OPTS $SSH_USER@$SSH_HOST_PFEMLINDEV "cat /tmp/$IMAGE_FILE | docker load";
     - echo "[gitlab-ci] start new docker container as deamon";
-    - ssh $SSH_OPTS $SSH_USER@$SSH_HOST "docker run --restart unless-stopped --name $DOCKER_CONTAINER -it -p $DOCKER_SOCKET:80 -d $DOCKER_IMAGE ";
+    - ssh $SSH_OPTS $SSH_USER@$SSH_HOST_PFEMLINDEV "docker run --restart unless-stopped --name $DOCKER_CONTAINER -it -p $DOCKER_SOCKET:80 -d $DOCKER_IMAGE ";
     - echo "[gitlab-ci] update database schema";
-    - ssh $SSH_OPTS $SSH_USER@$SSH_HOST "docker exec -i $DOCKER_CONTAINER \"bash\" \"-c\" \"cd /var/www/html/ && php vendor/bin/doctrine orm:schema-tool:update --force\"   "
+    - ssh $SSH_OPTS $SSH_USER@$SSH_HOST_PFEMLINDEV "docker exec -i $DOCKER_CONTAINER \"bash\" \"-c\" \"cd /var/www/html/ && php vendor/bin/doctrine orm:schema-tool:update --force\"   "
     - echo "[gitlab-ci] remove docker image on test server";
-    - ssh $SSH_OPTS $SSH_USER@$SSH_HOST "rm -rf /tmp/$IMAGE_FILE ";
+    - ssh $SSH_OPTS $SSH_USER@$SSH_HOST_PFEMLINDEV "rm -rf /tmp/$IMAGE_FILE ";
   after_script:
     - echo "[gitlab-ci] remove docker image on gitlab server";
     - test -f $CACHE_DOCKER/$IMAGE_FILE && rm -rf $CACHE_DOCKER/$IMAGE_FILE

@@ -19,13 +19,23 @@ Technical change between REST API releases
 
 ## Latest
 
+- **@version**: `1.3.1`
+- **@notes**:
+  - fix critical bug: daily/weekly email sender doesn't work any more
+- **@bugs fixed**:
+  - mama#95 - load variables used by jobby (cron task like daily / weekly emails)
+
+## Previous releases
+
+### 2023-06-12
+
 - **@version**: `1.3.0`
 - **@notes**:
   - feedbacks from MTH and MTH's SAB boards
 - **@new**:
-  - mama#60 - Support clients' laboratories RNSR identifer (for French public labs.)
+  - mama#60 - Support clients' laboratories RNSR identifier (for French public labs.)
   - mama#61 - new 'manager context' field in 'project extra data'
-  - mama#61 - fields 'administative/manager/geographical context' are now mandatory to switch a project to 'running' status
+  - mama#61 - fields 'administrative/manager/geographical context' are now mandatory to switch a project to 'running' status
   - mama#62 - add 'metabohub platform' filter in statistics view
   - mama#64 - add 'formal user' value for "how did you known MTH" question (field in 'MTH stats' box)
   - mama#65 - add projects 'multi-sites management' (field in 'MTH stats' box)
@@ -37,7 +47,7 @@ Technical change between REST API releases
 - **@bugs fixed**:
   - mama#71 - fix footer display bug (by removing Matomo deprecated tracking code)
   - mama#74 - fix Memcached variables loading error
-  - mama#78 - during project update, send an email to users only if an update realy occured on project 'core data'
+  - mama#78 - during project update, send an email to users only if an update really occurred on project 'core data'
 - **@other**:
   - mama#70 - improve `Memcached` management: support different caches for each different host
   - mama#73 - improve tests databases generation (devops)
@@ -63,8 +73,6 @@ cd /var/www/html/mama-webapp/
 sudo -u www-data php -f ./tools/update_rnsr_list.php
 ```
 
-## Previous releases
-
 ### 2023-03-15
 
 - **@version**: `1.2.0`
@@ -74,7 +82,7 @@ sudo -u www-data php -f ./tools/update_rnsr_list.php
   - mama#54 - fix minor orthography errors in GUI
 - **@other**:
   - mama#dev - update CI server (switch to sauron)
-  - mama#dev - update DEV server (switch to unh-pfenlindev)
+  - mama#dev - update DEV server (switch to unh-pfemlindev)
   - mama#dev - add new MIT license (WebApp and REST API)
   - mama#58 - set config. new PROD server
   - mama#59 - non-LDAP users password mgmt: remove in-house salt option (deprecated with PHP 8)

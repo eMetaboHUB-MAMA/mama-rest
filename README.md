@@ -1,7 +1,7 @@
 # MAMA - REST
 
-[![pipeline status](https://services.pfem.clermont.inrae.fr/gitlab/mama/mama-rest/badges/dev/pipeline.svg)](https://services.pfem.clermont.inrae.fr/gitlab/mama/mama-rest/commits/dev)
-[![coverage report](https://services.pfem.clermont.inrae.fr/gitlab/mama/mama-rest/badges/dev/coverage.svg)](https://services.pfem.clermont.inrae.fr/gitlab/mama/mama-rest/commits/dev)
+[![pipeline status](https://unh-pfem-gitlab.ara.inrae.fr/mama/mama-rest/badges/dev/pipeline.svg)](https://unh-pfem-gitlab.ara.inrae.fr/mama/mama-rest/commits/dev)
+[![coverage report](https://unh-pfem-gitlab.ara.inrae.fr/mama/mama-rest/badges/dev/coverage.svg)](https://unh-pfem-gitlab.ara.inrae.fr/mama/mama-rest/commits/dev)
 
 ## Metadata
 
@@ -56,7 +56,7 @@ In order to be sur that users only access to `public/` folder's scripts, you mus
 
 ### Deploy
 
-- get project data `git clone https://services.pfem.clermont.inrae.fr/gitlab/mama/mama-rest.git`
+- get project data `git clone https://unh-pfem-gitlab.ara.inrae.fr/mama/mama-rest.git`
 - you propably should set the owner of all files to your web-server unix user/group (e.g. for apache: `chown -R www-data:www-data mama-rest`)
 - download in install `slim`, `doctrine`, `jobbyphp`, `phpmailer` and `phpexcel` with `composer`: `cd /tmp/ && curl -sS https://getcomposer.org/installer | php && cd /dir/to/folder/mama-rest && sudo -u www-data php /tmp/composer.phar update`
 - init cron by adding this rule to your crontab list: `* * * * * cd /dir/to/folder/mama-rest && php jobby.php 1>> /dev/null 2>&1` (you should use apache user's crontab)
