@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Dashboard for /var/www/html</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="_css/bootstrap.min.css" rel="stylesheet" type="text/css">
+  <link href="_css/nv.d3.min.css" rel="stylesheet" type="text/css">
+  <link href="_css/style.css" rel="stylesheet" type="text/css">
+  <link href="_css/custom.css" rel="stylesheet" type="text/css">
+ </head>
+ <body>
+  <header>
+   <div class="container-fluid">
+    <div class="row">
+     <div class="col-md-12">
+      <nav aria-label="breadcrumb">
+       <ol class="breadcrumb">
+         <li class="breadcrumb-item"><a href="index.html">/var/www/html</a></li>
+         <li class="breadcrumb-item active">(Dashboard)</li>
+
+       </ol>
+      </nav>
+     </div>
+    </div>
+   </div>
+  </header>
+  <div class="container-fluid">
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Classes</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="classCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="classComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="api/security/tokenManagementService.php.html#169">TokenManagementService</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/AdminEvent.class.php.html#10">AdminEvent</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Token.class.php.html#9">Token</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/ThematicCloudWord.class.php.html#11">ThematicCloudWord</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/SubThematicCloudWord.class.php.html#11">SubThematicCloudWord</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/MessageEvent.class.php.html#11">MessageEvent</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Message.class.php.html#12">Message</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/MTHplatform.class.php.html#11">MTHplatform</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/AppointmentProp.class.php.html#11">AppointmentProp</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/appointmentManagementService.php.html#21">AppointmentManagementService</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Appointment.class.php.html#11">Appointment</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/AppointmentEvent.class.php.html#11">AppointmentEvent</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/mthPlatformManagementService.php.html#30">MTHPlatformManagementService</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/statisticManagementService.php.html#20">StatisticManagementService</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/messageManagementService.php.html#19">MessageManagementService</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/keywordManagementService.php.html#31">KeywordManagementService</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/emailManagementService.php.html#18">EmailManagementService</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/ProjectExtraData.class.php.html#13">ProjectExtraData</a></td><td class="text-right">1%</td></tr>
+       <tr><td><a href="api/services/eventManagementService.php.html#41">EventManagementService</a></td><td class="text-right">3%</td></tr>
+       <tr><td><a href="data-model/Event.class.php.html#20">Event</a></td><td class="text-right">4%</td></tr>
+       <tr><td><a href="api/services/projectManagementService.php.html#20">ProjectManagementService</a></td><td class="text-right">7%</td></tr>
+       <tr><td><a href="data-model/ProjectEvent.class.php.html#11">ProjectEvent</a></td><td class="text-right">8%</td></tr>
+       <tr><td><a href="api/services/projectExtraDataManagementService.php.html#20">ProjectExtraDataManagementService</a></td><td class="text-right">8%</td></tr>
+       <tr><td><a href="data-model/UserEvent.class.php.html#10">UserEvent</a></td><td class="text-right">8%</td></tr>
+       <tr><td><a href="api/services/userManagementService.php.html#25">UserManagementService</a></td><td class="text-right">14%</td></tr>
+       <tr><td><a href="data-model/Project.class.php.html#12">Project</a></td><td class="text-right">25%</td></tr>
+       <tr><td><a href="data-model/User.class.php.html#11">User</a></td><td class="text-right">49%</td></tr>
+       <tr><td><a href="data-model/AbstractMAMAobject.class.php.html#7">AbstractMAMAobject</a></td><td class="text-right">54%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="api/services/statisticManagementService.php.html#20">StatisticManagementService</a></td><td class="text-right">60270</td></tr>
+       <tr><td><a href="api/services/projectManagementService.php.html#20">ProjectManagementService</a></td><td class="text-right">27946</td></tr>
+       <tr><td><a href="api/services/userManagementService.php.html#25">UserManagementService</a></td><td class="text-right">15342</td></tr>
+       <tr><td><a href="api/services/eventManagementService.php.html#41">EventManagementService</a></td><td class="text-right">12713</td></tr>
+       <tr><td><a href="data-model/ProjectExtraData.class.php.html#13">ProjectExtraData</a></td><td class="text-right">11540</td></tr>
+       <tr><td><a href="api/services/appointmentManagementService.php.html#21">AppointmentManagementService</a></td><td class="text-right">6642</td></tr>
+       <tr><td><a href="api/services/messageManagementService.php.html#19">MessageManagementService</a></td><td class="text-right">6480</td></tr>
+       <tr><td><a href="data-model/Project.class.php.html#12">Project</a></td><td class="text-right">5637</td></tr>
+       <tr><td><a href="api/services/emailManagementService.php.html#18">EmailManagementService</a></td><td class="text-right">4970</td></tr>
+       <tr><td><a href="api/services/keywordManagementService.php.html#31">KeywordManagementService</a></td><td class="text-right">3192</td></tr>
+       <tr><td><a href="data-model/Event.class.php.html#20">Event</a></td><td class="text-right">1656</td></tr>
+       <tr><td><a href="api/security/tokenManagementService.php.html#169">TokenManagementService</a></td><td class="text-right">1640</td></tr>
+       <tr><td><a href="data-model/User.class.php.html#11">User</a></td><td class="text-right">1264</td></tr>
+       <tr><td><a href="api/services/projectExtraDataManagementService.php.html#20">ProjectExtraDataManagementService</a></td><td class="text-right">978</td></tr>
+       <tr><td><a href="api/services/mthPlatformManagementService.php.html#30">MTHPlatformManagementService</a></td><td class="text-right">702</td></tr>
+       <tr><td><a href="data-model/Appointment.class.php.html#11">Appointment</a></td><td class="text-right">650</td></tr>
+       <tr><td><a href="data-model/Message.class.php.html#12">Message</a></td><td class="text-right">506</td></tr>
+       <tr><td><a href="data-model/Token.class.php.html#9">Token</a></td><td class="text-right">272</td></tr>
+       <tr><td><a href="data-model/AppointmentProp.class.php.html#11">AppointmentProp</a></td><td class="text-right">210</td></tr>
+       <tr><td><a href="data-model/MessageEvent.class.php.html#11">MessageEvent</a></td><td class="text-right">210</td></tr>
+       <tr><td><a href="data-model/AppointmentEvent.class.php.html#11">AppointmentEvent</a></td><td class="text-right">182</td></tr>
+       <tr><td><a href="data-model/AdminEvent.class.php.html#10">AdminEvent</a></td><td class="text-right">156</td></tr>
+       <tr><td><a href="data-model/SubThematicCloudWord.class.php.html#11">SubThematicCloudWord</a></td><td class="text-right">132</td></tr>
+       <tr><td><a href="data-model/ThematicCloudWord.class.php.html#11">ThematicCloudWord</a></td><td class="text-right">132</td></tr>
+       <tr><td><a href="data-model/MTHplatform.class.php.html#11">MTHplatform</a></td><td class="text-right">110</td></tr>
+       <tr><td><a href="data-model/ProjectEvent.class.php.html#11">ProjectEvent</a></td><td class="text-right">87</td></tr>
+       <tr><td><a href="data-model/UserEvent.class.php.html#10">UserEvent</a></td><td class="text-right">87</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Methods</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="methodCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="methodComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="api/security/tokenManagementService.php.html#173"><abbr title="TokenManagementService::create">create</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Project.class.php.html#612"><abbr title="Project::getFinancialContextIsProjectNational">getFinancialContextIsProjectNational</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Project.class.php.html#654"><abbr title="Project::getProjectExtraData">getProjectExtraData</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Project.class.php.html#648"><abbr title="Project::getFinancialContextIsProjectOtherValue">getFinancialContextIsProjectOtherValue</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Project.class.php.html#642"><abbr title="Project::getFinancialContextIsProjectOther">getFinancialContextIsProjectOther</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Project.class.php.html#636"><abbr title="Project::getFinancialContextIsProjectOwnResourcesLaboratory">getFinancialContextIsProjectOwnResourcesLaboratory</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Project.class.php.html#630"><abbr title="Project::getFinancialContextIsProjectInternationalOutsideEU">getFinancialContextIsProjectInternationalOutsideEU</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Project.class.php.html#624"><abbr title="Project::getFinancialContextIsProjectCompagnyTutorship">getFinancialContextIsProjectCompagnyTutorship</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Project.class.php.html#618"><abbr title="Project::getFinancialContextIsProjectRegional">getFinancialContextIsProjectRegional</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Project.class.php.html#606"><abbr title="Project::getFinancialContextIsProjectANR">getFinancialContextIsProjectANR</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Project.class.php.html#662"><abbr title="Project::getIdLong">getIdLong</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Project.class.php.html#600"><abbr title="Project::getFinancialContextIsProjectEU">getFinancialContextIsProjectEU</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Project.class.php.html#594"><abbr title="Project::getFinancialContextIsProjectNotFinanced">getFinancialContextIsProjectNotFinanced</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Project.class.php.html#588"><abbr title="Project::getFinancialContextIsProjectOnOwnSupply">getFinancialContextIsProjectOnOwnSupply</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Project.class.php.html#582"><abbr title="Project::getFinancialContextIsProjectInProvisioning">getFinancialContextIsProjectInProvisioning</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Project.class.php.html#576"><abbr title="Project::getFinancialContextIsProjectFinanced">getFinancialContextIsProjectFinanced</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Project.class.php.html#570"><abbr title="Project::getScientificContextFile">getScientificContextFile</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Project.class.php.html#564"><abbr title="Project::getScientificContext">getScientificContext</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Project.class.php.html#657"><abbr title="Project::setProjectExtraData">setProjectExtraData</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Project.class.php.html#680"><abbr title="Project::prune">prune</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Project.class.php.html#555"><abbr title="Project::setMthPlatforms">setMthPlatforms</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/ProjectExtraData.class.php.html#288"><abbr title="ProjectExtraData::getAdministrativeContext">getAdministrativeContext</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/ProjectExtraData.class.php.html#323"><abbr title="ProjectExtraData::setKnowMTHviaPublication">setKnowMTHviaPublication</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/ProjectExtraData.class.php.html#318"><abbr title="ProjectExtraData::getKnowMTHviaPublication">getKnowMTHviaPublication</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/ProjectExtraData.class.php.html#313"><abbr title="ProjectExtraData::setKnowMTHviaCoworkerOrFriend">setKnowMTHviaCoworkerOrFriend</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/ProjectExtraData.class.php.html#308"><abbr title="ProjectExtraData::getKnowMTHviaCoworkerOrFriend">getKnowMTHviaCoworkerOrFriend</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/ProjectExtraData.class.php.html#303"><abbr title="ProjectExtraData::setGeographicContext">setGeographicContext</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/ProjectExtraData.class.php.html#298"><abbr title="ProjectExtraData::getGeographicContext">getGeographicContext</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/ProjectExtraData.class.php.html#293"><abbr title="ProjectExtraData::setAdministrativeContext">setAdministrativeContext</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/ProjectExtraData.class.php.html#266"><abbr title="ProjectExtraData::setLaboType">setLaboType</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Project.class.php.html#753"><abbr title="Project::getJsonData">getJsonData</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/ProjectExtraData.class.php.html#248"><abbr title="ProjectExtraData::getLaboType">getLaboType</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/ProjectEvent.class.php.html#76"><abbr title="ProjectEvent::getArrayData">getArrayData</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/ProjectEvent.class.php.html#57"><abbr title="ProjectEvent::getJsonData">getJsonData</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/ProjectEvent.class.php.html#45"><abbr title="ProjectEvent::prune">prune</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/ProjectEvent.class.php.html#39"><abbr title="ProjectEvent::setProject">setProject</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/ProjectEvent.class.php.html#36"><abbr title="ProjectEvent::getProject">getProject</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Project.class.php.html#771"><abbr title="Project::getArrayData">getArrayData</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Project.class.php.html#558"><abbr title="Project::getCanBeForwardedToCoPartner">getCanBeForwardedToCoPartner</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Project.class.php.html#552"><abbr title="Project::getMthPlatforms">getMthPlatforms</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/ProjectExtraData.class.php.html#333"><abbr title="ProjectExtraData::setKnowMTHviaWebsite">setKnowMTHviaWebsite</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/MessageEvent.class.php.html#21"><abbr title="MessageEvent::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Project.class.php.html#370"><abbr title="Project::getStatus">getStatus</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Project.class.php.html#367"><abbr title="Project::setTitle">setTitle</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/MessageEvent.class.php.html#80"><abbr title="MessageEvent::getArrayData">getArrayData</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/MessageEvent.class.php.html#61"><abbr title="MessageEvent::getJsonData">getJsonData</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/MessageEvent.class.php.html#37"><abbr title="MessageEvent::prune">prune</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/MessageEvent.class.php.html#31"><abbr title="MessageEvent::setMessage">setMessage</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/MessageEvent.class.php.html#28"><abbr title="MessageEvent::getMessage">getMessage</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Message.class.php.html#224"><abbr title="Message::getArrayData">getArrayData</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Project.class.php.html#423"><abbr title="Project::getOwner">getOwner</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Message.class.php.html#206"><abbr title="Message::getJsonData">getJsonData</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Message.class.php.html#166"><abbr title="Message::prune">prune</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Message.class.php.html#157"><abbr title="Message::setToProject">setToProject</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/security/tokenManagementService.php.html#214"><abbr title="TokenManagementService::renewValidity">renewValidity</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Message.class.php.html#141"><abbr title="Message::setToUser">setToUser</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Message.class.php.html#133"><abbr title="Message::getToUser">getToUser</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Message.class.php.html#125"><abbr title="Message::setFromProject">setFromProject</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Project.class.php.html#392"><abbr title="Project::setStatus">setStatus</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Project.class.php.html#426"><abbr title="Project::setOwner">setOwner</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Project.class.php.html#546"><abbr title="Project::getTargeted">getTargeted</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Project.class.php.html#471"><abbr title="Project::getDemandTypeDataProcessing">getDemandTypeDataProcessing</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Project.class.php.html#543"><abbr title="Project::setSubThematicWords">setSubThematicWords</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Project.class.php.html#540"><abbr title="Project::getSubThematicWords">getSubThematicWords</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Project.class.php.html#537"><abbr title="Project::setThematicWords">setThematicWords</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Project.class.php.html#534"><abbr title="Project::getThematicWords">getThematicWords</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Project.class.php.html#521"><abbr title="Project::getSamplesNumberAsString">getSamplesNumberAsString</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Project.class.php.html#483"><abbr title="Project::getSamplesNumber">getSamplesNumber</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Project.class.php.html#477"><abbr title="Project::getDemandTypeOther">getDemandTypeOther</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Project.class.php.html#465"><abbr title="Project::getDemandTypeTraining">getDemandTypeTraining</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Project.class.php.html#429"><abbr title="Project::getAnalystInCharge">getAnalystInCharge</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Project.class.php.html#459"><abbr title="Project::getDemandTypeFeasibilityStudy">getDemandTypeFeasibilityStudy</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Project.class.php.html#453"><abbr title="Project::getDemandTypeCatalogAllowance">getDemandTypeCatalogAllowance</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Project.class.php.html#447"><abbr title="Project::getDemandTypeEqProvisioning">getDemandTypeEqProvisioning</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Project.class.php.html#441"><abbr title="Project::getInterestInMthCollaboration">getInterestInMthCollaboration</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Project.class.php.html#438"><abbr title="Project::setAnalystsInvolved">setAnalystsInvolved</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Project.class.php.html#435"><abbr title="Project::getAnalystsInvolved">getAnalystsInvolved</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Project.class.php.html#432"><abbr title="Project::setAnalystInCharge">setAnalystInCharge</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/ProjectExtraData.class.php.html#328"><abbr title="ProjectExtraData::getKnowMTHviaWebsite">getKnowMTHviaWebsite</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/ProjectExtraData.class.php.html#338"><abbr title="ProjectExtraData::getKnowMTHviaSearchEngine">getKnowMTHviaSearchEngine</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Message.class.php.html#109"><abbr title="Message::setFromUser">setFromUser</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/User.class.php.html#301"><abbr title="User::getLogin">getLogin</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/User.class.php.html#710"><abbr title="User::isInvolvedInProject">isInvolvedInProject</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/User.class.php.html#700"><abbr title="User::isNotValidated">isNotValidated</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/User.class.php.html#692"><abbr title="User::isInactive">isInactive</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/User.class.php.html#667"><abbr title="User::isUser">isUser</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/User.class.php.html#637"><abbr title="User::setLastActivity">setLastActivity</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/User.class.php.html#468"><abbr title="User::getFullName">getFullName</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/User.class.php.html#346"><abbr title="User::getLastActivity">getLastActivity</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/User.class.php.html#293"><abbr title="User::getEmail">getEmail</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/User.class.php.html#727"><abbr title="User::ultraPrune">ultraPrune</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Token.class.php.html#162"><abbr title="Token::renewValidity">renewValidity</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Token.class.php.html#145"><abbr title="Token::getArrayData">getArrayData</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Token.class.php.html#130"><abbr title="Token::getJsonData">getJsonData</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Token.class.php.html#123"><abbr title="Token::prune">prune</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Token.class.php.html#118"><abbr title="Token::isInvolvedInProject">isInvolvedInProject</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Token.class.php.html#109"><abbr title="Token::isUserProjectManager">isUserProjectManager</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Token.class.php.html#101"><abbr title="Token::isUserAdmin">isUserAdmin</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/User.class.php.html#715"><abbr title="User::prune">prune</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/User.class.php.html#737"><abbr title="User::getJsonData">getJsonData</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Token.class.php.html#82"><abbr title="Token::getUser">getUser</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/User.class.php.html#848"><abbr title="User::getMessagesReceived">getMessagesReceived</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/UserEvent.class.php.html#56"><abbr title="UserEvent::getJsonData">getJsonData</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/UserEvent.class.php.html#44"><abbr title="UserEvent::prune">prune</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/UserEvent.class.php.html#37"><abbr title="UserEvent::setEventUser">setEventUser</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/UserEvent.class.php.html#34"><abbr title="UserEvent::getEventUser">getEventUser</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/User.class.php.html#900"><abbr title="User::setUserEvents">setUserEvents</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/User.class.php.html#897"><abbr title="User::getUserEvents">getUserEvents</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/User.class.php.html#856"><abbr title="User::setMessagesReceived">setMessagesReceived</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/User.class.php.html#840"><abbr title="User::setMessagesSend">setMessagesSend</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/User.class.php.html#757"><abbr title="User::getArrayData">getArrayData</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/User.class.php.html#832"><abbr title="User::getMessagesSend">getMessagesSend</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/User.class.php.html#824"><abbr title="User::setProjectsInvolded">setProjectsInvolded</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/User.class.php.html#816"><abbr title="User::getProjectsInvolded">getProjectsInvolded</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/User.class.php.html#808"><abbr title="User::setProjectsInCharge">setProjectsInCharge</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/User.class.php.html#800"><abbr title="User::getProjectsInCharge">getProjectsInCharge</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/User.class.php.html#792"><abbr title="User::setProjectsOwner">setProjectsOwner</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/User.class.php.html#784"><abbr title="User::getProjectsOwner">getProjectsOwner</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Token.class.php.html#93"><abbr title="Token::isValid">isValid</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Token.class.php.html#74"><abbr title="Token::getValidity">getValidity</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/ProjectExtraData.class.php.html#343"><abbr title="ProjectExtraData::setKnowMTHviaSearchEngine">setKnowMTHviaSearchEngine</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/ProjectExtraData.class.php.html#392"><abbr title="ProjectExtraData::getBlockedReason">getBlockedReason</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/ProjectExtraData.class.php.html#570"><abbr title="ProjectExtraData::setDialogBoxVal">setDialogBoxVal</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/ProjectExtraData.class.php.html#539"><abbr title="ProjectExtraData::getDialogBoxVal">getDialogBoxVal</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/ProjectExtraData.class.php.html#526"><abbr title="ProjectExtraData::setStoppedReason">setStoppedReason</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/ProjectExtraData.class.php.html#517"><abbr title="ProjectExtraData::getStoppedReason">getStoppedReason</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/ProjectExtraData.class.php.html#469"><abbr title="ProjectExtraData::setRejectedReason">setRejectedReason</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/ProjectExtraData.class.php.html#437"><abbr title="ProjectExtraData::getRejectedReason">getRejectedReason</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/ProjectExtraData.class.php.html#413"><abbr title="ProjectExtraData::setBlockedReason">setBlockedReason</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/ProjectExtraData.class.php.html#383"><abbr title="ProjectExtraData::setBudgetConstraint">setBudgetConstraint</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/ProjectExtraData.class.php.html#618"><abbr title="ProjectExtraData::setDialogBoxTxt">setDialogBoxTxt</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/ProjectExtraData.class.php.html#378"><abbr title="ProjectExtraData::getBudgetConstraint">getBudgetConstraint</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/ProjectExtraData.class.php.html#373"><abbr title="ProjectExtraData::setDeadline">setDeadline</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/ProjectExtraData.class.php.html#368"><abbr title="ProjectExtraData::getDeadline">getDeadline</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/ProjectExtraData.class.php.html#363"><abbr title="ProjectExtraData::setProjectMaturity">setProjectMaturity</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/ProjectExtraData.class.php.html#358"><abbr title="ProjectExtraData::getProjectMaturity">getProjectMaturity</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/ProjectExtraData.class.php.html#353"><abbr title="ProjectExtraData::setSyntheticUserNeeds">setSyntheticUserNeeds</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/ProjectExtraData.class.php.html#348"><abbr title="ProjectExtraData::getSyntheticUserNeeds">getSyntheticUserNeeds</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/ProjectExtraData.class.php.html#607"><abbr title="ProjectExtraData::getDialogBoxTxt">getDialogBoxTxt</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/ProjectExtraData.class.php.html#629"><abbr title="ProjectExtraData::prune">prune</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Token.class.php.html#66"><abbr title="Token::getValue">getValue</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/ThematicCloudWord.class.php.html#34"><abbr title="ThematicCloudWord::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Token.class.php.html#51"><abbr title="Token::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/ThematicCloudWord.class.php.html#91"><abbr title="ThematicCloudWord::getArrayData">getArrayData</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/ThematicCloudWord.class.php.html#75"><abbr title="ThematicCloudWord::getJsonData">getJsonData</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/ThematicCloudWord.class.php.html#69"><abbr title="ThematicCloudWord::prune">prune</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/ThematicCloudWord.class.php.html#61"><abbr title="ThematicCloudWord::setDeleted">setDeleted</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/ThematicCloudWord.class.php.html#57"><abbr title="ThematicCloudWord::setWord">setWord</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/ThematicCloudWord.class.php.html#46"><abbr title="ThematicCloudWord::getWord">getWord</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/SubThematicCloudWord.class.php.html#91"><abbr title="SubThematicCloudWord::getArrayData">getArrayData</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/ProjectExtraData.class.php.html#650"><abbr title="ProjectExtraData::getJsonData">getJsonData</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/SubThematicCloudWord.class.php.html#75"><abbr title="SubThematicCloudWord::getJsonData">getJsonData</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/SubThematicCloudWord.class.php.html#69"><abbr title="SubThematicCloudWord::prune">prune</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/SubThematicCloudWord.class.php.html#61"><abbr title="SubThematicCloudWord::setDeleted">setDeleted</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/SubThematicCloudWord.class.php.html#57"><abbr title="SubThematicCloudWord::setWord">setWord</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/SubThematicCloudWord.class.php.html#46"><abbr title="SubThematicCloudWord::getWord">getWord</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/SubThematicCloudWord.class.php.html#34"><abbr title="SubThematicCloudWord::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/ProjectExtraData.class.php.html#693"><abbr title="ProjectExtraData::cleanPrivateData">cleanPrivateData</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/ProjectExtraData.class.php.html#672"><abbr title="ProjectExtraData::getArrayData">getArrayData</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Message.class.php.html#117"><abbr title="Message::getFromProject">getFromProject</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Message.class.php.html#149"><abbr title="Message::getToProject">getToProject</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Message.class.php.html#101"><abbr title="Message::getFromUser">getFromUser</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/keywordManagementService.php.html#376"><abbr title="KeywordManagementService::updateSub">updateSub</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/mthPlatformManagementService.php.html#38"><abbr title="MTHPlatformManagementService::getMTHPlatforms">getMTHPlatforms</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/messageManagementService.php.html#395"><abbr title="MessageManagementService::archive">archive</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/messageManagementService.php.html#352"><abbr title="MessageManagementService::create">create</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/messageManagementService.php.html#335"><abbr title="MessageManagementService::search">search</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/messageManagementService.php.html#320"><abbr title="MessageManagementService::get">get</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/messageManagementService.php.html#304"><abbr title="MessageManagementService::countMessages">countMessages</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/messageManagementService.php.html#27"><abbr title="MessageManagementService::getMessages">getMessages</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/keywordManagementService.php.html#355"><abbr title="KeywordManagementService::createSub">createSub</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/mthPlatformManagementService.php.html#132"><abbr title="MTHPlatformManagementService::getMTHPlatformsByIDs">getMTHPlatformsByIDs</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/keywordManagementService.php.html#328"><abbr title="KeywordManagementService::getSubKeywordsByIDs">getSubKeywordsByIDs</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/keywordManagementService.php.html#319"><abbr title="KeywordManagementService::getSub">getSub</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/keywordManagementService.php.html#234"><abbr title="KeywordManagementService::getSubKeywords">getSubKeywords</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/keywordManagementService.php.html#181"><abbr title="KeywordManagementService::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/keywordManagementService.php.html#160"><abbr title="KeywordManagementService::create">create</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/keywordManagementService.php.html#133"><abbr title="KeywordManagementService::getKeywordsByIDs">getKeywordsByIDs</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/keywordManagementService.php.html#124"><abbr title="KeywordManagementService::get">get</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/mthPlatformManagementService.php.html#123"><abbr title="MTHPlatformManagementService::get">get</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/mthPlatformManagementService.php.html#159"><abbr title="MTHPlatformManagementService::create">create</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/eventManagementService.php.html#927"><abbr title="EventManagementService::createAppointmentEvent">createAppointmentEvent</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/projectManagementService.php.html#567"><abbr title="ProjectManagementService::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/statisticManagementService.php.html#859"><abbr title="StatisticManagementService::getExtraDataStats">getExtraDataStats</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/statisticManagementService.php.html#701"><abbr title="StatisticManagementService::getUsersStats">getUsersStats</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/statisticManagementService.php.html#27"><abbr title="StatisticManagementService::getProjectsStats">getProjectsStats</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Message.class.php.html#93"><abbr title="Message::setMessage">setMessage</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/projectManagementService.php.html#942"><abbr title="ProjectManagementService::archive">archive</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/projectManagementService.php.html#909"><abbr title="ProjectManagementService::delete">delete</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/projectManagementService.php.html#671"><abbr title="ProjectManagementService::updateObject">updateObject</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/projectManagementService.php.html#466"><abbr title="ProjectManagementService::search">search</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/mthPlatformManagementService.php.html#180"><abbr title="MTHPlatformManagementService::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/projectManagementService.php.html#256"><abbr title="ProjectManagementService::countProjects">countProjects</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/projectManagementService.php.html#28"><abbr title="ProjectManagementService::getProjects">getProjects</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/projectExtraDataManagementService.php.html#260"><abbr title="ProjectExtraDataManagementService::delete">delete</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/projectExtraDataManagementService.php.html#132"><abbr title="ProjectExtraDataManagementService::updateObject">updateObject</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/projectExtraDataManagementService.php.html#91"><abbr title="ProjectExtraDataManagementService::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/projectExtraDataManagementService.php.html#44"><abbr title="ProjectExtraDataManagementService::count">count</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/projectExtraDataManagementService.php.html#30"><abbr title="ProjectExtraDataManagementService::getAll">getAll</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/keywordManagementService.php.html#39"><abbr title="KeywordManagementService::getKeywords">getKeywords</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/eventManagementService.php.html#905"><abbr title="EventManagementService::createMessageEvent">createMessageEvent</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/userManagementService.php.html#33"><abbr title="UserManagementService::getUsers">getUsers</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/security/tokenManagementService.php.html#444"><abbr title="TokenManagementService::getForUser">getForUser</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/appointmentManagementService.php.html#349"><abbr title="AppointmentManagementService::create">create</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/appointmentManagementService.php.html#332"><abbr title="AppointmentManagementService::search">search</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/appointmentManagementService.php.html#317"><abbr title="AppointmentManagementService::getAppointmentProposition">getAppointmentProposition</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/appointmentManagementService.php.html#303"><abbr title="AppointmentManagementService::get">get</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/appointmentManagementService.php.html#291"><abbr title="AppointmentManagementService::countAppointments">countAppointments</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/appointmentManagementService.php.html#29"><abbr title="AppointmentManagementService::getAppointments">getAppointments</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/security/tokenManagementService.php.html#459"><abbr title="TokenManagementService::getUserFromToken">getUserFromToken</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/security/tokenManagementService.php.html#433"><abbr title="TokenManagementService::deleteForUser">deleteForUser</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/appointmentManagementService.php.html#488"><abbr title="AppointmentManagementService::archive">archive</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/security/tokenManagementService.php.html#409"><abbr title="TokenManagementService::delete">delete</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/security/tokenManagementService.php.html#372"><abbr title="TokenManagementService::clean">clean</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/security/tokenManagementService.php.html#348"><abbr title="TokenManagementService::isSameUserLogin">isSameUserLogin</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/security/tokenManagementService.php.html#322"><abbr title="TokenManagementService::isSameUserID">isSameUserID</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/security/tokenManagementService.php.html#296"><abbr title="TokenManagementService::isProjectManager">isProjectManager</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/security/tokenManagementService.php.html#271"><abbr title="TokenManagementService::isAdmin">isAdmin</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/security/tokenManagementService.php.html#236"><abbr title="TokenManagementService::isValide">isValide</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/appointmentManagementService.php.html#416"><abbr title="AppointmentManagementService::updateObject">updateObject</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/emailManagementService.php.html#29"><abbr title="EmailManagementService::sendEmailAccountCreation">sendEmailAccountCreation</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/eventManagementService.php.html#883"><abbr title="EventManagementService::createAdminEvent">createAdminEvent</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/emailManagementService.php.html#618"><abbr title="EmailManagementService::sendUpdateAppointmentNotificationEmail">sendUpdateAppointmentNotificationEmail</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/eventManagementService.php.html#572"><abbr title="EventManagementService::getAppointmentsEvents">getAppointmentsEvents</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/eventManagementService.php.html#485"><abbr title="EventManagementService::getAdminEvents">getAdminEvents</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/eventManagementService.php.html#318"><abbr title="EventManagementService::getProjectsEvents">getProjectsEvents</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/eventManagementService.php.html#164"><abbr title="EventManagementService::getUsersEvents">getUsersEvents</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/eventManagementService.php.html#49"><abbr title="EventManagementService::getEvents">getEvents</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/emailManagementService.php.html#711"><abbr title="EmailManagementService::setStaticString">setStaticString</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/emailManagementService.php.html#675"><abbr title="EmailManagementService::initEmail">initEmail</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/emailManagementService.php.html#564"><abbr title="EmailManagementService::sendNewAppointmentNotificationEmail">sendNewAppointmentNotificationEmail</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/emailManagementService.php.html#67"><abbr title="EmailManagementService::sendEmailResetPassword">sendEmailResetPassword</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/emailManagementService.php.html#512"><abbr title="EmailManagementService::sendNewMessageNotificationEmail">sendNewMessageNotificationEmail</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/emailManagementService.php.html#461"><abbr title="EmailManagementService::sendProjectUpdateNotificationEmail">sendProjectUpdateNotificationEmail</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/emailManagementService.php.html#417"><abbr title="EmailManagementService::sendNewProjectNotificationEmailForUser">sendNewProjectNotificationEmailForUser</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/emailManagementService.php.html#367"><abbr title="EmailManagementService::sendNewProjectNotificationEmail">sendNewProjectNotificationEmail</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/emailManagementService.php.html#317"><abbr title="EmailManagementService::sendNewUserNotificationEmail">sendNewUserNotificationEmail</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/emailManagementService.php.html#126"><abbr title="EmailManagementService::sendPeriodNotificationsEmail">sendPeriodNotificationsEmail</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/emailManagementService.php.html#116"><abbr title="EmailManagementService::sendWeeklyNotificationsEmail">sendWeeklyNotificationsEmail</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/emailManagementService.php.html#106"><abbr title="EmailManagementService::sendDailyNotificationsEmail">sendDailyNotificationsEmail</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/statisticManagementService.php.html#1023"><abbr title="StatisticManagementService::userMultiFilter">userMultiFilter</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/projectManagementService.php.html#966"><abbr title="ProjectManagementService::archiveOlderThan">archiveOlderThan</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/userManagementService.php.html#164"><abbr title="UserManagementService::fetchEmailUsers">fetchEmailUsers</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/AppointmentEvent.class.php.html#35"><abbr title="AppointmentEvent::getAppointment">getAppointment</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/AppointmentProp.class.php.html#76"><abbr title="AppointmentProp::setAppointmentPropositionDate">setAppointmentPropositionDate</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/AppointmentProp.class.php.html#68"><abbr title="AppointmentProp::getAppointmentPropositionDate">getAppointmentPropositionDate</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/AppointmentProp.class.php.html#54"><abbr title="AppointmentProp::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/AppointmentEvent.class.php.html#86"><abbr title="AppointmentEvent::getArrayData">getArrayData</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/AppointmentEvent.class.php.html#67"><abbr title="AppointmentEvent::getJsonData">getJsonData</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/AppointmentEvent.class.php.html#44"><abbr title="AppointmentEvent::prune">prune</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/AppointmentEvent.class.php.html#38"><abbr title="AppointmentEvent::setAppointment">setAppointment</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/AppointmentEvent.class.php.html#28"><abbr title="AppointmentEvent::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/AppointmentProp.class.php.html#92"><abbr title="AppointmentProp::setAppointment">setAppointment</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Appointment.class.php.html#247"><abbr title="Appointment::getArrayData">getArrayData</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Appointment.class.php.html#230"><abbr title="Appointment::getJsonData">getJsonData</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Appointment.class.php.html#188"><abbr title="Appointment::prune">prune</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/userManagementService.php.html#202"><abbr title="UserManagementService::fetchNotActiveUsers">fetchNotActiveUsers</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Appointment.class.php.html#171"><abbr title="Appointment::addAppointmentProp">addAppointmentProp</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Appointment.class.php.html#166"><abbr title="Appointment::setMessage">setMessage</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Appointment.class.php.html#163"><abbr title="Appointment::getMessage">getMessage</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/AppointmentProp.class.php.html#84"><abbr title="AppointmentProp::getAppointment">getAppointment</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/AppointmentProp.class.php.html#97"><abbr title="AppointmentProp::getAppointmentSelected">getAppointmentSelected</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Appointment.class.php.html#157"><abbr title="Appointment::getAppointmentDatesPropositions">getAppointmentDatesPropositions</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/MTHplatform.class.php.html#34"><abbr title="MTHplatform::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Message.class.php.html#85"><abbr title="Message::getMessage">getMessage</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Message.class.php.html#69"><abbr title="Message::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/MTHplatform.class.php.html#84"><abbr title="MTHplatform::getArrayData">getArrayData</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/MTHplatform.class.php.html#68"><abbr title="MTHplatform::getJsonData">getJsonData</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/MTHplatform.class.php.html#62"><abbr title="MTHplatform::prune">prune</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/MTHplatform.class.php.html#54"><abbr title="MTHplatform::setName">setName</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/MTHplatform.class.php.html#46"><abbr title="MTHplatform::getName">getName</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Event.class.php.html#312"><abbr title="Event::prune">prune</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/AppointmentProp.class.php.html#105"><abbr title="AppointmentProp::setAppointmentSelected">setAppointmentSelected</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Event.class.php.html#305"><abbr title="Event::setUser">setUser</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Event.class.php.html#296"><abbr title="Event::getUser">getUser</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Event.class.php.html#287"><abbr title="Event::setType">setType</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Event.class.php.html#191"><abbr title="Event::getType">getType</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/AppointmentProp.class.php.html#138"><abbr title="AppointmentProp::getArrayData">getArrayData</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/AppointmentProp.class.php.html#120"><abbr title="AppointmentProp::getJsonData">getJsonData</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/AppointmentProp.class.php.html#113"><abbr title="AppointmentProp::prune">prune</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Appointment.class.php.html#160"><abbr title="Appointment::setAppointmentDatesPropositions">setAppointmentDatesPropositions</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Appointment.class.php.html#174"><abbr title="Appointment::getNbDatesProp">getNbDatesProp</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Appointment.class.php.html#154"><abbr title="Appointment::setAppointmentDate">setAppointmentDate</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/userManagementService.php.html#876"><abbr title="UserManagementService::authenticate">authenticate</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Appointment.class.php.html#147"><abbr title="Appointment::getAppointmentDate">getAppointmentDate</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/AbstractMAMAobject.class.php.html#101"><abbr title="AbstractMAMAobject::delete">delete</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/AbstractMAMAobject.class.php.html#85"><abbr title="AbstractMAMAobject::isDeleted">isDeleted</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/AbstractMAMAobject.class.php.html#77"><abbr title="AbstractMAMAobject::getUpdated">getUpdated</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/AbstractMAMAobject.class.php.html#69"><abbr title="AbstractMAMAobject::getCreated">getCreated</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/userManagementService.php.html#984"><abbr title="UserManagementService::setUsersToInactive">setUsersToInactive</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/userManagementService.php.html#961"><abbr title="UserManagementService::setToInactive">setToInactive</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/userManagementService.php.html#934"><abbr title="UserManagementService::setLastActivityNow">setLastActivityNow</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/userManagementService.php.html#844"><abbr title="UserManagementService::delete">delete</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/AdminEvent.class.php.html#45"><abbr title="AdminEvent::setOldName">setOldName</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/userManagementService.php.html#795"><abbr title="UserManagementService::updateRight">updateRight</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/userManagementService.php.html#708"><abbr title="UserManagementService::resetPassword">resetPassword</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/userManagementService.php.html#679"><abbr title="UserManagementService::updatePasswordCheck">updatePasswordCheck</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/userManagementService.php.html#635"><abbr title="UserManagementService::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/userManagementService.php.html#588"><abbr title="UserManagementService::invite">invite</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/userManagementService.php.html#451"><abbr title="UserManagementService::tryInitLDAP">tryInitLDAP</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/userManagementService.php.html#433"><abbr title="UserManagementService::exists">exists</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/userManagementService.php.html#279"><abbr title="UserManagementService::countUsers">countUsers</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="api/services/userManagementService.php.html#228"><abbr title="UserManagementService::getProjectsManagers">getProjectsManagers</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/AdminEvent.class.php.html#42"><abbr title="AdminEvent::getOldName">getOldName</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/AdminEvent.class.php.html#34"><abbr title="AdminEvent::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/UserEvent.class.php.html#75"><abbr title="UserEvent::getArrayData">getArrayData</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/AdminEvent.class.php.html#51"><abbr title="AdminEvent::setNewName">setNewName</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Appointment.class.php.html#99"><abbr title="Appointment::getProject">getProject</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Appointment.class.php.html#82"><abbr title="Appointment::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/AdminEvent.class.php.html#83"><abbr title="AdminEvent::getArrayData">getArrayData</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/AdminEvent.class.php.html#64"><abbr title="AdminEvent::getJsonData">getJsonData</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/AdminEvent.class.php.html#57"><abbr title="AdminEvent::prune">prune</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Appointment.class.php.html#107"><abbr title="Appointment::setProject">setProject</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Appointment.class.php.html#115"><abbr title="Appointment::getFromUser">getFromUser</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/AdminEvent.class.php.html#48"><abbr title="AdminEvent::getNewName">getNewName</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Appointment.class.php.html#123"><abbr title="Appointment::setFromUser">setFromUser</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Appointment.class.php.html#131"><abbr title="Appointment::getToUser">getToUser</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/Appointment.class.php.html#139"><abbr title="Appointment::setToUser">setToUser</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="data-model/User.class.php.html#312"><abbr title="User::getStatus">getStatus</abbr></a></td><td class="text-right">33%</td></tr>
+       <tr><td><a href="data-model/User.class.php.html#401"><abbr title="User::getLaboratoryType">getLaboratoryType</abbr></a></td><td class="text-right">37%</td></tr>
+       <tr><td><a href="data-model/Project.class.php.html#498"><abbr title="Project::setSamplesNumber">setSamplesNumber</abbr></a></td><td class="text-right">40%</td></tr>
+       <tr><td><a href="data-model/User.class.php.html#330"><abbr title="User::getRight">getRight</abbr></a></td><td class="text-right">42%</td></tr>
+       <tr><td><a href="data-model/User.class.php.html#596"><abbr title="User::setStatus">setStatus</abbr></a></td><td class="text-right">43%</td></tr>
+       <tr><td><a href="data-model/User.class.php.html#620"><abbr title="User::setRight">setRight</abbr></a></td><td class="text-right">45%</td></tr>
+       <tr><td><a href="data-model/User.class.php.html#562"><abbr title="User::setEmailReception">setEmailReception</abbr></a></td><td class="text-right">69%</td></tr>
+       <tr><td><a href="data-model/User.class.php.html#418"><abbr title="User::getEmailReception">getEmailReception</abbr></a></td><td class="text-right">71%</td></tr>
+       <tr><td><a href="data-model/User.class.php.html#507"><abbr title="User::setPhoneGroup">setPhoneGroup</abbr></a></td><td class="text-right">75%</td></tr>
+       <tr><td><a href="api/services/userManagementService.php.html#520"><abbr title="UserManagementService::create">create</abbr></a></td><td class="text-right">75%</td></tr>
+       <tr><td><a href="data-model/User.class.php.html#873"><abbr title="User::getEmailLanguage">getEmailLanguage</abbr></a></td><td class="text-right">80%</td></tr>
+       <tr><td><a href="data-model/User.class.php.html#882"><abbr title="User::setEmailLanguage">setEmailLanguage</abbr></a></td><td class="text-right">80%</td></tr>
+       <tr><td><a href="api/services/projectManagementService.php.html#481"><abbr title="ProjectManagementService::create">create</abbr></a></td><td class="text-right">85%</td></tr>
+       <tr><td><a href="api/services/userManagementService.php.html#413"><abbr title="UserManagementService::getByLogin">getByLogin</abbr></a></td><td class="text-right">85%</td></tr>
+       <tr><td><a href="data-model/User.class.php.html#541"><abbr title="User::setLaboratoryType">setLaboratoryType</abbr></a></td><td class="text-right">85%</td></tr>
+       <tr><td><a href="api/services/userManagementService.php.html#740"><abbr title="UserManagementService::updateObject">updateObject</abbr></a></td><td class="text-right">88%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="api/services/statisticManagementService.php.html#27"><abbr title="StatisticManagementService::getProjectsStats">getProjectsStats</abbr></a></td><td class="text-right">25760</td></tr>
+       <tr><td><a href="api/services/messageManagementService.php.html#27"><abbr title="MessageManagementService::getMessages">getMessages</abbr></a></td><td class="text-right">4556</td></tr>
+       <tr><td><a href="api/services/projectManagementService.php.html#28"><abbr title="ProjectManagementService::getProjects">getProjects</abbr></a></td><td class="text-right">3782</td></tr>
+       <tr><td><a href="api/services/appointmentManagementService.php.html#29"><abbr title="AppointmentManagementService::getAppointments">getAppointments</abbr></a></td><td class="text-right">3540</td></tr>
+       <tr><td><a href="api/services/projectManagementService.php.html#256"><abbr title="ProjectManagementService::countProjects">countProjects</abbr></a></td><td class="text-right">2756</td></tr>
+       <tr><td><a href="api/services/projectManagementService.php.html#671"><abbr title="ProjectManagementService::updateObject">updateObject</abbr></a></td><td class="text-right">2352</td></tr>
+       <tr><td><a href="data-model/Event.class.php.html#191"><abbr title="Event::getType">getType</abbr></a></td><td class="text-right">1482</td></tr>
+       <tr><td><a href="api/services/userManagementService.php.html#33"><abbr title="UserManagementService::getUsers">getUsers</abbr></a></td><td class="text-right">1122</td></tr>
+       <tr><td><a href="api/services/statisticManagementService.php.html#859"><abbr title="StatisticManagementService::getExtraDataStats">getExtraDataStats</abbr></a></td><td class="text-right">1056</td></tr>
+       <tr><td><a href="api/services/statisticManagementService.php.html#701"><abbr title="StatisticManagementService::getUsersStats">getUsersStats</abbr></a></td><td class="text-right">1056</td></tr>
+       <tr><td><a href="api/services/userManagementService.php.html#279"><abbr title="UserManagementService::countUsers">countUsers</abbr></a></td><td class="text-right">870</td></tr>
+       <tr><td><a href="api/services/emailManagementService.php.html#126"><abbr title="EmailManagementService::sendPeriodNotificationsEmail">sendPeriodNotificationsEmail</abbr></a></td><td class="text-right">756</td></tr>
+       <tr><td><a href="api/services/eventManagementService.php.html#318"><abbr title="EventManagementService::getProjectsEvents">getProjectsEvents</abbr></a></td><td class="text-right">650</td></tr>
+       <tr><td><a href="api/services/eventManagementService.php.html#572"><abbr title="EventManagementService::getAppointmentsEvents">getAppointmentsEvents</abbr></a></td><td class="text-right">650</td></tr>
+       <tr><td><a href="api/services/eventManagementService.php.html#49"><abbr title="EventManagementService::getEvents">getEvents</abbr></a></td><td class="text-right">600</td></tr>
+       <tr><td><a href="api/services/projectExtraDataManagementService.php.html#132"><abbr title="ProjectExtraDataManagementService::updateObject">updateObject</abbr></a></td><td class="text-right">600</td></tr>
+       <tr><td><a href="api/services/eventManagementService.php.html#164"><abbr title="EventManagementService::getUsersEvents">getUsersEvents</abbr></a></td><td class="text-right">462</td></tr>
+       <tr><td><a href="api/services/statisticManagementService.php.html#1023"><abbr title="StatisticManagementService::userMultiFilter">userMultiFilter</abbr></a></td><td class="text-right">462</td></tr>
+       <tr><td><a href="api/services/eventManagementService.php.html#485"><abbr title="EventManagementService::getAdminEvents">getAdminEvents</abbr></a></td><td class="text-right">342</td></tr>
+       <tr><td><a href="api/services/keywordManagementService.php.html#39"><abbr title="KeywordManagementService::getKeywords">getKeywords</abbr></a></td><td class="text-right">342</td></tr>
+       <tr><td><a href="api/services/mthPlatformManagementService.php.html#38"><abbr title="MTHPlatformManagementService::getMTHPlatforms">getMTHPlatforms</abbr></a></td><td class="text-right">342</td></tr>
+       <tr><td><a href="api/services/keywordManagementService.php.html#234"><abbr title="KeywordManagementService::getSubKeywords">getSubKeywords</abbr></a></td><td class="text-right">342</td></tr>
+       <tr><td><a href="data-model/ProjectExtraData.class.php.html#469"><abbr title="ProjectExtraData::setRejectedReason">setRejectedReason</abbr></a></td><td class="text-right">306</td></tr>
+       <tr><td><a href="api/services/appointmentManagementService.php.html#416"><abbr title="AppointmentManagementService::updateObject">updateObject</abbr></a></td><td class="text-right">210</td></tr>
+       <tr><td><a href="data-model/ProjectExtraData.class.php.html#570"><abbr title="ProjectExtraData::setDialogBoxVal">setDialogBoxVal</abbr></a></td><td class="text-right">182</td></tr>
+       <tr><td><a href="api/services/userManagementService.php.html#228"><abbr title="UserManagementService::getProjectsManagers">getProjectsManagers</abbr></a></td><td class="text-right">132</td></tr>
+       <tr><td><a href="data-model/ProjectExtraData.class.php.html#437"><abbr title="ProjectExtraData::getRejectedReason">getRejectedReason</abbr></a></td><td class="text-right">110</td></tr>
+       <tr><td><a href="data-model/Project.class.php.html#370"><abbr title="Project::getStatus">getStatus</abbr></a></td><td class="text-right">90</td></tr>
+       <tr><td><a href="data-model/Project.class.php.html#392"><abbr title="Project::setStatus">setStatus</abbr></a></td><td class="text-right">90</td></tr>
+       <tr><td><a href="api/services/messageManagementService.php.html#352"><abbr title="MessageManagementService::create">create</abbr></a></td><td class="text-right">90</td></tr>
+       <tr><td><a href="api/services/projectManagementService.php.html#567"><abbr title="ProjectManagementService::update">update</abbr></a></td><td class="text-right">72</td></tr>
+       <tr><td><a href="data-model/ProjectExtraData.class.php.html#539"><abbr title="ProjectExtraData::getDialogBoxVal">getDialogBoxVal</abbr></a></td><td class="text-right">72</td></tr>
+       <tr><td><a href="api/security/tokenManagementService.php.html#173"><abbr title="TokenManagementService::create">create</abbr></a></td><td class="text-right">72</td></tr>
+       <tr><td><a href="data-model/ProjectExtraData.class.php.html#266"><abbr title="ProjectExtraData::setLaboType">setLaboType</abbr></a></td><td class="text-right">56</td></tr>
+       <tr><td><a href="data-model/ProjectExtraData.class.php.html#413"><abbr title="ProjectExtraData::setBlockedReason">setBlockedReason</abbr></a></td><td class="text-right">56</td></tr>
+       <tr><td><a href="api/services/userManagementService.php.html#795"><abbr title="UserManagementService::updateRight">updateRight</abbr></a></td><td class="text-right">56</td></tr>
+       <tr><td><a href="data-model/Project.class.php.html#680"><abbr title="Project::prune">prune</abbr></a></td><td class="text-right">42</td></tr>
+       <tr><td><a href="api/services/userManagementService.php.html#876"><abbr title="UserManagementService::authenticate">authenticate</abbr></a></td><td class="text-right">42</td></tr>
+       <tr><td><a href="api/services/userManagementService.php.html#679"><abbr title="UserManagementService::updatePasswordCheck">updatePasswordCheck</abbr></a></td><td class="text-right">42</td></tr>
+       <tr><td><a href="api/services/emailManagementService.php.html#367"><abbr title="EmailManagementService::sendNewProjectNotificationEmail">sendNewProjectNotificationEmail</abbr></a></td><td class="text-right">42</td></tr>
+       <tr><td><a href="api/services/keywordManagementService.php.html#376"><abbr title="KeywordManagementService::updateSub">updateSub</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="api/services/userManagementService.php.html#708"><abbr title="UserManagementService::resetPassword">resetPassword</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="api/services/userManagementService.php.html#635"><abbr title="UserManagementService::update">update</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="data-model/Message.class.php.html#166"><abbr title="Message::prune">prune</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="api/services/userManagementService.php.html#451"><abbr title="UserManagementService::tryInitLDAP">tryInitLDAP</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="data-model/MessageEvent.class.php.html#37"><abbr title="MessageEvent::prune">prune</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="api/security/tokenManagementService.php.html#459"><abbr title="TokenManagementService::getUserFromToken">getUserFromToken</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="data-model/Project.class.php.html#483"><abbr title="Project::getSamplesNumber">getSamplesNumber</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="api/services/userManagementService.php.html#164"><abbr title="UserManagementService::fetchEmailUsers">fetchEmailUsers</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="data-model/Project.class.php.html#521"><abbr title="Project::getSamplesNumberAsString">getSamplesNumberAsString</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="api/services/emailManagementService.php.html#317"><abbr title="EmailManagementService::sendNewUserNotificationEmail">sendNewUserNotificationEmail</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="api/services/projectManagementService.php.html#942"><abbr title="ProjectManagementService::archive">archive</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="api/services/keywordManagementService.php.html#181"><abbr title="KeywordManagementService::update">update</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="data-model/ProjectExtraData.class.php.html#248"><abbr title="ProjectExtraData::getLaboType">getLaboType</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="api/security/tokenManagementService.php.html#372"><abbr title="TokenManagementService::clean">clean</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="data-model/ProjectExtraData.class.php.html#392"><abbr title="ProjectExtraData::getBlockedReason">getBlockedReason</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="api/security/tokenManagementService.php.html#236"><abbr title="TokenManagementService::isValide">isValide</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="api/services/emailManagementService.php.html#618"><abbr title="EmailManagementService::sendUpdateAppointmentNotificationEmail">sendUpdateAppointmentNotificationEmail</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="data-model/User.class.php.html#737"><abbr title="User::getJsonData">getJsonData</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="data-model/Project.class.php.html#498"><abbr title="Project::setSamplesNumber">setSamplesNumber</abbr></a></td><td class="text-right">26</td></tr>
+       <tr><td><a href="data-model/Token.class.php.html#130"><abbr title="Token::getJsonData">getJsonData</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="data-model/AppointmentEvent.class.php.html#44"><abbr title="AppointmentEvent::prune">prune</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="data-model/AppointmentEvent.class.php.html#67"><abbr title="AppointmentEvent::getJsonData">getJsonData</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="data-model/AppointmentProp.class.php.html#120"><abbr title="AppointmentProp::getJsonData">getJsonData</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="data-model/UserEvent.class.php.html#56"><abbr title="UserEvent::getJsonData">getJsonData</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="data-model/ProjectExtraData.class.php.html#650"><abbr title="ProjectExtraData::getJsonData">getJsonData</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="data-model/ThematicCloudWord.class.php.html#75"><abbr title="ThematicCloudWord::getJsonData">getJsonData</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="data-model/Message.class.php.html#206"><abbr title="Message::getJsonData">getJsonData</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="data-model/SubThematicCloudWord.class.php.html#75"><abbr title="SubThematicCloudWord::getJsonData">getJsonData</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="data-model/Project.class.php.html#753"><abbr title="Project::getJsonData">getJsonData</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="data-model/MessageEvent.class.php.html#61"><abbr title="MessageEvent::getJsonData">getJsonData</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="data-model/AdminEvent.class.php.html#64"><abbr title="AdminEvent::getJsonData">getJsonData</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="data-model/ProjectEvent.class.php.html#57"><abbr title="ProjectEvent::getJsonData">getJsonData</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="data-model/Appointment.class.php.html#230"><abbr title="Appointment::getJsonData">getJsonData</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="data-model/MTHplatform.class.php.html#68"><abbr title="MTHplatform::getJsonData">getJsonData</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="api/services/userManagementService.php.html#984"><abbr title="UserManagementService::setUsersToInactive">setUsersToInactive</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="api/services/userManagementService.php.html#588"><abbr title="UserManagementService::invite">invite</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="api/services/projectExtraDataManagementService.php.html#91"><abbr title="ProjectExtraDataManagementService::update">update</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="api/services/emailManagementService.php.html#564"><abbr title="EmailManagementService::sendNewAppointmentNotificationEmail">sendNewAppointmentNotificationEmail</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="api/services/emailManagementService.php.html#512"><abbr title="EmailManagementService::sendNewMessageNotificationEmail">sendNewMessageNotificationEmail</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="api/services/userManagementService.php.html#961"><abbr title="UserManagementService::setToInactive">setToInactive</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="api/services/projectManagementService.php.html#909"><abbr title="ProjectManagementService::delete">delete</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="api/services/emailManagementService.php.html#461"><abbr title="EmailManagementService::sendProjectUpdateNotificationEmail">sendProjectUpdateNotificationEmail</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="api/services/userManagementService.php.html#934"><abbr title="UserManagementService::setLastActivityNow">setLastActivityNow</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="api/services/userManagementService.php.html#844"><abbr title="UserManagementService::delete">delete</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="data-model/User.class.php.html#312"><abbr title="User::getStatus">getStatus</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="data-model/ProjectExtraData.class.php.html#629"><abbr title="ProjectExtraData::prune">prune</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="api/services/projectExtraDataManagementService.php.html#260"><abbr title="ProjectExtraDataManagementService::delete">delete</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="data-model/ProjectExtraData.class.php.html#693"><abbr title="ProjectExtraData::cleanPrivateData">cleanPrivateData</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="api/services/emailManagementService.php.html#675"><abbr title="EmailManagementService::initEmail">initEmail</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="api/services/mthPlatformManagementService.php.html#180"><abbr title="MTHPlatformManagementService::update">update</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="api/services/emailManagementService.php.html#417"><abbr title="EmailManagementService::sendNewProjectNotificationEmailForUser">sendNewProjectNotificationEmailForUser</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="api/services/emailManagementService.php.html#67"><abbr title="EmailManagementService::sendEmailResetPassword">sendEmailResetPassword</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="api/services/emailManagementService.php.html#29"><abbr title="EmailManagementService::sendEmailAccountCreation">sendEmailAccountCreation</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="data-model/Appointment.class.php.html#174"><abbr title="Appointment::getNbDatesProp">getNbDatesProp</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="api/security/tokenManagementService.php.html#409"><abbr title="TokenManagementService::delete">delete</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="api/services/appointmentManagementService.php.html#349"><abbr title="AppointmentManagementService::create">create</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="api/services/keywordManagementService.php.html#328"><abbr title="KeywordManagementService::getSubKeywordsByIDs">getSubKeywordsByIDs</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="api/services/mthPlatformManagementService.php.html#132"><abbr title="MTHPlatformManagementService::getMTHPlatformsByIDs">getMTHPlatformsByIDs</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="data-model/User.class.php.html#757"><abbr title="User::getArrayData">getArrayData</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="api/services/keywordManagementService.php.html#133"><abbr title="KeywordManagementService::getKeywordsByIDs">getKeywordsByIDs</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="api/services/userManagementService.php.html#520"><abbr title="UserManagementService::create">create</abbr></a></td><td class="text-right">10</td></tr>
+       <tr><td><a href="data-model/User.class.php.html#596"><abbr title="User::setStatus">setStatus</abbr></a></td><td class="text-right">9</td></tr>
+       <tr><td><a href="api/services/userManagementService.php.html#740"><abbr title="UserManagementService::updateObject">updateObject</abbr></a></td><td class="text-right">9</td></tr>
+       <tr><td><a href="data-model/User.class.php.html#401"><abbr title="User::getLaboratoryType">getLaboratoryType</abbr></a></td><td class="text-right">7</td></tr>
+       <tr><td><a href="data-model/User.class.php.html#330"><abbr title="User::getRight">getRight</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="data-model/User.class.php.html#620"><abbr title="User::setRight">setRight</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="data-model/Token.class.php.html#145"><abbr title="Token::getArrayData">getArrayData</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="data-model/ThematicCloudWord.class.php.html#91"><abbr title="ThematicCloudWord::getArrayData">getArrayData</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="data-model/AdminEvent.class.php.html#83"><abbr title="AdminEvent::getArrayData">getArrayData</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="data-model/SubThematicCloudWord.class.php.html#91"><abbr title="SubThematicCloudWord::getArrayData">getArrayData</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="data-model/ProjectExtraData.class.php.html#672"><abbr title="ProjectExtraData::getArrayData">getArrayData</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="api/security/tokenManagementService.php.html#214"><abbr title="TokenManagementService::renewValidity">renewValidity</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="api/security/tokenManagementService.php.html#322"><abbr title="TokenManagementService::isSameUserID">isSameUserID</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="api/security/tokenManagementService.php.html#271"><abbr title="TokenManagementService::isAdmin">isAdmin</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="api/security/tokenManagementService.php.html#433"><abbr title="TokenManagementService::deleteForUser">deleteForUser</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="data-model/AppointmentProp.class.php.html#138"><abbr title="AppointmentProp::getArrayData">getArrayData</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="api/security/tokenManagementService.php.html#444"><abbr title="TokenManagementService::getForUser">getForUser</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="data-model/MTHplatform.class.php.html#84"><abbr title="MTHplatform::getArrayData">getArrayData</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="data-model/Message.class.php.html#224"><abbr title="Message::getArrayData">getArrayData</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="api/services/userManagementService.php.html#433"><abbr title="UserManagementService::exists">exists</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="api/security/tokenManagementService.php.html#296"><abbr title="TokenManagementService::isProjectManager">isProjectManager</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="data-model/MessageEvent.class.php.html#80"><abbr title="MessageEvent::getArrayData">getArrayData</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="data-model/UserEvent.class.php.html#75"><abbr title="UserEvent::getArrayData">getArrayData</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="data-model/Project.class.php.html#662"><abbr title="Project::getIdLong">getIdLong</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="api/services/projectManagementService.php.html#966"><abbr title="ProjectManagementService::archiveOlderThan">archiveOlderThan</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="data-model/Project.class.php.html#771"><abbr title="Project::getArrayData">getArrayData</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="data-model/Appointment.class.php.html#247"><abbr title="Appointment::getArrayData">getArrayData</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="data-model/ProjectEvent.class.php.html#76"><abbr title="ProjectEvent::getArrayData">getArrayData</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="data-model/Appointment.class.php.html#188"><abbr title="Appointment::prune">prune</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="api/security/tokenManagementService.php.html#348"><abbr title="TokenManagementService::isSameUserLogin">isSameUserLogin</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="data-model/AppointmentEvent.class.php.html#86"><abbr title="AppointmentEvent::getArrayData">getArrayData</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="data-model/User.class.php.html#541"><abbr title="User::setLaboratoryType">setLaboratoryType</abbr></a></td><td class="text-right">5</td></tr>
+       <tr><td><a href="data-model/User.class.php.html#562"><abbr title="User::setEmailReception">setEmailReception</abbr></a></td><td class="text-right">4</td></tr>
+       <tr><td><a href="data-model/User.class.php.html#418"><abbr title="User::getEmailReception">getEmailReception</abbr></a></td><td class="text-right">4</td></tr>
+       <tr><td><a href="api/services/projectManagementService.php.html#481"><abbr title="ProjectManagementService::create">create</abbr></a></td><td class="text-right">4</td></tr>
+       <tr><td><a href="data-model/User.class.php.html#873"><abbr title="User::getEmailLanguage">getEmailLanguage</abbr></a></td><td class="text-right">3</td></tr>
+       <tr><td><a href="data-model/User.class.php.html#882"><abbr title="User::setEmailLanguage">setEmailLanguage</abbr></a></td><td class="text-right">3</td></tr>
+       <tr><td><a href="data-model/User.class.php.html#507"><abbr title="User::setPhoneGroup">setPhoneGroup</abbr></a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="api/services/userManagementService.php.html#413"><abbr title="UserManagementService::getByLogin">getByLogin</abbr></a></td><td class="text-right">2</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <footer>
+    <hr/>
+    <p>
+     <small>Generated by <a href="https://github.com/sebastianbergmann/php-code-coverage" target="_top">php-code-coverage 7.0.10</a> using <a href="https://secure.php.net/" target="_top">PHP 7.2.24-0ubuntu0.18.04.3</a> with <a href="https://xdebug.org/">Xdebug 2.9.4</a> and <a href="https://phpunit.de/">PHPUnit 6.5.5</a> at Tue Mar 24 10:02:24 UTC 2020.</small>
+    </p>
+   </footer>
+  </div>
+  <script src="_js/jquery.min.js" type="text/javascript"></script>
+  <script src="_js/d3.min.js" type="text/javascript"></script>
+  <script src="_js/nv.d3.min.js" type="text/javascript"></script>
+  <script type="text/javascript">
+$(document).ready(function() {
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#classCoverageDistribution svg')
+      .datum(getCoverageDistributionData([17,7,1,1,0,1,1,0,0,0,0,0], "Class Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#methodCoverageDistribution svg')
+      .datum(getCoverageDistributionData([318,0,0,0,2,4,0,1,3,6,0,61], "Method Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getCoverageDistributionData(data, label) {
+    var labels = [
+      '0%',
+      '0-10%',
+      '10-20%',
+      '20-30%',
+      '30-40%',
+      '40-50%',
+      '50-60%',
+      '60-70%',
+      '70-80%',
+      '80-90%',
+      '90-100%',
+      '100%'
+    ];
+    var values = [];
+    $.each(labels, function(key) {
+      values.push({x: labels[key], y: data[key]});
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Cyclomatic Complexity');
+
+    d3.select('#classComplexity svg')
+      .datum(getComplexityData([[0,40,"<a href=\"api\/security\/tokenManagementService.php.html#169\">TokenManagementService<\/a>"],[0,81,"<a href=\"api\/services\/appointmentManagementService.php.html#21\">AppointmentManagementService<\/a>"],[0,70,"<a href=\"api\/services\/emailManagementService.php.html#18\">EmailManagementService<\/a>"],[3.287671232876712,118,"<a href=\"api\/services\/eventManagementService.php.html#41\">EventManagementService<\/a>"],[0,56,"<a href=\"api\/services\/keywordManagementService.php.html#31\">KeywordManagementService<\/a>"],[0,80,"<a href=\"api\/services\/messageManagementService.php.html#19\">MessageManagementService<\/a>"],[0,26,"<a href=\"api\/services\/mthPlatformManagementService.php.html#30\">MTHPlatformManagementService<\/a>"],[8.333333333333332,35,"<a href=\"api\/services\/projectExtraDataManagementService.php.html#20\">ProjectExtraDataManagementService<\/a>"],[7.0745697896749515,186,"<a href=\"api\/services\/projectManagementService.php.html#20\">ProjectManagementService<\/a>"],[0,245,"<a href=\"api\/services\/statisticManagementService.php.html#20\">StatisticManagementService<\/a>"],[14.545454545454545,156,"<a href=\"api\/services\/userManagementService.php.html#25\">UserManagementService<\/a>"],[54.54545454545454,7,"<a href=\"data-model\/AbstractMAMAobject.class.php.html#7\">AbstractMAMAobject<\/a>"],[0,12,"<a href=\"data-model\/AdminEvent.class.php.html#10\">AdminEvent<\/a>"],[0,25,"<a href=\"data-model\/Appointment.class.php.html#11\">Appointment<\/a>"],[0,13,"<a href=\"data-model\/AppointmentEvent.class.php.html#11\">AppointmentEvent<\/a>"],[0,14,"<a href=\"data-model\/AppointmentProp.class.php.html#11\">AppointmentProp<\/a>"],[4.444444444444445,43,"<a href=\"data-model\/Event.class.php.html#20\">Event<\/a>"],[0,10,"<a href=\"data-model\/MTHplatform.class.php.html#11\">MTHplatform<\/a>"],[0,22,"<a href=\"data-model\/Message.class.php.html#12\">Message<\/a>"],[0,14,"<a href=\"data-model\/MessageEvent.class.php.html#11\">MessageEvent<\/a>"],[25.691699604743086,116,"<a href=\"data-model\/Project.class.php.html#12\">Project<\/a>"],[8.108108108108109,10,"<a href=\"data-model\/ProjectEvent.class.php.html#11\">ProjectEvent<\/a>"],[1.276595744680851,109,"<a href=\"data-model\/ProjectExtraData.class.php.html#13\">ProjectExtraData<\/a>"],[0,11,"<a href=\"data-model\/SubThematicCloudWord.class.php.html#11\">SubThematicCloudWord<\/a>"],[0,11,"<a href=\"data-model\/ThematicCloudWord.class.php.html#11\">ThematicCloudWord<\/a>"],[0,16,"<a href=\"data-model\/Token.class.php.html#9\">Token<\/a>"],[49.76525821596244,96,"<a href=\"data-model\/User.class.php.html#11\">User<\/a>"],[8.333333333333332,10,"<a href=\"data-model\/UserEvent.class.php.html#10\">UserEvent<\/a>"]], 'Class Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Method Complexity');
+
+    d3.select('#methodComplexity svg')
+      .datum(getComplexityData([[0,8,"<a href=\"api\/security\/tokenManagementService.php.html#173\">TokenManagementService::create<\/a>"],[0,2,"<a href=\"api\/security\/tokenManagementService.php.html#214\">TokenManagementService::renewValidity<\/a>"],[0,5,"<a href=\"api\/security\/tokenManagementService.php.html#236\">TokenManagementService::isValide<\/a>"],[0,2,"<a href=\"api\/security\/tokenManagementService.php.html#271\">TokenManagementService::isAdmin<\/a>"],[0,2,"<a href=\"api\/security\/tokenManagementService.php.html#296\">TokenManagementService::isProjectManager<\/a>"],[0,2,"<a href=\"api\/security\/tokenManagementService.php.html#322\">TokenManagementService::isSameUserID<\/a>"],[0,2,"<a href=\"api\/security\/tokenManagementService.php.html#348\">TokenManagementService::isSameUserLogin<\/a>"],[0,5,"<a href=\"api\/security\/tokenManagementService.php.html#372\">TokenManagementService::clean<\/a>"],[0,3,"<a href=\"api\/security\/tokenManagementService.php.html#409\">TokenManagementService::delete<\/a>"],[0,2,"<a href=\"api\/security\/tokenManagementService.php.html#433\">TokenManagementService::deleteForUser<\/a>"],[0,2,"<a href=\"api\/security\/tokenManagementService.php.html#444\">TokenManagementService::getForUser<\/a>"],[0,5,"<a href=\"api\/security\/tokenManagementService.php.html#459\">TokenManagementService::getUserFromToken<\/a>"],[0,59,"<a href=\"api\/services\/appointmentManagementService.php.html#29\">AppointmentManagementService::getAppointments<\/a>"],[0,1,"<a href=\"api\/services\/appointmentManagementService.php.html#291\">AppointmentManagementService::countAppointments<\/a>"],[0,1,"<a href=\"api\/services\/appointmentManagementService.php.html#303\">AppointmentManagementService::get<\/a>"],[0,1,"<a href=\"api\/services\/appointmentManagementService.php.html#317\">AppointmentManagementService::getAppointmentProposition<\/a>"],[0,1,"<a href=\"api\/services\/appointmentManagementService.php.html#332\">AppointmentManagementService::search<\/a>"],[0,3,"<a href=\"api\/services\/appointmentManagementService.php.html#349\">AppointmentManagementService::create<\/a>"],[0,14,"<a href=\"api\/services\/appointmentManagementService.php.html#416\">AppointmentManagementService::updateObject<\/a>"],[0,1,"<a href=\"api\/services\/appointmentManagementService.php.html#488\">AppointmentManagementService::archive<\/a>"],[0,3,"<a href=\"api\/services\/emailManagementService.php.html#29\">EmailManagementService::sendEmailAccountCreation<\/a>"],[0,3,"<a href=\"api\/services\/emailManagementService.php.html#67\">EmailManagementService::sendEmailResetPassword<\/a>"],[0,1,"<a href=\"api\/services\/emailManagementService.php.html#106\">EmailManagementService::sendDailyNotificationsEmail<\/a>"],[0,1,"<a href=\"api\/services\/emailManagementService.php.html#116\">EmailManagementService::sendWeeklyNotificationsEmail<\/a>"],[0,27,"<a href=\"api\/services\/emailManagementService.php.html#126\">EmailManagementService::sendPeriodNotificationsEmail<\/a>"],[0,5,"<a href=\"api\/services\/emailManagementService.php.html#317\">EmailManagementService::sendNewUserNotificationEmail<\/a>"],[0,6,"<a href=\"api\/services\/emailManagementService.php.html#367\">EmailManagementService::sendNewProjectNotificationEmail<\/a>"],[0,3,"<a href=\"api\/services\/emailManagementService.php.html#417\">EmailManagementService::sendNewProjectNotificationEmailForUser<\/a>"],[0,4,"<a href=\"api\/services\/emailManagementService.php.html#461\">EmailManagementService::sendProjectUpdateNotificationEmail<\/a>"],[0,4,"<a href=\"api\/services\/emailManagementService.php.html#512\">EmailManagementService::sendNewMessageNotificationEmail<\/a>"],[0,4,"<a href=\"api\/services\/emailManagementService.php.html#564\">EmailManagementService::sendNewAppointmentNotificationEmail<\/a>"],[0,5,"<a href=\"api\/services\/emailManagementService.php.html#618\">EmailManagementService::sendUpdateAppointmentNotificationEmail<\/a>"],[0,3,"<a href=\"api\/services\/emailManagementService.php.html#675\">EmailManagementService::initEmail<\/a>"],[0,1,"<a href=\"api\/services\/emailManagementService.php.html#711\">EmailManagementService::setStaticString<\/a>"],[0,24,"<a href=\"api\/services\/eventManagementService.php.html#49\">EventManagementService::getEvents<\/a>"],[0,21,"<a href=\"api\/services\/eventManagementService.php.html#164\">EventManagementService::getUsersEvents<\/a>"],[0,25,"<a href=\"api\/services\/eventManagementService.php.html#318\">EventManagementService::getProjectsEvents<\/a>"],[0,18,"<a href=\"api\/services\/eventManagementService.php.html#485\">EventManagementService::getAdminEvents<\/a>"],[0,25,"<a href=\"api\/services\/eventManagementService.php.html#572\">EventManagementService::getAppointmentsEvents<\/a>"],[100,1,"<a href=\"api\/services\/eventManagementService.php.html#852\">EventManagementService::createProjectEvent<\/a>"],[100,1,"<a href=\"api\/services\/eventManagementService.php.html#868\">EventManagementService::createUserEvent<\/a>"],[0,1,"<a href=\"api\/services\/eventManagementService.php.html#883\">EventManagementService::createAdminEvent<\/a>"],[0,1,"<a href=\"api\/services\/eventManagementService.php.html#905\">EventManagementService::createMessageEvent<\/a>"],[0,1,"<a href=\"api\/services\/eventManagementService.php.html#927\">EventManagementService::createAppointmentEvent<\/a>"],[0,18,"<a href=\"api\/services\/keywordManagementService.php.html#39\">KeywordManagementService::getKeywords<\/a>"],[0,1,"<a href=\"api\/services\/keywordManagementService.php.html#124\">KeywordManagementService::get<\/a>"],[0,3,"<a href=\"api\/services\/keywordManagementService.php.html#133\">KeywordManagementService::getKeywordsByIDs<\/a>"],[0,1,"<a href=\"api\/services\/keywordManagementService.php.html#160\">KeywordManagementService::create<\/a>"],[0,5,"<a href=\"api\/services\/keywordManagementService.php.html#181\">KeywordManagementService::update<\/a>"],[0,18,"<a href=\"api\/services\/keywordManagementService.php.html#234\">KeywordManagementService::getSubKeywords<\/a>"],[0,1,"<a href=\"api\/services\/keywordManagementService.php.html#319\">KeywordManagementService::getSub<\/a>"],[0,3,"<a href=\"api\/services\/keywordManagementService.php.html#328\">KeywordManagementService::getSubKeywordsByIDs<\/a>"],[0,1,"<a href=\"api\/services\/keywordManagementService.php.html#355\">KeywordManagementService::createSub<\/a>"],[0,5,"<a href=\"api\/services\/keywordManagementService.php.html#376\">KeywordManagementService::updateSub<\/a>"],[0,67,"<a href=\"api\/services\/messageManagementService.php.html#27\">MessageManagementService::getMessages<\/a>"],[0,1,"<a href=\"api\/services\/messageManagementService.php.html#304\">MessageManagementService::countMessages<\/a>"],[0,1,"<a href=\"api\/services\/messageManagementService.php.html#320\">MessageManagementService::get<\/a>"],[0,1,"<a href=\"api\/services\/messageManagementService.php.html#335\">MessageManagementService::search<\/a>"],[0,9,"<a href=\"api\/services\/messageManagementService.php.html#352\">MessageManagementService::create<\/a>"],[0,1,"<a href=\"api\/services\/messageManagementService.php.html#395\">MessageManagementService::archive<\/a>"],[0,18,"<a href=\"api\/services\/mthPlatformManagementService.php.html#38\">MTHPlatformManagementService::getMTHPlatforms<\/a>"],[0,1,"<a href=\"api\/services\/mthPlatformManagementService.php.html#123\">MTHPlatformManagementService::get<\/a>"],[0,3,"<a href=\"api\/services\/mthPlatformManagementService.php.html#132\">MTHPlatformManagementService::getMTHPlatformsByIDs<\/a>"],[0,1,"<a href=\"api\/services\/mthPlatformManagementService.php.html#159\">MTHPlatformManagementService::create<\/a>"],[0,3,"<a href=\"api\/services\/mthPlatformManagementService.php.html#180\">MTHPlatformManagementService::update<\/a>"],[0,1,"<a href=\"api\/services\/projectExtraDataManagementService.php.html#30\">ProjectExtraDataManagementService::getAll<\/a>"],[0,1,"<a href=\"api\/services\/projectExtraDataManagementService.php.html#44\">ProjectExtraDataManagementService::count<\/a>"],[100,1,"<a href=\"api\/services\/projectExtraDataManagementService.php.html#57\">ProjectExtraDataManagementService::get<\/a>"],[100,1,"<a href=\"api\/services\/projectExtraDataManagementService.php.html#67\">ProjectExtraDataManagementService::create<\/a>"],[0,4,"<a href=\"api\/services\/projectExtraDataManagementService.php.html#91\">ProjectExtraDataManagementService::update<\/a>"],[0,24,"<a href=\"api\/services\/projectExtraDataManagementService.php.html#132\">ProjectExtraDataManagementService::updateObject<\/a>"],[0,3,"<a href=\"api\/services\/projectExtraDataManagementService.php.html#260\">ProjectExtraDataManagementService::delete<\/a>"],[0,61,"<a href=\"api\/services\/projectManagementService.php.html#28\">ProjectManagementService::getProjects<\/a>"],[0,52,"<a href=\"api\/services\/projectManagementService.php.html#256\">ProjectManagementService::countProjects<\/a>"],[100,1,"<a href=\"api\/services\/projectManagementService.php.html#450\">ProjectManagementService::get<\/a>"],[0,1,"<a href=\"api\/services\/projectManagementService.php.html#466\">ProjectManagementService::search<\/a>"],[85,4,"<a href=\"api\/services\/projectManagementService.php.html#481\">ProjectManagementService::create<\/a>"],[0,8,"<a href=\"api\/services\/projectManagementService.php.html#567\">ProjectManagementService::update<\/a>"],[0,48,"<a href=\"api\/services\/projectManagementService.php.html#671\">ProjectManagementService::updateObject<\/a>"],[0,4,"<a href=\"api\/services\/projectManagementService.php.html#909\">ProjectManagementService::delete<\/a>"],[0,5,"<a href=\"api\/services\/projectManagementService.php.html#942\">ProjectManagementService::archive<\/a>"],[0,2,"<a href=\"api\/services\/projectManagementService.php.html#966\">ProjectManagementService::archiveOlderThan<\/a>"],[0,160,"<a href=\"api\/services\/statisticManagementService.php.html#27\">StatisticManagementService::getProjectsStats<\/a>"],[0,32,"<a href=\"api\/services\/statisticManagementService.php.html#701\">StatisticManagementService::getUsersStats<\/a>"],[0,32,"<a href=\"api\/services\/statisticManagementService.php.html#859\">StatisticManagementService::getExtraDataStats<\/a>"],[0,21,"<a href=\"api\/services\/statisticManagementService.php.html#1023\">StatisticManagementService::userMultiFilter<\/a>"],[0,33,"<a href=\"api\/services\/userManagementService.php.html#33\">UserManagementService::getUsers<\/a>"],[0,5,"<a href=\"api\/services\/userManagementService.php.html#164\">UserManagementService::fetchEmailUsers<\/a>"],[0,1,"<a href=\"api\/services\/userManagementService.php.html#202\">UserManagementService::fetchNotActiveUsers<\/a>"],[0,11,"<a href=\"api\/services\/userManagementService.php.html#228\">UserManagementService::getProjectsManagers<\/a>"],[0,29,"<a href=\"api\/services\/userManagementService.php.html#279\">UserManagementService::countUsers<\/a>"],[100,1,"<a href=\"api\/services\/userManagementService.php.html#398\">UserManagementService::get<\/a>"],[85.71428571428571,2,"<a href=\"api\/services\/userManagementService.php.html#413\">UserManagementService::getByLogin<\/a>"],[0,2,"<a href=\"api\/services\/userManagementService.php.html#433\">UserManagementService::exists<\/a>"],[0,5,"<a href=\"api\/services\/userManagementService.php.html#451\">UserManagementService::tryInitLDAP<\/a>"],[75.60975609756098,9,"<a href=\"api\/services\/userManagementService.php.html#520\">UserManagementService::create<\/a>"],[0,4,"<a href=\"api\/services\/userManagementService.php.html#588\">UserManagementService::invite<\/a>"],[0,5,"<a href=\"api\/services\/userManagementService.php.html#635\">UserManagementService::update<\/a>"],[0,6,"<a href=\"api\/services\/userManagementService.php.html#679\">UserManagementService::updatePasswordCheck<\/a>"],[0,5,"<a href=\"api\/services\/userManagementService.php.html#708\">UserManagementService::resetPassword<\/a>"],[88.88888888888889,9,"<a href=\"api\/services\/userManagementService.php.html#740\">UserManagementService::updateObject<\/a>"],[0,7,"<a href=\"api\/services\/userManagementService.php.html#795\">UserManagementService::updateRight<\/a>"],[0,4,"<a href=\"api\/services\/userManagementService.php.html#844\">UserManagementService::delete<\/a>"],[0,6,"<a href=\"api\/services\/userManagementService.php.html#876\">UserManagementService::authenticate<\/a>"],[0,4,"<a href=\"api\/services\/userManagementService.php.html#934\">UserManagementService::setLastActivityNow<\/a>"],[0,4,"<a href=\"api\/services\/userManagementService.php.html#961\">UserManagementService::setToInactive<\/a>"],[0,4,"<a href=\"api\/services\/userManagementService.php.html#984\">UserManagementService::setUsersToInactive<\/a>"],[100,1,"<a href=\"data-model\/AbstractMAMAobject.class.php.html#49\">AbstractMAMAobject::__construct<\/a>"],[100,1,"<a href=\"data-model\/AbstractMAMAobject.class.php.html#61\">AbstractMAMAobject::getId<\/a>"],[0,1,"<a href=\"data-model\/AbstractMAMAobject.class.php.html#69\">AbstractMAMAobject::getCreated<\/a>"],[0,1,"<a href=\"data-model\/AbstractMAMAobject.class.php.html#77\">AbstractMAMAobject::getUpdated<\/a>"],[0,1,"<a href=\"data-model\/AbstractMAMAobject.class.php.html#85\">AbstractMAMAobject::isDeleted<\/a>"],[100,1,"<a href=\"data-model\/AbstractMAMAobject.class.php.html#95\">AbstractMAMAobject::setUpdated<\/a>"],[0,1,"<a href=\"data-model\/AbstractMAMAobject.class.php.html#101\">AbstractMAMAobject::delete<\/a>"],[0,1,"<a href=\"data-model\/AdminEvent.class.php.html#34\">AdminEvent::__construct<\/a>"],[0,1,"<a href=\"data-model\/AdminEvent.class.php.html#42\">AdminEvent::getOldName<\/a>"],[0,1,"<a href=\"data-model\/AdminEvent.class.php.html#45\">AdminEvent::setOldName<\/a>"],[0,1,"<a href=\"data-model\/AdminEvent.class.php.html#48\">AdminEvent::getNewName<\/a>"],[0,1,"<a href=\"data-model\/AdminEvent.class.php.html#51\">AdminEvent::setNewName<\/a>"],[0,1,"<a href=\"data-model\/AdminEvent.class.php.html#57\">AdminEvent::prune<\/a>"],[0,4,"<a href=\"data-model\/AdminEvent.class.php.html#64\">AdminEvent::getJsonData<\/a>"],[0,2,"<a href=\"data-model\/AdminEvent.class.php.html#83\">AdminEvent::getArrayData<\/a>"],[0,1,"<a href=\"data-model\/Appointment.class.php.html#82\">Appointment::__construct<\/a>"],[0,1,"<a href=\"data-model\/Appointment.class.php.html#99\">Appointment::getProject<\/a>"],[0,1,"<a href=\"data-model\/Appointment.class.php.html#107\">Appointment::setProject<\/a>"],[0,1,"<a href=\"data-model\/Appointment.class.php.html#115\">Appointment::getFromUser<\/a>"],[0,1,"<a href=\"data-model\/Appointment.class.php.html#123\">Appointment::setFromUser<\/a>"],[0,1,"<a href=\"data-model\/Appointment.class.php.html#131\">Appointment::getToUser<\/a>"],[0,1,"<a href=\"data-model\/Appointment.class.php.html#139\">Appointment::setToUser<\/a>"],[0,1,"<a href=\"data-model\/Appointment.class.php.html#147\">Appointment::getAppointmentDate<\/a>"],[0,1,"<a href=\"data-model\/Appointment.class.php.html#154\">Appointment::setAppointmentDate<\/a>"],[0,1,"<a href=\"data-model\/Appointment.class.php.html#157\">Appointment::getAppointmentDatesPropositions<\/a>"],[0,1,"<a href=\"data-model\/Appointment.class.php.html#160\">Appointment::setAppointmentDatesPropositions<\/a>"],[0,1,"<a href=\"data-model\/Appointment.class.php.html#163\">Appointment::getMessage<\/a>"],[0,1,"<a href=\"data-model\/Appointment.class.php.html#166\">Appointment::setMessage<\/a>"],[0,1,"<a href=\"data-model\/Appointment.class.php.html#171\">Appointment::addAppointmentProp<\/a>"],[0,3,"<a href=\"data-model\/Appointment.class.php.html#174\">Appointment::getNbDatesProp<\/a>"],[0,2,"<a href=\"data-model\/Appointment.class.php.html#188\">Appointment::prune<\/a>"],[0,4,"<a href=\"data-model\/Appointment.class.php.html#230\">Appointment::getJsonData<\/a>"],[0,2,"<a href=\"data-model\/Appointment.class.php.html#247\">Appointment::getArrayData<\/a>"],[0,1,"<a href=\"data-model\/AppointmentEvent.class.php.html#28\">AppointmentEvent::__construct<\/a>"],[0,1,"<a href=\"data-model\/AppointmentEvent.class.php.html#35\">AppointmentEvent::getAppointment<\/a>"],[0,1,"<a href=\"data-model\/AppointmentEvent.class.php.html#38\">AppointmentEvent::setAppointment<\/a>"],[0,4,"<a href=\"data-model\/AppointmentEvent.class.php.html#44\">AppointmentEvent::prune<\/a>"],[0,4,"<a href=\"data-model\/AppointmentEvent.class.php.html#67\">AppointmentEvent::getJsonData<\/a>"],[0,2,"<a href=\"data-model\/AppointmentEvent.class.php.html#86\">AppointmentEvent::getArrayData<\/a>"],[0,1,"<a href=\"data-model\/AppointmentProp.class.php.html#54\">AppointmentProp::__construct<\/a>"],[0,1,"<a href=\"data-model\/AppointmentProp.class.php.html#68\">AppointmentProp::getAppointmentPropositionDate<\/a>"],[0,1,"<a href=\"data-model\/AppointmentProp.class.php.html#76\">AppointmentProp::setAppointmentPropositionDate<\/a>"],[0,1,"<a href=\"data-model\/AppointmentProp.class.php.html#84\">AppointmentProp::getAppointment<\/a>"],[0,1,"<a href=\"data-model\/AppointmentProp.class.php.html#92\">AppointmentProp::setAppointment<\/a>"],[0,1,"<a href=\"data-model\/AppointmentProp.class.php.html#97\">AppointmentProp::getAppointmentSelected<\/a>"],[0,1,"<a href=\"data-model\/AppointmentProp.class.php.html#105\">AppointmentProp::setAppointmentSelected<\/a>"],[0,1,"<a href=\"data-model\/AppointmentProp.class.php.html#113\">AppointmentProp::prune<\/a>"],[0,4,"<a href=\"data-model\/AppointmentProp.class.php.html#120\">AppointmentProp::getJsonData<\/a>"],[0,2,"<a href=\"data-model\/AppointmentProp.class.php.html#138\">AppointmentProp::getArrayData<\/a>"],[100,1,"<a href=\"data-model\/Event.class.php.html#169\">Event::__construct<\/a>"],[0,38,"<a href=\"data-model\/Event.class.php.html#191\">Event::getType<\/a>"],[0,1,"<a href=\"data-model\/Event.class.php.html#287\">Event::setType<\/a>"],[0,1,"<a href=\"data-model\/Event.class.php.html#296\">Event::getUser<\/a>"],[0,1,"<a href=\"data-model\/Event.class.php.html#305\">Event::setUser<\/a>"],[0,1,"<a href=\"data-model\/Event.class.php.html#312\">Event::prune<\/a>"],[0,1,"<a href=\"data-model\/MTHplatform.class.php.html#34\">MTHplatform::__construct<\/a>"],[0,1,"<a href=\"data-model\/MTHplatform.class.php.html#46\">MTHplatform::getName<\/a>"],[0,1,"<a href=\"data-model\/MTHplatform.class.php.html#54\">MTHplatform::setName<\/a>"],[0,1,"<a href=\"data-model\/MTHplatform.class.php.html#62\">MTHplatform::prune<\/a>"],[0,4,"<a href=\"data-model\/MTHplatform.class.php.html#68\">MTHplatform::getJsonData<\/a>"],[0,2,"<a href=\"data-model\/MTHplatform.class.php.html#84\">MTHplatform::getArrayData<\/a>"],[0,1,"<a href=\"data-model\/Message.class.php.html#69\">Message::__construct<\/a>"],[0,1,"<a href=\"data-model\/Message.class.php.html#85\">Message::getMessage<\/a>"],[0,1,"<a href=\"data-model\/Message.class.php.html#93\">Message::setMessage<\/a>"],[0,1,"<a href=\"data-model\/Message.class.php.html#101\">Message::getFromUser<\/a>"],[0,1,"<a href=\"data-model\/Message.class.php.html#109\">Message::setFromUser<\/a>"],[0,1,"<a href=\"data-model\/Message.class.php.html#117\">Message::getFromProject<\/a>"],[0,1,"<a href=\"data-model\/Message.class.php.html#125\">Message::setFromProject<\/a>"],[0,1,"<a href=\"data-model\/Message.class.php.html#133\">Message::getToUser<\/a>"],[0,1,"<a href=\"data-model\/Message.class.php.html#141\">Message::setToUser<\/a>"],[0,1,"<a href=\"data-model\/Message.class.php.html#149\">Message::getToProject<\/a>"],[0,1,"<a href=\"data-model\/Message.class.php.html#157\">Message::setToProject<\/a>"],[0,5,"<a href=\"data-model\/Message.class.php.html#166\">Message::prune<\/a>"],[0,4,"<a href=\"data-model\/Message.class.php.html#206\">Message::getJsonData<\/a>"],[0,2,"<a href=\"data-model\/Message.class.php.html#224\">Message::getArrayData<\/a>"],[0,1,"<a href=\"data-model\/MessageEvent.class.php.html#21\">MessageEvent::__construct<\/a>"],[0,1,"<a href=\"data-model\/MessageEvent.class.php.html#28\">MessageEvent::getMessage<\/a>"],[0,1,"<a href=\"data-model\/MessageEvent.class.php.html#31\">MessageEvent::setMessage<\/a>"],[0,5,"<a href=\"data-model\/MessageEvent.class.php.html#37\">MessageEvent::prune<\/a>"],[0,4,"<a href=\"data-model\/MessageEvent.class.php.html#61\">MessageEvent::getJsonData<\/a>"],[0,2,"<a href=\"data-model\/MessageEvent.class.php.html#80\">MessageEvent::getArrayData<\/a>"],[100,1,"<a href=\"data-model\/Project.class.php.html#351\">Project::__construct<\/a>"],[100,1,"<a href=\"data-model\/Project.class.php.html#364\">Project::getTitle<\/a>"],[0,1,"<a href=\"data-model\/Project.class.php.html#367\">Project::setTitle<\/a>"],[0,9,"<a href=\"data-model\/Project.class.php.html#370\">Project::getStatus<\/a>"],[0,9,"<a href=\"data-model\/Project.class.php.html#392\">Project::setStatus<\/a>"],[0,1,"<a href=\"data-model\/Project.class.php.html#423\">Project::getOwner<\/a>"],[0,1,"<a href=\"data-model\/Project.class.php.html#426\">Project::setOwner<\/a>"],[0,1,"<a href=\"data-model\/Project.class.php.html#429\">Project::getAnalystInCharge<\/a>"],[0,1,"<a href=\"data-model\/Project.class.php.html#432\">Project::setAnalystInCharge<\/a>"],[0,1,"<a href=\"data-model\/Project.class.php.html#435\">Project::getAnalystsInvolved<\/a>"],[0,1,"<a href=\"data-model\/Project.class.php.html#438\">Project::setAnalystsInvolved<\/a>"],[0,1,"<a href=\"data-model\/Project.class.php.html#441\">Project::getInterestInMthCollaboration<\/a>"],[100,1,"<a href=\"data-model\/Project.class.php.html#444\">Project::setInterestInMthCollaboration<\/a>"],[0,1,"<a href=\"data-model\/Project.class.php.html#447\">Project::getDemandTypeEqProvisioning<\/a>"],[100,1,"<a href=\"data-model\/Project.class.php.html#450\">Project::setDemandTypeEqProvisioning<\/a>"],[0,1,"<a href=\"data-model\/Project.class.php.html#453\">Project::getDemandTypeCatalogAllowance<\/a>"],[100,1,"<a href=\"data-model\/Project.class.php.html#456\">Project::setDemandTypeCatalogAllowance<\/a>"],[0,1,"<a href=\"data-model\/Project.class.php.html#459\">Project::getDemandTypeFeasibilityStudy<\/a>"],[100,1,"<a href=\"data-model\/Project.class.php.html#462\">Project::setDemandTypeFeasibilityStudy<\/a>"],[0,1,"<a href=\"data-model\/Project.class.php.html#465\">Project::getDemandTypeTraining<\/a>"],[100,1,"<a href=\"data-model\/Project.class.php.html#468\">Project::setDemandTypeTraining<\/a>"],[0,1,"<a href=\"data-model\/Project.class.php.html#471\">Project::getDemandTypeDataProcessing<\/a>"],[100,1,"<a href=\"data-model\/Project.class.php.html#474\">Project::setDemandTypeDataProcessing<\/a>"],[0,1,"<a href=\"data-model\/Project.class.php.html#477\">Project::getDemandTypeOther<\/a>"],[100,1,"<a href=\"data-model\/Project.class.php.html#480\">Project::setDemandTypeOther<\/a>"],[0,5,"<a href=\"data-model\/Project.class.php.html#483\">Project::getSamplesNumber<\/a>"],[40,9,"<a href=\"data-model\/Project.class.php.html#498\">Project::setSamplesNumber<\/a>"],[0,5,"<a href=\"data-model\/Project.class.php.html#521\">Project::getSamplesNumberAsString<\/a>"],[0,1,"<a href=\"data-model\/Project.class.php.html#534\">Project::getThematicWords<\/a>"],[0,1,"<a href=\"data-model\/Project.class.php.html#537\">Project::setThematicWords<\/a>"],[0,1,"<a href=\"data-model\/Project.class.php.html#540\">Project::getSubThematicWords<\/a>"],[0,1,"<a href=\"data-model\/Project.class.php.html#543\">Project::setSubThematicWords<\/a>"],[0,1,"<a href=\"data-model\/Project.class.php.html#546\">Project::getTargeted<\/a>"],[100,1,"<a href=\"data-model\/Project.class.php.html#549\">Project::setTargeted<\/a>"],[0,1,"<a href=\"data-model\/Project.class.php.html#552\">Project::getMthPlatforms<\/a>"],[0,1,"<a href=\"data-model\/Project.class.php.html#555\">Project::setMthPlatforms<\/a>"],[0,1,"<a href=\"data-model\/Project.class.php.html#558\">Project::getCanBeForwardedToCoPartner<\/a>"],[100,1,"<a href=\"data-model\/Project.class.php.html#561\">Project::setCanBeForwardedToCoPartner<\/a>"],[0,1,"<a href=\"data-model\/Project.class.php.html#564\">Project::getScientificContext<\/a>"],[100,1,"<a href=\"data-model\/Project.class.php.html#567\">Project::setScientificContext<\/a>"],[0,1,"<a href=\"data-model\/Project.class.php.html#570\">Project::getScientificContextFile<\/a>"],[100,1,"<a href=\"data-model\/Project.class.php.html#573\">Project::setScientificContextFile<\/a>"],[0,1,"<a href=\"data-model\/Project.class.php.html#576\">Project::getFinancialContextIsProjectFinanced<\/a>"],[100,1,"<a href=\"data-model\/Project.class.php.html#579\">Project::setFinancialContextIsProjectFinanced<\/a>"],[0,1,"<a href=\"data-model\/Project.class.php.html#582\">Project::getFinancialContextIsProjectInProvisioning<\/a>"],[100,1,"<a href=\"data-model\/Project.class.php.html#585\">Project::setFinancialContextIsProjectInProvisioning<\/a>"],[0,1,"<a href=\"data-model\/Project.class.php.html#588\">Project::getFinancialContextIsProjectOnOwnSupply<\/a>"],[100,1,"<a href=\"data-model\/Project.class.php.html#591\">Project::setFinancialContextIsProjectOnOwnSupply<\/a>"],[0,1,"<a href=\"data-model\/Project.class.php.html#594\">Project::getFinancialContextIsProjectNotFinanced<\/a>"],[100,1,"<a href=\"data-model\/Project.class.php.html#597\">Project::setFinancialContextIsProjectNotFinanced<\/a>"],[0,1,"<a href=\"data-model\/Project.class.php.html#600\">Project::getFinancialContextIsProjectEU<\/a>"],[100,1,"<a href=\"data-model\/Project.class.php.html#603\">Project::setFinancialContextIsProjectEU<\/a>"],[0,1,"<a href=\"data-model\/Project.class.php.html#606\">Project::getFinancialContextIsProjectANR<\/a>"],[100,1,"<a href=\"data-model\/Project.class.php.html#609\">Project::setFinancialContextIsProjectANR<\/a>"],[0,1,"<a href=\"data-model\/Project.class.php.html#612\">Project::getFinancialContextIsProjectNational<\/a>"],[100,1,"<a href=\"data-model\/Project.class.php.html#615\">Project::setFinancialContextIsProjectNational<\/a>"],[0,1,"<a href=\"data-model\/Project.class.php.html#618\">Project::getFinancialContextIsProjectRegional<\/a>"],[100,1,"<a href=\"data-model\/Project.class.php.html#621\">Project::setFinancialContextIsProjectRegional<\/a>"],[0,1,"<a href=\"data-model\/Project.class.php.html#624\">Project::getFinancialContextIsProjectCompagnyTutorship<\/a>"],[100,1,"<a href=\"data-model\/Project.class.php.html#627\">Project::setFinancialContextIsProjectCompagnyTutorship<\/a>"],[0,1,"<a href=\"data-model\/Project.class.php.html#630\">Project::getFinancialContextIsProjectInternationalOutsideEU<\/a>"],[100,1,"<a href=\"data-model\/Project.class.php.html#633\">Project::setFinancialContextIsProjectInternationalOutsideEU<\/a>"],[0,1,"<a href=\"data-model\/Project.class.php.html#636\">Project::getFinancialContextIsProjectOwnResourcesLaboratory<\/a>"],[100,1,"<a href=\"data-model\/Project.class.php.html#639\">Project::setFinancialContextIsProjectOwnResourcesLaboratory<\/a>"],[0,1,"<a href=\"data-model\/Project.class.php.html#642\">Project::getFinancialContextIsProjectOther<\/a>"],[100,1,"<a href=\"data-model\/Project.class.php.html#645\">Project::setFinancialContextIsProjectOther<\/a>"],[0,1,"<a href=\"data-model\/Project.class.php.html#648\">Project::getFinancialContextIsProjectOtherValue<\/a>"],[100,1,"<a href=\"data-model\/Project.class.php.html#651\">Project::setFinancialContextIsProjectOtherValue<\/a>"],[0,1,"<a href=\"data-model\/Project.class.php.html#654\">Project::getProjectExtraData<\/a>"],[0,1,"<a href=\"data-model\/Project.class.php.html#657\">Project::setProjectExtraData<\/a>"],[0,2,"<a href=\"data-model\/Project.class.php.html#662\">Project::getIdLong<\/a>"],[0,6,"<a href=\"data-model\/Project.class.php.html#680\">Project::prune<\/a>"],[0,4,"<a href=\"data-model\/Project.class.php.html#753\">Project::getJsonData<\/a>"],[0,2,"<a href=\"data-model\/Project.class.php.html#771\">Project::getArrayData<\/a>"],[100,1,"<a href=\"data-model\/ProjectEvent.class.php.html#29\">ProjectEvent::__construct<\/a>"],[0,1,"<a href=\"data-model\/ProjectEvent.class.php.html#36\">ProjectEvent::getProject<\/a>"],[0,1,"<a href=\"data-model\/ProjectEvent.class.php.html#39\">ProjectEvent::setProject<\/a>"],[0,1,"<a href=\"data-model\/ProjectEvent.class.php.html#45\">ProjectEvent::prune<\/a>"],[0,4,"<a href=\"data-model\/ProjectEvent.class.php.html#57\">ProjectEvent::getJsonData<\/a>"],[0,2,"<a href=\"data-model\/ProjectEvent.class.php.html#76\">ProjectEvent::getArrayData<\/a>"],[100,1,"<a href=\"data-model\/ProjectExtraData.class.php.html#240\">ProjectExtraData::__construct<\/a>"],[0,5,"<a href=\"data-model\/ProjectExtraData.class.php.html#248\">ProjectExtraData::getLaboType<\/a>"],[0,7,"<a href=\"data-model\/ProjectExtraData.class.php.html#266\">ProjectExtraData::setLaboType<\/a>"],[0,1,"<a href=\"data-model\/ProjectExtraData.class.php.html#288\">ProjectExtraData::getAdministrativeContext<\/a>"],[0,1,"<a href=\"data-model\/ProjectExtraData.class.php.html#293\">ProjectExtraData::setAdministrativeContext<\/a>"],[0,1,"<a href=\"data-model\/ProjectExtraData.class.php.html#298\">ProjectExtraData::getGeographicContext<\/a>"],[0,1,"<a href=\"data-model\/ProjectExtraData.class.php.html#303\">ProjectExtraData::setGeographicContext<\/a>"],[0,1,"<a href=\"data-model\/ProjectExtraData.class.php.html#308\">ProjectExtraData::getKnowMTHviaCoworkerOrFriend<\/a>"],[0,1,"<a href=\"data-model\/ProjectExtraData.class.php.html#313\">ProjectExtraData::setKnowMTHviaCoworkerOrFriend<\/a>"],[0,1,"<a href=\"data-model\/ProjectExtraData.class.php.html#318\">ProjectExtraData::getKnowMTHviaPublication<\/a>"],[0,1,"<a href=\"data-model\/ProjectExtraData.class.php.html#323\">ProjectExtraData::setKnowMTHviaPublication<\/a>"],[0,1,"<a href=\"data-model\/ProjectExtraData.class.php.html#328\">ProjectExtraData::getKnowMTHviaWebsite<\/a>"],[0,1,"<a href=\"data-model\/ProjectExtraData.class.php.html#333\">ProjectExtraData::setKnowMTHviaWebsite<\/a>"],[0,1,"<a href=\"data-model\/ProjectExtraData.class.php.html#338\">ProjectExtraData::getKnowMTHviaSearchEngine<\/a>"],[0,1,"<a href=\"data-model\/ProjectExtraData.class.php.html#343\">ProjectExtraData::setKnowMTHviaSearchEngine<\/a>"],[0,1,"<a href=\"data-model\/ProjectExtraData.class.php.html#348\">ProjectExtraData::getSyntheticUserNeeds<\/a>"],[0,1,"<a href=\"data-model\/ProjectExtraData.class.php.html#353\">ProjectExtraData::setSyntheticUserNeeds<\/a>"],[0,1,"<a href=\"data-model\/ProjectExtraData.class.php.html#358\">ProjectExtraData::getProjectMaturity<\/a>"],[0,1,"<a href=\"data-model\/ProjectExtraData.class.php.html#363\">ProjectExtraData::setProjectMaturity<\/a>"],[0,1,"<a href=\"data-model\/ProjectExtraData.class.php.html#368\">ProjectExtraData::getDeadline<\/a>"],[0,1,"<a href=\"data-model\/ProjectExtraData.class.php.html#373\">ProjectExtraData::setDeadline<\/a>"],[0,1,"<a href=\"data-model\/ProjectExtraData.class.php.html#378\">ProjectExtraData::getBudgetConstraint<\/a>"],[0,1,"<a href=\"data-model\/ProjectExtraData.class.php.html#383\">ProjectExtraData::setBudgetConstraint<\/a>"],[0,5,"<a href=\"data-model\/ProjectExtraData.class.php.html#392\">ProjectExtraData::getBlockedReason<\/a>"],[0,7,"<a href=\"data-model\/ProjectExtraData.class.php.html#413\">ProjectExtraData::setBlockedReason<\/a>"],[0,10,"<a href=\"data-model\/ProjectExtraData.class.php.html#437\">ProjectExtraData::getRejectedReason<\/a>"],[0,17,"<a href=\"data-model\/ProjectExtraData.class.php.html#469\">ProjectExtraData::setRejectedReason<\/a>"],[0,1,"<a href=\"data-model\/ProjectExtraData.class.php.html#517\">ProjectExtraData::getStoppedReason<\/a>"],[0,1,"<a href=\"data-model\/ProjectExtraData.class.php.html#526\">ProjectExtraData::setStoppedReason<\/a>"],[0,8,"<a href=\"data-model\/ProjectExtraData.class.php.html#539\">ProjectExtraData::getDialogBoxVal<\/a>"],[0,13,"<a href=\"data-model\/ProjectExtraData.class.php.html#570\">ProjectExtraData::setDialogBoxVal<\/a>"],[0,1,"<a href=\"data-model\/ProjectExtraData.class.php.html#607\">ProjectExtraData::getDialogBoxTxt<\/a>"],[0,1,"<a href=\"data-model\/ProjectExtraData.class.php.html#618\">ProjectExtraData::setDialogBoxTxt<\/a>"],[0,3,"<a href=\"data-model\/ProjectExtraData.class.php.html#629\">ProjectExtraData::prune<\/a>"],[0,4,"<a href=\"data-model\/ProjectExtraData.class.php.html#650\">ProjectExtraData::getJsonData<\/a>"],[0,2,"<a href=\"data-model\/ProjectExtraData.class.php.html#672\">ProjectExtraData::getArrayData<\/a>"],[0,3,"<a href=\"data-model\/ProjectExtraData.class.php.html#693\">ProjectExtraData::cleanPrivateData<\/a>"],[0,1,"<a href=\"data-model\/SubThematicCloudWord.class.php.html#34\">SubThematicCloudWord::__construct<\/a>"],[0,1,"<a href=\"data-model\/SubThematicCloudWord.class.php.html#46\">SubThematicCloudWord::getWord<\/a>"],[0,1,"<a href=\"data-model\/SubThematicCloudWord.class.php.html#57\">SubThematicCloudWord::setWord<\/a>"],[0,1,"<a href=\"data-model\/SubThematicCloudWord.class.php.html#61\">SubThematicCloudWord::setDeleted<\/a>"],[0,1,"<a href=\"data-model\/SubThematicCloudWord.class.php.html#69\">SubThematicCloudWord::prune<\/a>"],[0,4,"<a href=\"data-model\/SubThematicCloudWord.class.php.html#75\">SubThematicCloudWord::getJsonData<\/a>"],[0,2,"<a href=\"data-model\/SubThematicCloudWord.class.php.html#91\">SubThematicCloudWord::getArrayData<\/a>"],[0,1,"<a href=\"data-model\/ThematicCloudWord.class.php.html#34\">ThematicCloudWord::__construct<\/a>"],[0,1,"<a href=\"data-model\/ThematicCloudWord.class.php.html#46\">ThematicCloudWord::getWord<\/a>"],[0,1,"<a href=\"data-model\/ThematicCloudWord.class.php.html#57\">ThematicCloudWord::setWord<\/a>"],[0,1,"<a href=\"data-model\/ThematicCloudWord.class.php.html#61\">ThematicCloudWord::setDeleted<\/a>"],[0,1,"<a href=\"data-model\/ThematicCloudWord.class.php.html#69\">ThematicCloudWord::prune<\/a>"],[0,4,"<a href=\"data-model\/ThematicCloudWord.class.php.html#75\">ThematicCloudWord::getJsonData<\/a>"],[0,2,"<a href=\"data-model\/ThematicCloudWord.class.php.html#91\">ThematicCloudWord::getArrayData<\/a>"],[0,1,"<a href=\"data-model\/Token.class.php.html#51\">Token::__construct<\/a>"],[0,1,"<a href=\"data-model\/Token.class.php.html#66\">Token::getValue<\/a>"],[0,1,"<a href=\"data-model\/Token.class.php.html#74\">Token::getValidity<\/a>"],[0,1,"<a href=\"data-model\/Token.class.php.html#82\">Token::getUser<\/a>"],[0,1,"<a href=\"data-model\/Token.class.php.html#93\">Token::isValid<\/a>"],[0,1,"<a href=\"data-model\/Token.class.php.html#101\">Token::isUserAdmin<\/a>"],[0,1,"<a href=\"data-model\/Token.class.php.html#109\">Token::isUserProjectManager<\/a>"],[0,1,"<a href=\"data-model\/Token.class.php.html#118\">Token::isInvolvedInProject<\/a>"],[0,1,"<a href=\"data-model\/Token.class.php.html#123\">Token::prune<\/a>"],[0,4,"<a href=\"data-model\/Token.class.php.html#130\">Token::getJsonData<\/a>"],[0,2,"<a href=\"data-model\/Token.class.php.html#145\">Token::getArrayData<\/a>"],[0,1,"<a href=\"data-model\/Token.class.php.html#162\">Token::renewValidity<\/a>"],[100,1,"<a href=\"data-model\/User.class.php.html#268\">User::__construct<\/a>"],[0,1,"<a href=\"data-model\/User.class.php.html#293\">User::getEmail<\/a>"],[0,1,"<a href=\"data-model\/User.class.php.html#301\">User::getLogin<\/a>"],[33.33333333333333,5,"<a href=\"data-model\/User.class.php.html#312\">User::getStatus<\/a>"],[42.857142857142854,4,"<a href=\"data-model\/User.class.php.html#330\">User::getRight<\/a>"],[0,1,"<a href=\"data-model\/User.class.php.html#346\">User::getLastActivity<\/a>"],[100,1,"<a href=\"data-model\/User.class.php.html#354\">User::getFirstName<\/a>"],[100,1,"<a href=\"data-model\/User.class.php.html#362\">User::getLastName<\/a>"],[100,1,"<a href=\"data-model\/User.class.php.html#369\">User::getPhoneGroup<\/a>"],[100,1,"<a href=\"data-model\/User.class.php.html#377\">User::getPhoneNumber<\/a>"],[100,1,"<a href=\"data-model\/User.class.php.html#385\">User::getLaboratoryOrCompagny<\/a>"],[100,1,"<a href=\"data-model\/User.class.php.html#393\">User::getWorkplaceAddress<\/a>"],[37.5,4,"<a href=\"data-model\/User.class.php.html#401\">User::getLaboratoryType<\/a>"],[71.42857142857143,4,"<a href=\"data-model\/User.class.php.html#418\">User::getEmailReception<\/a>"],[100,1,"<a href=\"data-model\/User.class.php.html#434\">User::isEmailAlertNewUserAccount<\/a>"],[100,1,"<a href=\"data-model\/User.class.php.html#442\">User::isEmailAlertNewProject<\/a>"],[100,1,"<a href=\"data-model\/User.class.php.html#450\">User::isEmailAlertNewEventFollowedProject<\/a>"],[100,1,"<a href=\"data-model\/User.class.php.html#458\">User::isEmailAlertNewMessage<\/a>"],[0,1,"<a href=\"data-model\/User.class.php.html#468\">User::getFullName<\/a>"],[100,1,"<a href=\"data-model\/User.class.php.html#483\">User::setPassword<\/a>"],[100,1,"<a href=\"data-model\/User.class.php.html#491\">User::setFirstName<\/a>"],[100,1,"<a href=\"data-model\/User.class.php.html#499\">User::setLastName<\/a>"],[75,2,"<a href=\"data-model\/User.class.php.html#507\">User::setPhoneGroup<\/a>"],[100,1,"<a href=\"data-model\/User.class.php.html#517\">User::setPhoneNumber<\/a>"],[100,1,"<a href=\"data-model\/User.class.php.html#525\">User::setLaboratoryOrCompagny<\/a>"],[100,1,"<a href=\"data-model\/User.class.php.html#533\">User::setWorkplaceAddress<\/a>"],[85.71428571428571,5,"<a href=\"data-model\/User.class.php.html#541\">User::setLaboratoryType<\/a>"],[69.23076923076923,4,"<a href=\"data-model\/User.class.php.html#562\">User::setEmailReception<\/a>"],[100,1,"<a href=\"data-model\/User.class.php.html#585\">User::setEmailAlert<\/a>"],[43.75,5,"<a href=\"data-model\/User.class.php.html#596\">User::setStatus<\/a>"],[45.45454545454545,4,"<a href=\"data-model\/User.class.php.html#620\">User::setRight<\/a>"],[0,1,"<a href=\"data-model\/User.class.php.html#637\">User::setLastActivity<\/a>"],[100,1,"<a href=\"data-model\/User.class.php.html#649\">User::isAdmin<\/a>"],[100,1,"<a href=\"data-model\/User.class.php.html#658\">User::isProjectManager<\/a>"],[0,1,"<a href=\"data-model\/User.class.php.html#667\">User::isUser<\/a>"],[100,1,"<a href=\"data-model\/User.class.php.html#676\">User::isActive<\/a>"],[100,1,"<a href=\"data-model\/User.class.php.html#684\">User::isBlocked<\/a>"],[0,1,"<a href=\"data-model\/User.class.php.html#692\">User::isInactive<\/a>"],[0,1,"<a href=\"data-model\/User.class.php.html#700\">User::isNotValidated<\/a>"],[0,1,"<a href=\"data-model\/User.class.php.html#710\">User::isInvolvedInProject<\/a>"],[0,1,"<a href=\"data-model\/User.class.php.html#715\">User::prune<\/a>"],[0,1,"<a href=\"data-model\/User.class.php.html#727\">User::ultraPrune<\/a>"],[0,5,"<a href=\"data-model\/User.class.php.html#737\">User::getJsonData<\/a>"],[0,3,"<a href=\"data-model\/User.class.php.html#757\">User::getArrayData<\/a>"],[0,1,"<a href=\"data-model\/User.class.php.html#784\">User::getProjectsOwner<\/a>"],[0,1,"<a href=\"data-model\/User.class.php.html#792\">User::setProjectsOwner<\/a>"],[0,1,"<a href=\"data-model\/User.class.php.html#800\">User::getProjectsInCharge<\/a>"],[0,1,"<a href=\"data-model\/User.class.php.html#808\">User::setProjectsInCharge<\/a>"],[0,1,"<a href=\"data-model\/User.class.php.html#816\">User::getProjectsInvolded<\/a>"],[0,1,"<a href=\"data-model\/User.class.php.html#824\">User::setProjectsInvolded<\/a>"],[0,1,"<a href=\"data-model\/User.class.php.html#832\">User::getMessagesSend<\/a>"],[0,1,"<a href=\"data-model\/User.class.php.html#840\">User::setMessagesSend<\/a>"],[0,1,"<a href=\"data-model\/User.class.php.html#848\">User::getMessagesReceived<\/a>"],[0,1,"<a href=\"data-model\/User.class.php.html#856\">User::setMessagesReceived<\/a>"],[80,3,"<a href=\"data-model\/User.class.php.html#873\">User::getEmailLanguage<\/a>"],[80,3,"<a href=\"data-model\/User.class.php.html#882\">User::setEmailLanguage<\/a>"],[0,1,"<a href=\"data-model\/User.class.php.html#897\">User::getUserEvents<\/a>"],[0,1,"<a href=\"data-model\/User.class.php.html#900\">User::setUserEvents<\/a>"],[100,1,"<a href=\"data-model\/UserEvent.class.php.html#27\">UserEvent::__construct<\/a>"],[0,1,"<a href=\"data-model\/UserEvent.class.php.html#34\">UserEvent::getEventUser<\/a>"],[0,1,"<a href=\"data-model\/UserEvent.class.php.html#37\">UserEvent::setEventUser<\/a>"],[0,1,"<a href=\"data-model\/UserEvent.class.php.html#44\">UserEvent::prune<\/a>"],[0,4,"<a href=\"data-model\/UserEvent.class.php.html#56\">UserEvent::getJsonData<\/a>"],[0,2,"<a href=\"data-model\/UserEvent.class.php.html#75\">UserEvent::getArrayData<\/a>"]], 'Method Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getComplexityData(data, label) {
+    var values = [];
+    $.each(data, function(key) {
+      var value = Math.round(data[key][0]*100) / 100;
+      values.push({
+        x: value,
+        y: data[key][1],
+        class: data[key][2],
+        size: 0.05,
+        shape: 'diamond'
+      });
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+});
+  </script>
+ </body>
+</html>

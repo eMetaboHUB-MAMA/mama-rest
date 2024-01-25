@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Dashboard for /var/www/html/api</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="../_css/bootstrap.min.css" rel="stylesheet" type="text/css">
+  <link href="../_css/nv.d3.min.css" rel="stylesheet" type="text/css">
+  <link href="../_css/style.css" rel="stylesheet" type="text/css">
+  <link href="../_css/custom.css" rel="stylesheet" type="text/css">
+ </head>
+ <body>
+  <header>
+   <div class="container-fluid">
+    <div class="row">
+     <div class="col-md-12">
+      <nav aria-label="breadcrumb">
+       <ol class="breadcrumb">
+         <li class="breadcrumb-item"><a href="../index.html">/var/www/html</a></li>
+         <li class="breadcrumb-item"><a href="index.html">api</a></li>
+         <li class="breadcrumb-item active">(Dashboard)</li>
+
+       </ol>
+      </nav>
+     </div>
+    </div>
+   </div>
+  </header>
+  <div class="container-fluid">
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Classes</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="classCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="classComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="security/tokenManagementService.php.html#169">TokenManagementService</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/appointmentManagementService.php.html#21">AppointmentManagementService</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/emailManagementService.php.html#18">EmailManagementService</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/keywordManagementService.php.html#31">KeywordManagementService</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/messageManagementService.php.html#19">MessageManagementService</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/mthPlatformManagementService.php.html#30">MTHPlatformManagementService</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/statisticManagementService.php.html#20">StatisticManagementService</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/eventManagementService.php.html#41">EventManagementService</a></td><td class="text-right">3%</td></tr>
+       <tr><td><a href="services/projectManagementService.php.html#20">ProjectManagementService</a></td><td class="text-right">7%</td></tr>
+       <tr><td><a href="services/projectExtraDataManagementService.php.html#20">ProjectExtraDataManagementService</a></td><td class="text-right">8%</td></tr>
+       <tr><td><a href="services/userManagementService.php.html#25">UserManagementService</a></td><td class="text-right">14%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="services/statisticManagementService.php.html#20">StatisticManagementService</a></td><td class="text-right">60270</td></tr>
+       <tr><td><a href="services/projectManagementService.php.html#20">ProjectManagementService</a></td><td class="text-right">27946</td></tr>
+       <tr><td><a href="services/userManagementService.php.html#25">UserManagementService</a></td><td class="text-right">15342</td></tr>
+       <tr><td><a href="services/eventManagementService.php.html#41">EventManagementService</a></td><td class="text-right">12713</td></tr>
+       <tr><td><a href="services/appointmentManagementService.php.html#21">AppointmentManagementService</a></td><td class="text-right">6642</td></tr>
+       <tr><td><a href="services/messageManagementService.php.html#19">MessageManagementService</a></td><td class="text-right">6480</td></tr>
+       <tr><td><a href="services/emailManagementService.php.html#18">EmailManagementService</a></td><td class="text-right">4970</td></tr>
+       <tr><td><a href="services/keywordManagementService.php.html#31">KeywordManagementService</a></td><td class="text-right">3192</td></tr>
+       <tr><td><a href="security/tokenManagementService.php.html#169">TokenManagementService</a></td><td class="text-right">1640</td></tr>
+       <tr><td><a href="services/projectExtraDataManagementService.php.html#20">ProjectExtraDataManagementService</a></td><td class="text-right">978</td></tr>
+       <tr><td><a href="services/mthPlatformManagementService.php.html#30">MTHPlatformManagementService</a></td><td class="text-right">702</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Methods</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="methodCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="methodComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="security/tokenManagementService.php.html#173"><abbr title="TokenManagementService::create">create</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/mthPlatformManagementService.php.html#159"><abbr title="MTHPlatformManagementService::create">create</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/projectManagementService.php.html#466"><abbr title="ProjectManagementService::search">search</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/projectManagementService.php.html#256"><abbr title="ProjectManagementService::countProjects">countProjects</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/projectManagementService.php.html#28"><abbr title="ProjectManagementService::getProjects">getProjects</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/projectExtraDataManagementService.php.html#260"><abbr title="ProjectExtraDataManagementService::delete">delete</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/projectExtraDataManagementService.php.html#132"><abbr title="ProjectExtraDataManagementService::updateObject">updateObject</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/projectExtraDataManagementService.php.html#91"><abbr title="ProjectExtraDataManagementService::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/projectExtraDataManagementService.php.html#44"><abbr title="ProjectExtraDataManagementService::count">count</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/projectExtraDataManagementService.php.html#30"><abbr title="ProjectExtraDataManagementService::getAll">getAll</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/mthPlatformManagementService.php.html#180"><abbr title="MTHPlatformManagementService::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/mthPlatformManagementService.php.html#132"><abbr title="MTHPlatformManagementService::getMTHPlatformsByIDs">getMTHPlatformsByIDs</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/projectManagementService.php.html#671"><abbr title="ProjectManagementService::updateObject">updateObject</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/mthPlatformManagementService.php.html#123"><abbr title="MTHPlatformManagementService::get">get</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/mthPlatformManagementService.php.html#38"><abbr title="MTHPlatformManagementService::getMTHPlatforms">getMTHPlatforms</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/messageManagementService.php.html#395"><abbr title="MessageManagementService::archive">archive</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/messageManagementService.php.html#352"><abbr title="MessageManagementService::create">create</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/messageManagementService.php.html#335"><abbr title="MessageManagementService::search">search</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/messageManagementService.php.html#320"><abbr title="MessageManagementService::get">get</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/messageManagementService.php.html#304"><abbr title="MessageManagementService::countMessages">countMessages</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/messageManagementService.php.html#27"><abbr title="MessageManagementService::getMessages">getMessages</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/keywordManagementService.php.html#376"><abbr title="KeywordManagementService::updateSub">updateSub</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/projectManagementService.php.html#567"><abbr title="ProjectManagementService::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/projectManagementService.php.html#909"><abbr title="ProjectManagementService::delete">delete</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/keywordManagementService.php.html#328"><abbr title="KeywordManagementService::getSubKeywordsByIDs">getSubKeywordsByIDs</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/userManagementService.php.html#451"><abbr title="UserManagementService::tryInitLDAP">tryInitLDAP</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/userManagementService.php.html#961"><abbr title="UserManagementService::setToInactive">setToInactive</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/userManagementService.php.html#934"><abbr title="UserManagementService::setLastActivityNow">setLastActivityNow</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/userManagementService.php.html#876"><abbr title="UserManagementService::authenticate">authenticate</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/userManagementService.php.html#844"><abbr title="UserManagementService::delete">delete</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/userManagementService.php.html#795"><abbr title="UserManagementService::updateRight">updateRight</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/userManagementService.php.html#708"><abbr title="UserManagementService::resetPassword">resetPassword</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/userManagementService.php.html#679"><abbr title="UserManagementService::updatePasswordCheck">updatePasswordCheck</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/userManagementService.php.html#635"><abbr title="UserManagementService::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/userManagementService.php.html#588"><abbr title="UserManagementService::invite">invite</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/userManagementService.php.html#433"><abbr title="UserManagementService::exists">exists</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/projectManagementService.php.html#942"><abbr title="ProjectManagementService::archive">archive</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/userManagementService.php.html#279"><abbr title="UserManagementService::countUsers">countUsers</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/userManagementService.php.html#228"><abbr title="UserManagementService::getProjectsManagers">getProjectsManagers</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/userManagementService.php.html#202"><abbr title="UserManagementService::fetchNotActiveUsers">fetchNotActiveUsers</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/userManagementService.php.html#164"><abbr title="UserManagementService::fetchEmailUsers">fetchEmailUsers</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/userManagementService.php.html#33"><abbr title="UserManagementService::getUsers">getUsers</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/statisticManagementService.php.html#1023"><abbr title="StatisticManagementService::userMultiFilter">userMultiFilter</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/statisticManagementService.php.html#859"><abbr title="StatisticManagementService::getExtraDataStats">getExtraDataStats</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/statisticManagementService.php.html#701"><abbr title="StatisticManagementService::getUsersStats">getUsersStats</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/statisticManagementService.php.html#27"><abbr title="StatisticManagementService::getProjectsStats">getProjectsStats</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/projectManagementService.php.html#966"><abbr title="ProjectManagementService::archiveOlderThan">archiveOlderThan</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="security/tokenManagementService.php.html#214"><abbr title="TokenManagementService::renewValidity">renewValidity</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/keywordManagementService.php.html#355"><abbr title="KeywordManagementService::createSub">createSub</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/keywordManagementService.php.html#319"><abbr title="KeywordManagementService::getSub">getSub</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/appointmentManagementService.php.html#291"><abbr title="AppointmentManagementService::countAppointments">countAppointments</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/emailManagementService.php.html#106"><abbr title="EmailManagementService::sendDailyNotificationsEmail">sendDailyNotificationsEmail</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/emailManagementService.php.html#67"><abbr title="EmailManagementService::sendEmailResetPassword">sendEmailResetPassword</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/emailManagementService.php.html#29"><abbr title="EmailManagementService::sendEmailAccountCreation">sendEmailAccountCreation</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/appointmentManagementService.php.html#488"><abbr title="AppointmentManagementService::archive">archive</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/appointmentManagementService.php.html#416"><abbr title="AppointmentManagementService::updateObject">updateObject</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/appointmentManagementService.php.html#349"><abbr title="AppointmentManagementService::create">create</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/appointmentManagementService.php.html#332"><abbr title="AppointmentManagementService::search">search</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/appointmentManagementService.php.html#317"><abbr title="AppointmentManagementService::getAppointmentProposition">getAppointmentProposition</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/appointmentManagementService.php.html#303"><abbr title="AppointmentManagementService::get">get</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/appointmentManagementService.php.html#29"><abbr title="AppointmentManagementService::getAppointments">getAppointments</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/emailManagementService.php.html#126"><abbr title="EmailManagementService::sendPeriodNotificationsEmail">sendPeriodNotificationsEmail</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="security/tokenManagementService.php.html#459"><abbr title="TokenManagementService::getUserFromToken">getUserFromToken</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="security/tokenManagementService.php.html#444"><abbr title="TokenManagementService::getForUser">getForUser</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="security/tokenManagementService.php.html#433"><abbr title="TokenManagementService::deleteForUser">deleteForUser</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="security/tokenManagementService.php.html#409"><abbr title="TokenManagementService::delete">delete</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="security/tokenManagementService.php.html#372"><abbr title="TokenManagementService::clean">clean</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="security/tokenManagementService.php.html#348"><abbr title="TokenManagementService::isSameUserLogin">isSameUserLogin</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="security/tokenManagementService.php.html#322"><abbr title="TokenManagementService::isSameUserID">isSameUserID</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="security/tokenManagementService.php.html#296"><abbr title="TokenManagementService::isProjectManager">isProjectManager</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="security/tokenManagementService.php.html#271"><abbr title="TokenManagementService::isAdmin">isAdmin</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="security/tokenManagementService.php.html#236"><abbr title="TokenManagementService::isValide">isValide</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/keywordManagementService.php.html#234"><abbr title="KeywordManagementService::getSubKeywords">getSubKeywords</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/emailManagementService.php.html#116"><abbr title="EmailManagementService::sendWeeklyNotificationsEmail">sendWeeklyNotificationsEmail</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/emailManagementService.php.html#317"><abbr title="EmailManagementService::sendNewUserNotificationEmail">sendNewUserNotificationEmail</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/emailManagementService.php.html#367"><abbr title="EmailManagementService::sendNewProjectNotificationEmail">sendNewProjectNotificationEmail</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/keywordManagementService.php.html#181"><abbr title="KeywordManagementService::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/keywordManagementService.php.html#160"><abbr title="KeywordManagementService::create">create</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/keywordManagementService.php.html#133"><abbr title="KeywordManagementService::getKeywordsByIDs">getKeywordsByIDs</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/keywordManagementService.php.html#124"><abbr title="KeywordManagementService::get">get</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/keywordManagementService.php.html#39"><abbr title="KeywordManagementService::getKeywords">getKeywords</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/eventManagementService.php.html#927"><abbr title="EventManagementService::createAppointmentEvent">createAppointmentEvent</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/eventManagementService.php.html#905"><abbr title="EventManagementService::createMessageEvent">createMessageEvent</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/eventManagementService.php.html#883"><abbr title="EventManagementService::createAdminEvent">createAdminEvent</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/eventManagementService.php.html#572"><abbr title="EventManagementService::getAppointmentsEvents">getAppointmentsEvents</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/eventManagementService.php.html#485"><abbr title="EventManagementService::getAdminEvents">getAdminEvents</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/eventManagementService.php.html#318"><abbr title="EventManagementService::getProjectsEvents">getProjectsEvents</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/eventManagementService.php.html#164"><abbr title="EventManagementService::getUsersEvents">getUsersEvents</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/eventManagementService.php.html#49"><abbr title="EventManagementService::getEvents">getEvents</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/emailManagementService.php.html#711"><abbr title="EmailManagementService::setStaticString">setStaticString</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/emailManagementService.php.html#675"><abbr title="EmailManagementService::initEmail">initEmail</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/emailManagementService.php.html#618"><abbr title="EmailManagementService::sendUpdateAppointmentNotificationEmail">sendUpdateAppointmentNotificationEmail</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/emailManagementService.php.html#564"><abbr title="EmailManagementService::sendNewAppointmentNotificationEmail">sendNewAppointmentNotificationEmail</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/emailManagementService.php.html#512"><abbr title="EmailManagementService::sendNewMessageNotificationEmail">sendNewMessageNotificationEmail</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/emailManagementService.php.html#461"><abbr title="EmailManagementService::sendProjectUpdateNotificationEmail">sendProjectUpdateNotificationEmail</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/emailManagementService.php.html#417"><abbr title="EmailManagementService::sendNewProjectNotificationEmailForUser">sendNewProjectNotificationEmailForUser</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/userManagementService.php.html#984"><abbr title="UserManagementService::setUsersToInactive">setUsersToInactive</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/userManagementService.php.html#520"><abbr title="UserManagementService::create">create</abbr></a></td><td class="text-right">75%</td></tr>
+       <tr><td><a href="services/projectManagementService.php.html#481"><abbr title="ProjectManagementService::create">create</abbr></a></td><td class="text-right">85%</td></tr>
+       <tr><td><a href="services/userManagementService.php.html#413"><abbr title="UserManagementService::getByLogin">getByLogin</abbr></a></td><td class="text-right">85%</td></tr>
+       <tr><td><a href="services/userManagementService.php.html#740"><abbr title="UserManagementService::updateObject">updateObject</abbr></a></td><td class="text-right">88%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="services/statisticManagementService.php.html#27"><abbr title="StatisticManagementService::getProjectsStats">getProjectsStats</abbr></a></td><td class="text-right">25760</td></tr>
+       <tr><td><a href="services/messageManagementService.php.html#27"><abbr title="MessageManagementService::getMessages">getMessages</abbr></a></td><td class="text-right">4556</td></tr>
+       <tr><td><a href="services/projectManagementService.php.html#28"><abbr title="ProjectManagementService::getProjects">getProjects</abbr></a></td><td class="text-right">3782</td></tr>
+       <tr><td><a href="services/appointmentManagementService.php.html#29"><abbr title="AppointmentManagementService::getAppointments">getAppointments</abbr></a></td><td class="text-right">3540</td></tr>
+       <tr><td><a href="services/projectManagementService.php.html#256"><abbr title="ProjectManagementService::countProjects">countProjects</abbr></a></td><td class="text-right">2756</td></tr>
+       <tr><td><a href="services/projectManagementService.php.html#671"><abbr title="ProjectManagementService::updateObject">updateObject</abbr></a></td><td class="text-right">2352</td></tr>
+       <tr><td><a href="services/userManagementService.php.html#33"><abbr title="UserManagementService::getUsers">getUsers</abbr></a></td><td class="text-right">1122</td></tr>
+       <tr><td><a href="services/statisticManagementService.php.html#859"><abbr title="StatisticManagementService::getExtraDataStats">getExtraDataStats</abbr></a></td><td class="text-right">1056</td></tr>
+       <tr><td><a href="services/statisticManagementService.php.html#701"><abbr title="StatisticManagementService::getUsersStats">getUsersStats</abbr></a></td><td class="text-right">1056</td></tr>
+       <tr><td><a href="services/userManagementService.php.html#279"><abbr title="UserManagementService::countUsers">countUsers</abbr></a></td><td class="text-right">870</td></tr>
+       <tr><td><a href="services/emailManagementService.php.html#126"><abbr title="EmailManagementService::sendPeriodNotificationsEmail">sendPeriodNotificationsEmail</abbr></a></td><td class="text-right">756</td></tr>
+       <tr><td><a href="services/eventManagementService.php.html#318"><abbr title="EventManagementService::getProjectsEvents">getProjectsEvents</abbr></a></td><td class="text-right">650</td></tr>
+       <tr><td><a href="services/eventManagementService.php.html#572"><abbr title="EventManagementService::getAppointmentsEvents">getAppointmentsEvents</abbr></a></td><td class="text-right">650</td></tr>
+       <tr><td><a href="services/projectExtraDataManagementService.php.html#132"><abbr title="ProjectExtraDataManagementService::updateObject">updateObject</abbr></a></td><td class="text-right">600</td></tr>
+       <tr><td><a href="services/eventManagementService.php.html#49"><abbr title="EventManagementService::getEvents">getEvents</abbr></a></td><td class="text-right">600</td></tr>
+       <tr><td><a href="services/eventManagementService.php.html#164"><abbr title="EventManagementService::getUsersEvents">getUsersEvents</abbr></a></td><td class="text-right">462</td></tr>
+       <tr><td><a href="services/statisticManagementService.php.html#1023"><abbr title="StatisticManagementService::userMultiFilter">userMultiFilter</abbr></a></td><td class="text-right">462</td></tr>
+       <tr><td><a href="services/mthPlatformManagementService.php.html#38"><abbr title="MTHPlatformManagementService::getMTHPlatforms">getMTHPlatforms</abbr></a></td><td class="text-right">342</td></tr>
+       <tr><td><a href="services/keywordManagementService.php.html#234"><abbr title="KeywordManagementService::getSubKeywords">getSubKeywords</abbr></a></td><td class="text-right">342</td></tr>
+       <tr><td><a href="services/keywordManagementService.php.html#39"><abbr title="KeywordManagementService::getKeywords">getKeywords</abbr></a></td><td class="text-right">342</td></tr>
+       <tr><td><a href="services/eventManagementService.php.html#485"><abbr title="EventManagementService::getAdminEvents">getAdminEvents</abbr></a></td><td class="text-right">342</td></tr>
+       <tr><td><a href="services/appointmentManagementService.php.html#416"><abbr title="AppointmentManagementService::updateObject">updateObject</abbr></a></td><td class="text-right">210</td></tr>
+       <tr><td><a href="services/userManagementService.php.html#228"><abbr title="UserManagementService::getProjectsManagers">getProjectsManagers</abbr></a></td><td class="text-right">132</td></tr>
+       <tr><td><a href="services/messageManagementService.php.html#352"><abbr title="MessageManagementService::create">create</abbr></a></td><td class="text-right">90</td></tr>
+       <tr><td><a href="services/projectManagementService.php.html#567"><abbr title="ProjectManagementService::update">update</abbr></a></td><td class="text-right">72</td></tr>
+       <tr><td><a href="security/tokenManagementService.php.html#173"><abbr title="TokenManagementService::create">create</abbr></a></td><td class="text-right">72</td></tr>
+       <tr><td><a href="services/userManagementService.php.html#795"><abbr title="UserManagementService::updateRight">updateRight</abbr></a></td><td class="text-right">56</td></tr>
+       <tr><td><a href="services/userManagementService.php.html#679"><abbr title="UserManagementService::updatePasswordCheck">updatePasswordCheck</abbr></a></td><td class="text-right">42</td></tr>
+       <tr><td><a href="services/userManagementService.php.html#876"><abbr title="UserManagementService::authenticate">authenticate</abbr></a></td><td class="text-right">42</td></tr>
+       <tr><td><a href="services/emailManagementService.php.html#367"><abbr title="EmailManagementService::sendNewProjectNotificationEmail">sendNewProjectNotificationEmail</abbr></a></td><td class="text-right">42</td></tr>
+       <tr><td><a href="services/projectManagementService.php.html#942"><abbr title="ProjectManagementService::archive">archive</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="services/emailManagementService.php.html#618"><abbr title="EmailManagementService::sendUpdateAppointmentNotificationEmail">sendUpdateAppointmentNotificationEmail</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="security/tokenManagementService.php.html#372"><abbr title="TokenManagementService::clean">clean</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="services/userManagementService.php.html#164"><abbr title="UserManagementService::fetchEmailUsers">fetchEmailUsers</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="security/tokenManagementService.php.html#236"><abbr title="TokenManagementService::isValide">isValide</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="services/userManagementService.php.html#451"><abbr title="UserManagementService::tryInitLDAP">tryInitLDAP</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="services/userManagementService.php.html#635"><abbr title="UserManagementService::update">update</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="services/keywordManagementService.php.html#376"><abbr title="KeywordManagementService::updateSub">updateSub</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="services/emailManagementService.php.html#317"><abbr title="EmailManagementService::sendNewUserNotificationEmail">sendNewUserNotificationEmail</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="services/userManagementService.php.html#708"><abbr title="UserManagementService::resetPassword">resetPassword</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="services/keywordManagementService.php.html#181"><abbr title="KeywordManagementService::update">update</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="security/tokenManagementService.php.html#459"><abbr title="TokenManagementService::getUserFromToken">getUserFromToken</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="services/projectManagementService.php.html#909"><abbr title="ProjectManagementService::delete">delete</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="services/userManagementService.php.html#588"><abbr title="UserManagementService::invite">invite</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="services/userManagementService.php.html#844"><abbr title="UserManagementService::delete">delete</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="services/userManagementService.php.html#934"><abbr title="UserManagementService::setLastActivityNow">setLastActivityNow</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="services/userManagementService.php.html#961"><abbr title="UserManagementService::setToInactive">setToInactive</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="services/userManagementService.php.html#984"><abbr title="UserManagementService::setUsersToInactive">setUsersToInactive</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="services/emailManagementService.php.html#564"><abbr title="EmailManagementService::sendNewAppointmentNotificationEmail">sendNewAppointmentNotificationEmail</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="services/emailManagementService.php.html#512"><abbr title="EmailManagementService::sendNewMessageNotificationEmail">sendNewMessageNotificationEmail</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="services/projectExtraDataManagementService.php.html#91"><abbr title="ProjectExtraDataManagementService::update">update</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="services/emailManagementService.php.html#461"><abbr title="EmailManagementService::sendProjectUpdateNotificationEmail">sendProjectUpdateNotificationEmail</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="services/emailManagementService.php.html#675"><abbr title="EmailManagementService::initEmail">initEmail</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="services/emailManagementService.php.html#29"><abbr title="EmailManagementService::sendEmailAccountCreation">sendEmailAccountCreation</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="services/mthPlatformManagementService.php.html#180"><abbr title="MTHPlatformManagementService::update">update</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="services/keywordManagementService.php.html#328"><abbr title="KeywordManagementService::getSubKeywordsByIDs">getSubKeywordsByIDs</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="services/keywordManagementService.php.html#133"><abbr title="KeywordManagementService::getKeywordsByIDs">getKeywordsByIDs</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="services/emailManagementService.php.html#67"><abbr title="EmailManagementService::sendEmailResetPassword">sendEmailResetPassword</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="services/emailManagementService.php.html#417"><abbr title="EmailManagementService::sendNewProjectNotificationEmailForUser">sendNewProjectNotificationEmailForUser</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="services/projectExtraDataManagementService.php.html#260"><abbr title="ProjectExtraDataManagementService::delete">delete</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="security/tokenManagementService.php.html#409"><abbr title="TokenManagementService::delete">delete</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="services/appointmentManagementService.php.html#349"><abbr title="AppointmentManagementService::create">create</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="services/mthPlatformManagementService.php.html#132"><abbr title="MTHPlatformManagementService::getMTHPlatformsByIDs">getMTHPlatformsByIDs</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="services/userManagementService.php.html#520"><abbr title="UserManagementService::create">create</abbr></a></td><td class="text-right">10</td></tr>
+       <tr><td><a href="services/userManagementService.php.html#740"><abbr title="UserManagementService::updateObject">updateObject</abbr></a></td><td class="text-right">9</td></tr>
+       <tr><td><a href="security/tokenManagementService.php.html#214"><abbr title="TokenManagementService::renewValidity">renewValidity</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="security/tokenManagementService.php.html#444"><abbr title="TokenManagementService::getForUser">getForUser</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="security/tokenManagementService.php.html#433"><abbr title="TokenManagementService::deleteForUser">deleteForUser</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="security/tokenManagementService.php.html#271"><abbr title="TokenManagementService::isAdmin">isAdmin</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="security/tokenManagementService.php.html#296"><abbr title="TokenManagementService::isProjectManager">isProjectManager</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="security/tokenManagementService.php.html#322"><abbr title="TokenManagementService::isSameUserID">isSameUserID</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="security/tokenManagementService.php.html#348"><abbr title="TokenManagementService::isSameUserLogin">isSameUserLogin</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="services/projectManagementService.php.html#966"><abbr title="ProjectManagementService::archiveOlderThan">archiveOlderThan</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="services/userManagementService.php.html#433"><abbr title="UserManagementService::exists">exists</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="services/projectManagementService.php.html#481"><abbr title="ProjectManagementService::create">create</abbr></a></td><td class="text-right">4</td></tr>
+       <tr><td><a href="services/userManagementService.php.html#413"><abbr title="UserManagementService::getByLogin">getByLogin</abbr></a></td><td class="text-right">2</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <footer>
+    <hr/>
+    <p>
+     <small>Generated by <a href="https://github.com/sebastianbergmann/php-code-coverage" target="_top">php-code-coverage 7.0.10</a> using <a href="https://secure.php.net/" target="_top">PHP 7.2.24-0ubuntu0.18.04.3</a> with <a href="https://xdebug.org/">Xdebug 2.9.4</a> and <a href="https://phpunit.de/">PHPUnit 6.5.5</a> at Tue Mar 24 10:02:24 UTC 2020.</small>
+    </p>
+   </footer>
+  </div>
+  <script src="../_js/jquery.min.js" type="text/javascript"></script>
+  <script src="../_js/d3.min.js" type="text/javascript"></script>
+  <script src="../_js/nv.d3.min.js" type="text/javascript"></script>
+  <script type="text/javascript">
+$(document).ready(function() {
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#classCoverageDistribution svg')
+      .datum(getCoverageDistributionData([7,3,1,0,0,0,0,0,0,0,0,0], "Class Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#methodCoverageDistribution svg')
+      .datum(getCoverageDistributionData([97,0,0,0,0,0,0,0,1,3,0,6], "Method Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getCoverageDistributionData(data, label) {
+    var labels = [
+      '0%',
+      '0-10%',
+      '10-20%',
+      '20-30%',
+      '30-40%',
+      '40-50%',
+      '50-60%',
+      '60-70%',
+      '70-80%',
+      '80-90%',
+      '90-100%',
+      '100%'
+    ];
+    var values = [];
+    $.each(labels, function(key) {
+      values.push({x: labels[key], y: data[key]});
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Cyclomatic Complexity');
+
+    d3.select('#classComplexity svg')
+      .datum(getComplexityData([[0,40,"<a href=\"security\/tokenManagementService.php.html#169\">TokenManagementService<\/a>"],[0,81,"<a href=\"services\/appointmentManagementService.php.html#21\">AppointmentManagementService<\/a>"],[0,70,"<a href=\"services\/emailManagementService.php.html#18\">EmailManagementService<\/a>"],[3.287671232876712,118,"<a href=\"services\/eventManagementService.php.html#41\">EventManagementService<\/a>"],[0,56,"<a href=\"services\/keywordManagementService.php.html#31\">KeywordManagementService<\/a>"],[0,80,"<a href=\"services\/messageManagementService.php.html#19\">MessageManagementService<\/a>"],[0,26,"<a href=\"services\/mthPlatformManagementService.php.html#30\">MTHPlatformManagementService<\/a>"],[8.333333333333332,35,"<a href=\"services\/projectExtraDataManagementService.php.html#20\">ProjectExtraDataManagementService<\/a>"],[7.0745697896749515,186,"<a href=\"services\/projectManagementService.php.html#20\">ProjectManagementService<\/a>"],[0,245,"<a href=\"services\/statisticManagementService.php.html#20\">StatisticManagementService<\/a>"],[14.545454545454545,156,"<a href=\"services\/userManagementService.php.html#25\">UserManagementService<\/a>"]], 'Class Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Method Complexity');
+
+    d3.select('#methodComplexity svg')
+      .datum(getComplexityData([[0,8,"<a href=\"security\/tokenManagementService.php.html#173\">TokenManagementService::create<\/a>"],[0,2,"<a href=\"security\/tokenManagementService.php.html#214\">TokenManagementService::renewValidity<\/a>"],[0,5,"<a href=\"security\/tokenManagementService.php.html#236\">TokenManagementService::isValide<\/a>"],[0,2,"<a href=\"security\/tokenManagementService.php.html#271\">TokenManagementService::isAdmin<\/a>"],[0,2,"<a href=\"security\/tokenManagementService.php.html#296\">TokenManagementService::isProjectManager<\/a>"],[0,2,"<a href=\"security\/tokenManagementService.php.html#322\">TokenManagementService::isSameUserID<\/a>"],[0,2,"<a href=\"security\/tokenManagementService.php.html#348\">TokenManagementService::isSameUserLogin<\/a>"],[0,5,"<a href=\"security\/tokenManagementService.php.html#372\">TokenManagementService::clean<\/a>"],[0,3,"<a href=\"security\/tokenManagementService.php.html#409\">TokenManagementService::delete<\/a>"],[0,2,"<a href=\"security\/tokenManagementService.php.html#433\">TokenManagementService::deleteForUser<\/a>"],[0,2,"<a href=\"security\/tokenManagementService.php.html#444\">TokenManagementService::getForUser<\/a>"],[0,5,"<a href=\"security\/tokenManagementService.php.html#459\">TokenManagementService::getUserFromToken<\/a>"],[0,59,"<a href=\"services\/appointmentManagementService.php.html#29\">AppointmentManagementService::getAppointments<\/a>"],[0,1,"<a href=\"services\/appointmentManagementService.php.html#291\">AppointmentManagementService::countAppointments<\/a>"],[0,1,"<a href=\"services\/appointmentManagementService.php.html#303\">AppointmentManagementService::get<\/a>"],[0,1,"<a href=\"services\/appointmentManagementService.php.html#317\">AppointmentManagementService::getAppointmentProposition<\/a>"],[0,1,"<a href=\"services\/appointmentManagementService.php.html#332\">AppointmentManagementService::search<\/a>"],[0,3,"<a href=\"services\/appointmentManagementService.php.html#349\">AppointmentManagementService::create<\/a>"],[0,14,"<a href=\"services\/appointmentManagementService.php.html#416\">AppointmentManagementService::updateObject<\/a>"],[0,1,"<a href=\"services\/appointmentManagementService.php.html#488\">AppointmentManagementService::archive<\/a>"],[0,3,"<a href=\"services\/emailManagementService.php.html#29\">EmailManagementService::sendEmailAccountCreation<\/a>"],[0,3,"<a href=\"services\/emailManagementService.php.html#67\">EmailManagementService::sendEmailResetPassword<\/a>"],[0,1,"<a href=\"services\/emailManagementService.php.html#106\">EmailManagementService::sendDailyNotificationsEmail<\/a>"],[0,1,"<a href=\"services\/emailManagementService.php.html#116\">EmailManagementService::sendWeeklyNotificationsEmail<\/a>"],[0,27,"<a href=\"services\/emailManagementService.php.html#126\">EmailManagementService::sendPeriodNotificationsEmail<\/a>"],[0,5,"<a href=\"services\/emailManagementService.php.html#317\">EmailManagementService::sendNewUserNotificationEmail<\/a>"],[0,6,"<a href=\"services\/emailManagementService.php.html#367\">EmailManagementService::sendNewProjectNotificationEmail<\/a>"],[0,3,"<a href=\"services\/emailManagementService.php.html#417\">EmailManagementService::sendNewProjectNotificationEmailForUser<\/a>"],[0,4,"<a href=\"services\/emailManagementService.php.html#461\">EmailManagementService::sendProjectUpdateNotificationEmail<\/a>"],[0,4,"<a href=\"services\/emailManagementService.php.html#512\">EmailManagementService::sendNewMessageNotificationEmail<\/a>"],[0,4,"<a href=\"services\/emailManagementService.php.html#564\">EmailManagementService::sendNewAppointmentNotificationEmail<\/a>"],[0,5,"<a href=\"services\/emailManagementService.php.html#618\">EmailManagementService::sendUpdateAppointmentNotificationEmail<\/a>"],[0,3,"<a href=\"services\/emailManagementService.php.html#675\">EmailManagementService::initEmail<\/a>"],[0,1,"<a href=\"services\/emailManagementService.php.html#711\">EmailManagementService::setStaticString<\/a>"],[0,24,"<a href=\"services\/eventManagementService.php.html#49\">EventManagementService::getEvents<\/a>"],[0,21,"<a href=\"services\/eventManagementService.php.html#164\">EventManagementService::getUsersEvents<\/a>"],[0,25,"<a href=\"services\/eventManagementService.php.html#318\">EventManagementService::getProjectsEvents<\/a>"],[0,18,"<a href=\"services\/eventManagementService.php.html#485\">EventManagementService::getAdminEvents<\/a>"],[0,25,"<a href=\"services\/eventManagementService.php.html#572\">EventManagementService::getAppointmentsEvents<\/a>"],[100,1,"<a href=\"services\/eventManagementService.php.html#852\">EventManagementService::createProjectEvent<\/a>"],[100,1,"<a href=\"services\/eventManagementService.php.html#868\">EventManagementService::createUserEvent<\/a>"],[0,1,"<a href=\"services\/eventManagementService.php.html#883\">EventManagementService::createAdminEvent<\/a>"],[0,1,"<a href=\"services\/eventManagementService.php.html#905\">EventManagementService::createMessageEvent<\/a>"],[0,1,"<a href=\"services\/eventManagementService.php.html#927\">EventManagementService::createAppointmentEvent<\/a>"],[0,18,"<a href=\"services\/keywordManagementService.php.html#39\">KeywordManagementService::getKeywords<\/a>"],[0,1,"<a href=\"services\/keywordManagementService.php.html#124\">KeywordManagementService::get<\/a>"],[0,3,"<a href=\"services\/keywordManagementService.php.html#133\">KeywordManagementService::getKeywordsByIDs<\/a>"],[0,1,"<a href=\"services\/keywordManagementService.php.html#160\">KeywordManagementService::create<\/a>"],[0,5,"<a href=\"services\/keywordManagementService.php.html#181\">KeywordManagementService::update<\/a>"],[0,18,"<a href=\"services\/keywordManagementService.php.html#234\">KeywordManagementService::getSubKeywords<\/a>"],[0,1,"<a href=\"services\/keywordManagementService.php.html#319\">KeywordManagementService::getSub<\/a>"],[0,3,"<a href=\"services\/keywordManagementService.php.html#328\">KeywordManagementService::getSubKeywordsByIDs<\/a>"],[0,1,"<a href=\"services\/keywordManagementService.php.html#355\">KeywordManagementService::createSub<\/a>"],[0,5,"<a href=\"services\/keywordManagementService.php.html#376\">KeywordManagementService::updateSub<\/a>"],[0,67,"<a href=\"services\/messageManagementService.php.html#27\">MessageManagementService::getMessages<\/a>"],[0,1,"<a href=\"services\/messageManagementService.php.html#304\">MessageManagementService::countMessages<\/a>"],[0,1,"<a href=\"services\/messageManagementService.php.html#320\">MessageManagementService::get<\/a>"],[0,1,"<a href=\"services\/messageManagementService.php.html#335\">MessageManagementService::search<\/a>"],[0,9,"<a href=\"services\/messageManagementService.php.html#352\">MessageManagementService::create<\/a>"],[0,1,"<a href=\"services\/messageManagementService.php.html#395\">MessageManagementService::archive<\/a>"],[0,18,"<a href=\"services\/mthPlatformManagementService.php.html#38\">MTHPlatformManagementService::getMTHPlatforms<\/a>"],[0,1,"<a href=\"services\/mthPlatformManagementService.php.html#123\">MTHPlatformManagementService::get<\/a>"],[0,3,"<a href=\"services\/mthPlatformManagementService.php.html#132\">MTHPlatformManagementService::getMTHPlatformsByIDs<\/a>"],[0,1,"<a href=\"services\/mthPlatformManagementService.php.html#159\">MTHPlatformManagementService::create<\/a>"],[0,3,"<a href=\"services\/mthPlatformManagementService.php.html#180\">MTHPlatformManagementService::update<\/a>"],[0,1,"<a href=\"services\/projectExtraDataManagementService.php.html#30\">ProjectExtraDataManagementService::getAll<\/a>"],[0,1,"<a href=\"services\/projectExtraDataManagementService.php.html#44\">ProjectExtraDataManagementService::count<\/a>"],[100,1,"<a href=\"services\/projectExtraDataManagementService.php.html#57\">ProjectExtraDataManagementService::get<\/a>"],[100,1,"<a href=\"services\/projectExtraDataManagementService.php.html#67\">ProjectExtraDataManagementService::create<\/a>"],[0,4,"<a href=\"services\/projectExtraDataManagementService.php.html#91\">ProjectExtraDataManagementService::update<\/a>"],[0,24,"<a href=\"services\/projectExtraDataManagementService.php.html#132\">ProjectExtraDataManagementService::updateObject<\/a>"],[0,3,"<a href=\"services\/projectExtraDataManagementService.php.html#260\">ProjectExtraDataManagementService::delete<\/a>"],[0,61,"<a href=\"services\/projectManagementService.php.html#28\">ProjectManagementService::getProjects<\/a>"],[0,52,"<a href=\"services\/projectManagementService.php.html#256\">ProjectManagementService::countProjects<\/a>"],[100,1,"<a href=\"services\/projectManagementService.php.html#450\">ProjectManagementService::get<\/a>"],[0,1,"<a href=\"services\/projectManagementService.php.html#466\">ProjectManagementService::search<\/a>"],[85,4,"<a href=\"services\/projectManagementService.php.html#481\">ProjectManagementService::create<\/a>"],[0,8,"<a href=\"services\/projectManagementService.php.html#567\">ProjectManagementService::update<\/a>"],[0,48,"<a href=\"services\/projectManagementService.php.html#671\">ProjectManagementService::updateObject<\/a>"],[0,4,"<a href=\"services\/projectManagementService.php.html#909\">ProjectManagementService::delete<\/a>"],[0,5,"<a href=\"services\/projectManagementService.php.html#942\">ProjectManagementService::archive<\/a>"],[0,2,"<a href=\"services\/projectManagementService.php.html#966\">ProjectManagementService::archiveOlderThan<\/a>"],[0,160,"<a href=\"services\/statisticManagementService.php.html#27\">StatisticManagementService::getProjectsStats<\/a>"],[0,32,"<a href=\"services\/statisticManagementService.php.html#701\">StatisticManagementService::getUsersStats<\/a>"],[0,32,"<a href=\"services\/statisticManagementService.php.html#859\">StatisticManagementService::getExtraDataStats<\/a>"],[0,21,"<a href=\"services\/statisticManagementService.php.html#1023\">StatisticManagementService::userMultiFilter<\/a>"],[0,33,"<a href=\"services\/userManagementService.php.html#33\">UserManagementService::getUsers<\/a>"],[0,5,"<a href=\"services\/userManagementService.php.html#164\">UserManagementService::fetchEmailUsers<\/a>"],[0,1,"<a href=\"services\/userManagementService.php.html#202\">UserManagementService::fetchNotActiveUsers<\/a>"],[0,11,"<a href=\"services\/userManagementService.php.html#228\">UserManagementService::getProjectsManagers<\/a>"],[0,29,"<a href=\"services\/userManagementService.php.html#279\">UserManagementService::countUsers<\/a>"],[100,1,"<a href=\"services\/userManagementService.php.html#398\">UserManagementService::get<\/a>"],[85.71428571428571,2,"<a href=\"services\/userManagementService.php.html#413\">UserManagementService::getByLogin<\/a>"],[0,2,"<a href=\"services\/userManagementService.php.html#433\">UserManagementService::exists<\/a>"],[0,5,"<a href=\"services\/userManagementService.php.html#451\">UserManagementService::tryInitLDAP<\/a>"],[75.60975609756098,9,"<a href=\"services\/userManagementService.php.html#520\">UserManagementService::create<\/a>"],[0,4,"<a href=\"services\/userManagementService.php.html#588\">UserManagementService::invite<\/a>"],[0,5,"<a href=\"services\/userManagementService.php.html#635\">UserManagementService::update<\/a>"],[0,6,"<a href=\"services\/userManagementService.php.html#679\">UserManagementService::updatePasswordCheck<\/a>"],[0,5,"<a href=\"services\/userManagementService.php.html#708\">UserManagementService::resetPassword<\/a>"],[88.88888888888889,9,"<a href=\"services\/userManagementService.php.html#740\">UserManagementService::updateObject<\/a>"],[0,7,"<a href=\"services\/userManagementService.php.html#795\">UserManagementService::updateRight<\/a>"],[0,4,"<a href=\"services\/userManagementService.php.html#844\">UserManagementService::delete<\/a>"],[0,6,"<a href=\"services\/userManagementService.php.html#876\">UserManagementService::authenticate<\/a>"],[0,4,"<a href=\"services\/userManagementService.php.html#934\">UserManagementService::setLastActivityNow<\/a>"],[0,4,"<a href=\"services\/userManagementService.php.html#961\">UserManagementService::setToInactive<\/a>"],[0,4,"<a href=\"services\/userManagementService.php.html#984\">UserManagementService::setUsersToInactive<\/a>"]], 'Method Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getComplexityData(data, label) {
+    var values = [];
+    $.each(data, function(key) {
+      var value = Math.round(data[key][0]*100) / 100;
+      values.push({
+        x: value,
+        y: data[key][1],
+        class: data[key][2],
+        size: 0.05,
+        shape: 'diamond'
+      });
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+});
+  </script>
+ </body>
+</html>
