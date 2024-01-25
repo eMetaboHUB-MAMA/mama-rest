@@ -1,0 +1,28 @@
+# Allow access to everything by default
+Order Allow,Deny
+Allow from all
+
+# prevent files access (in .git folder and sub folder)
+RedirectMatch 403 ^.*/\.git/*
+
+# Deny access to sql / txt / md / ini files
+<Files ~ "\.sql$">
+    deny from all
+</Files>
+<Files ~ "\.md$">
+    deny from all
+</Files>
+<Files ~ "\.ini$">
+    deny from all
+</Files>
+<Files ~ "\.txt$">
+    deny from all
+</Files>
+<Files ~ "\.sample$">
+    deny from all
+</Files>
+
+# Deny access to git files
+<Files ~ "^\.|\/\.">
+    deny from all
+</Files>

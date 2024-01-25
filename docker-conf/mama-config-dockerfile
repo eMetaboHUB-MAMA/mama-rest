@@ -1,0 +1,50 @@
+# call PHP 5.6 / apache
+FROM php:5.6-apache
+
+# set author
+MAINTAINER Nils Paulhe <nils.paulhe@inra.fr>
+
+# [php] Install mcrypc
+RUN apt-get update && apt-get install -y \
+        libmcrypt-dev \
+    && docker-php-ext-install -j$(nproc) mcrypt
+    
+# [php] Install apc
+RUN pecl install apcu-4.0.10 \
+    && echo extension=apcu.so > /usr/local/etc/php/conf.d/apcu.ini
+
+# [php] Install needed php extensions: ldap
+RUN apt-get update && \
+    apt-get install libldap2-dev -y && \
+    rm -rf /var/lib/apt/lists/* && \
+    docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu/ && \
+    docker-php-ext-install ldap
+
+# [php] Install memcached
+RUN apt-get update && apt-get install -y \
+        libz-dev \
+        libmemcached-dev \
+    && pecl install memcached \
+    && docker-php-ext-enable memcached
+
+# [php] Install mysql PDO driver
+RUN docker-php-ext-install pdo pdo_mysql
+    
+# [php] Install email sender service
+RUN apt-get update && \
+  apt-get install -y ssmtp && \
+  apt-get clean && \
+  echo "FromLineOverride=YES" >> /etc/ssmtp/ssmtp.conf && \
+  echo 'sendmail_path = "/usr/sbin/ssmtp -t"' > /usr/local/etc/php/conf.d/mail.ini
+   
+# [php] Enabled rewrite
+RUN a2enmod rewrite && service apache2 restart
+
+# [other] Install Git
+RUN apt-get update && \
+    apt-get install git -y
+
+# [other] Install vim text editor
+RUN apt-get install -y vim
+
+# [END]

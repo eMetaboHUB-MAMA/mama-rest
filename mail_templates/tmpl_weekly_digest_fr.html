@@ -1,0 +1,44 @@
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	</head>
+	<body text="#000000" bgcolor="#FFFFFF">
+		<p>
+			MAMA resum&eacute; hebdomadaire des mises-&aacute;-jours ! 
+			<br /> 
+			<br /> Cher %username%, 
+			<br /> 
+			<br />
+			<!-- newAccountsStarts -->
+			Il y a <a href="%%WEBAPP_URL%%?page=projects&status=assigned" target="_blank">%numberNewAccounts% nouveau(x) compte(s)</a> (en attente de validation) 
+			<br />
+			<!-- newAccountsEnd -->
+			<!-- newProjectsStarts -->
+			Il y a <a href="%%WEBAPP_URL%%?page=users&status=not_validated" target="_blank">%numberNewProjects% nouvelle(s) sollicitation(s)</a> (en attente de validation) 
+			<br />
+			<!-- newProjectsEnd -->
+			<!-- newProjectEventsStarts -->
+			Il y a <a href="%%WEBAPP_URL%%?page=dashboard" target="_blank">%numberNewProjectEvents% nouvelle(s) notification(s) de projet</a> 
+			<br />
+			<!-- newProjectEventsEnd -->
+			<!-- newMessagesStarts -->
+			Il y a <a href="%%WEBAPP_URL%%?page=messages&userFilter=users" target="_blank">%numberNewMessages% nouveau(x) message(s) d'utilisateur</a> 
+			<br />
+			<!-- newMessagesEnd -->
+			<!-- newProjectsMessagesStarts -->
+			Il y a <a href="%%WEBAPP_URL%%?page=messages" target="_blank">%numberNewProjectsMessages% nouveau(x) message(s) de projet</a> 
+			<br />
+			<!-- newProjectsMessagesEnd -->
+			<!-- newAppointmentsStarts -->
+			Il y a <a href="%%WEBAPP_URL%%?page=appointments" target="_blank">%numberNewAppointments% nouveau(x) rendez-vous</a> 
+			<br />
+			<!-- newAppointmentsEnd -->
+			<!-- incomingAppointmentsStarts -->
+			Il y a <a href="%%WEBAPP_URL%%?page=appointments&filter=ongoing" target="_blank">%numberIncomingAppointments% rendez-vous dans les 7 prochains jours !</a> 
+			<br />
+			<!-- incomingAppointmentsEnd -->
+			<br /> Merci ! 
+		</p>
+		%%EMAIL_SIGNATURE%%
+	</body>
+</html>

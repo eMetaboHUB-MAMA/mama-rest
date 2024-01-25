@@ -1,10 +1,8 @@
 <?php
+session_start ();
 
-// session_start();
-
-// test sandbox
-$_tokenAdmin = "adminToken";
-$_tokenCurrentUser = "currentUserToken";
+// special case: PUT
+parse_str ( file_get_contents ( "php://input" ), $putData );
 
 // API
 require '../vendor/autoload.php';
@@ -17,6 +15,19 @@ require_once '../api/security/tokenManagementService.php';
 require_once "../bootstrap.php";
 require_once '../api/services/mamaManagementService.php';
 require_once '../api/services/userManagementService.php';
+require_once '../api/services/projectManagementService.php';
+require_once '../api/services/projectExtraDataManagementService.php';
+require_once '../api/services/emailManagementService.php';
+require_once '../api/services/eventManagementService.php';
+require_once '../api/services/messageManagementService.php';
+require_once '../api/services/appointmentManagementService.php';
+
+require_once '../api/services/keywordManagementService.php';
+require_once '../api/services/mthPlatformManagementService.php';
+
+require_once '../api/services/statisticManagementService.php';
+
+require_once '../email_jobs/specialEventMailler.php';
 
 $app = new Slim\App ();
 
@@ -32,76 +43,37 @@ $app->get ( '/', function ($request, $response, $args) {
 
 // //////////////////////////////////////////////////////////////////////////////////////////////
 // TOKEN
-$app->post ( '/token', function ($request, $response, $args) {
-	
-	// TODO assoc uniq token to user in db
-} );
-
-$app->delete ( '/token', function ($request, $response, $args) {
-	
-	// unset($_SESSION['token']);
-	// $_SESSION['token'] = null;
-	
-	unset ( $_COOKIE ['token'] );
-	setcookie ( 'token', '', time () - 3600 );
-	
-	// TODO delete in DB
-} );
+require_once '__token_methods.php';
 
 // //////////////////////////////////////////////////////////////////////////////////////////////
 // USERS
-
-$app->get ( '/users', function ($request, $response, $args) {
-	
-	// init response
-	$data = [ ];
-	
-	if (isAdmin ()) {
-		$data = getUsers ();
-	} else {
-		return formatResponse401 ( $request, $response );
-	}
-	
-	// special case: XML lists
-	$headerValueArray = $request->getHeader ( 'Accept' );
-	if (in_array ( "application/xml", $headerValueArray ) || getFormat () == "xml") {
-		$data = [ 
-				"users" => $data 
-		];
-	}
-	
-	return formatResponse ( $request, $response, $args, $data );
-} );
-
-$app->get ( '/user[/{id}]', function ($request, $response, $args) {
-	// TODO only admin / current user
-} )->setArgument ( 'id', null );
-
-$app->post ( '/user', function ($request, $response, $args) {
-	// TODO only new user; return 201
-} );
-
-$app->put ( '/user[/{id}]', function ($request, $response, $args) {
-	// TODO only admin / current user
-} )->setArgument ( 'id', null );
-
-$app->delete ( '/user[/{id}]', function ($request, $response, $args) {
-	// TODO only admin / current user
-} )->setArgument ( 'id', null );
+require_once '__user_methods.php';
 
 // //////////////////////////////////////////////////////////////////////////////////////////////
-// HELLO
-// $app->get('/hello[/{name}]', function ($request, $response, $args) {
-// $response->write("Hello, " . $args['name']);
-// return $response;
-// })->setArgument('name', 'World!');
+// PROJECTS
+require_once '__project_methods.php';
+
+// //////////////////////////////////////////////////////////////////////////////////////////////
+// EVENTS
+require_once '__event_methods.php';
+
+// //////////////////////////////////////////////////////////////////////////////////////////////
+// MESSAGES & apointments
+require_once '__message_methods.php';
+require_once '__appointment_methods.php';
+
+// //////////////////////////////////////////////////////////////////////////////////////////////
+// STATISTICS
+require_once '__statistic_methods.php';
+
+// //////////////////////////////////////////////////////////////////////////////////////////////
+// EVENTS
+require_once '__dashboard_methods.php';
+
+// //////////////////////////////////////////////////////////////////////////////////////////////
+// OTHER
+require_once '__admin_methods.php';
 
 // //////////////////////////////////////////////////////////////////////////////////////////////
 // RUN
 $app->run ();
-
-// //////////////////////////////////////////////////////////////////////////////////////////////
-// MAMA USER FUNCTIONS
-
-
-// --- sandbox!!!

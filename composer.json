@@ -17,7 +17,10 @@
         "slim/php-view": "^2.0",
         "monolog/monolog": "^1.17",
         "doctrine/orm": "2.4.*",
-        "symfony/yaml": "2.*"
+        "symfony/yaml": "2.*",
+        "phpmailer/phpmailer": "^5.2",
+        "hellogerard/jobby": "^3.0",
+        "phpoffice/phpexcel": "1.8.1"
     },
     "autoload": {
         "psr-0": {"": "data-model/"}

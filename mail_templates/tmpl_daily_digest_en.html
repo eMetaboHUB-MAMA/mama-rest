@@ -1,0 +1,44 @@
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	</head>
+	<body text="#000000" bgcolor="#FFFFFF">
+		<p>
+			MAMA daily digest news &amp; events! 
+			<br /> 
+			<br /> Dear %username%,
+			<br /> 
+			<br />
+			<!-- newAccountsStarts -->
+			there is <a href="%%WEBAPP_URL%%?page=users&status=not_validated" target="_blank">%numberNewAccounts% new account(s)</a> (still not validated) 
+			<br />
+			<!-- newAccountsEnd -->
+			<!-- newProjectsStarts -->
+			there is <a href="%%WEBAPP_URL%%?page=projects&status=assigned" target="_blank">%numberNewProjects% new request(s)</a> (still waiting) 
+			<br />
+			<!-- newProjectsEnd -->
+			<!-- newProjectEventsStarts -->
+			there is <a href="%%WEBAPP_URL%%?page=dashboard" target="_blank">%numberNewProjectEvents% new project events(s)</a> 
+			<br />
+			<!-- newProjectEventsEnd -->
+			<!-- newMessagesStarts -->
+			there is <a href="%%WEBAPP_URL%%?page=messages&userFilter=users" target="_blank">%numberNewMessages% new user's message(s)</a> 
+			<br />
+			<!-- newMessagesEnd -->
+			<!-- newProjectsMessagesStarts -->
+			there is <a href="%%WEBAPP_URL%%?page=messages" target="_blank">%numberNewProjectsMessages% new project's message(s)</a> 
+			<br />
+			<!-- newProjectsMessagesEnd -->
+			<!-- newAppointmentsStarts -->
+			there is <a href="%%WEBAPP_URL%%?page=appointments" target="_blank">%numberNewAppointments% new appointment(s)</a> 
+			<br />
+			<!-- newAppointmentsEnd -->
+			<!-- incomingAppointmentsStarts -->
+			there is <a href="%%WEBAPP_URL%%?page=appointments&filter=ongoing" target="_blank">%numberIncomingAppointments% appointment(s) in the next 24 hours!</a> 
+			<br />
+			<!-- incomingAppointmentsEnd -->
+			<br /> Thanks! 
+		</p>
+		%%EMAIL_SIGNATURE%%
+	</body>
+</html>

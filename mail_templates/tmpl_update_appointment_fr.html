@@ -1,0 +1,20 @@
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	</head>
+	<body text="#000000" bgcolor="#FFFFFF">
+		<p>
+			Bonjour %userName%, <a href="%%WEBAPP_URL%%?page=appointments&showAppointment=%appointmentID%" target="_blank">un rendez-vous</a> sur MAMA a &eacute;t&eacute; mis-&agrave;-jour : 
+			<br />message : %appointmentMessage% 
+			<br />enoy&eacute; par : %appointmentFrom% 
+			<!-- successStarts -->
+			<br /> date choisie : %appointmentDate% 
+			<!-- successEnd -->
+			<!-- failStarts -->
+			<br /> Impossible de d&eacute;finir une date de rendez-vous&nbsp;; merci de faire une nouvelle proposition de rendez-vous avec d'autres dates&nbsp;!
+			<!-- failEnd -->
+			<br />
+		</p>
+		%%EMAIL_SIGNATURE%%
+	</body>
+</html>

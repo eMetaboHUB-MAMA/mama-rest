@@ -1,0 +1,30 @@
+; MAMA CONFIG FILE - V0
+
+[application]
+name = mama-rest
+version = 0.0
+
+[database]
+driver = pdo_mysql
+host = 127.0.0.1
+dbname = mama_test
+user = mama_test_user
+password = XSaMyduyvpmLenNn 
+
+[ldap]
+email_filter = "/(.*)@.*\.inra\.fr/"
+server = "ldap.inra.fr"
+filter = "ou=personnes,dc=inra,dc=fr"
+identifier = "uid="
+
+[smtp]
+host = "smtp.clermont.inra.fr"
+smtpauth = false
+username = ""
+password = ""
+secure = "" 
+port = 25
+from_email = "do-not-reply@mama.org"
+from_displayname ="MAMA"
+replyto_email = "do-not-reply@mama.org"
+replyto_displayname ="MAMA"

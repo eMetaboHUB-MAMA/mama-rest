@@ -1,0 +1,43 @@
+; MAMA CONFIG FILE - V1
+
+[application]
+name = mama-rest
+version = 1.0
+message = "Welcome to MAMA-REST!"
+documentation = "send an email at 'mama-contact@metabohub.fr' and ask the documentation"
+webapp_url = "https://mama-webapp.metabohub.fr"
+
+[database]
+driver = pdo_mysql
+host = 127.0.0.1
+dbname = mama_db
+user = mama_user
+password = _todo_define_your_password 
+
+[ldap]
+server = "ldap.inra.fr"
+filter = "ou=personnes,dc=inra,dc=fr"
+identifier = "uid="
+
+[smtp]
+host = "smtp.clermont.inra.fr"
+smtpauth = false
+username = ""
+password = ""
+secure = "" 
+port = 25
+from_email = "no-reply-mama@metabohub.fr"
+from_displayname ="MAMA"
+replyto_email = "no-reply-mama@metabohub.fr"
+replyto_displayname ="MAMA"
+
+[cron]
+daily_mailler = "0 8 * * *"
+daily_mailler_log = "logs/daily-mailler.log"
+weekly_mailler = "0 8 * * 1"
+weekly_mailler_log = "logs/weekly-mailler.log"
+monthly_users_inactiver = "0 12 1-7 * *"
+monthly_users_inactiver_log = "logs/monthly-users-inactiver.log"
+
+[other]
+projects_files_dir = "/var/www/html/mama-rest/uploaded_files"
