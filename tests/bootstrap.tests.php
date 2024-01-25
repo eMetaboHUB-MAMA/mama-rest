@@ -58,3 +58,4 @@ define ( "contact_email", $ini_array ['contact'] ['email'] );
 define ( "contact_name", $ini_array ['contact'] ['name'] );
 
 $entityManager = EntityManager::create ( $conn, $config );
+$GLOBALS ['entityManager'] = $entityManager;

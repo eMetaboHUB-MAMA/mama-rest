@@ -19,6 +19,28 @@ Technical change between REST API releases
 
 ## Latest
 
+- **@version**: `1.2.0`
+- **@notes**:
+  - describe this release's reasons
+- **@new**:
+  - mama#xx - short description - short_sha or merge_request
+- **@bugs fixed**:
+  - mama#xx - short description - short_sha or merge_request
+- **@other**:
+  - mama#dev - update CI server (switch to sauron)
+  - mama#dev - update DEV server (switch to unh-pfenlindev)
+  - mama#dev - add new MIT license (WebApp and REST API)
+  - mama#54 - fix minor orthography errors in GUI
+  - mama#58 - set config. new PROD server
+  - mama#59 - non-LDAP users password mgmt - remove salt option
+  - mama#59 - update for Ubuntu 22.04 / PHP 8.1 support
+- **@known bugs**:
+  - mama#xx - short description
+
+## Previous releases
+
+### 2021-11-24
+
 - **@version**: `v1.1.0`
 - **@notes**:
   - feedback from MTH2-WP6
@@ -43,11 +65,9 @@ sudo -u www-data vendor/bin/doctrine orm:schema-tool:update --force
 ```ini
 ; file config/mama-config.ini
 [contact]
-email = "mama-contact@metabohub.fr"
+email = "contacts-mama-mth@inrae.fr"
 name = "MAMA - Contact"
 ```
-
-## Previous releases
 
 ### 2021-10-29
 
@@ -62,7 +82,7 @@ name = "MAMA - Contact"
     - "involved email pattern filter"
   - mama#42 - update `search/list projects` view: improve "plateforms" filter (label + select multiple)
   - mama#43 - update `search/list projects` XLS export:
-    - add `administratif context` column 
+    - add `administratif context` column
     - add `geographical context` column
     - add `public/private context` column
   - mama#46 - statistics view: add new `funding source/types` graph.; also improve graph. listing
@@ -109,19 +129,21 @@ name = "MAMA - Contact"
   - mama#15 - reject projects form field are now mandatory
 
 Third part dependencies for MAMA-REST
+
 ```sh
 # for PHP-Excel
 sudo apt-get install -y php7.0-gd php7.0-mbstring php7.0-zip
 ```
 
 Update SQL query:
+
 ```sql
 mysql> UPDATE   users
     -> SET      email = CONCAT(LEFT(email, INSTR(email, '@')), 'inrae.fr')
     -> WHERE    email LIKE '%@inra.fr%' AND login NOT LIKE '%@%';
 ```
 
-### 2017-12-15
+### 2017-12-15 (bis)
 
 - **@version**: `v1.0.2`
 - **@notes**:

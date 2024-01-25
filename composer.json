@@ -16,16 +16,17 @@
         }
     ],
     "require": {
-        "php": ">=7.4.0",
+        "php": ">=8.1.0",
         "slim/slim": "~3.0",
         "slim/php-view": "^2.0",
         "monolog/monolog": "^1.17",
-        "doctrine/orm": "2.6.*",
-        "doctrine/annotations": "^1.8",
-        "symfony/yaml": "2.*",
+        "doctrine/orm": "2.14.1",
+        "doctrine/annotations": "~1.14",
+        "symfony/cache": "6.2.7",
+        "symfony/yaml": "2.8.52",
         "phpmailer/phpmailer": "^5.2",
         "hellogerard/jobby": "^3.0",
-        "phpoffice/phpspreadsheet": "1.8.1"
+        "phpoffice/phpspreadsheet": "1.28.0"
     },
     "autoload": {
         "psr-0": {
@@ -33,7 +34,8 @@
         }
     },
     "require-dev": {
-        "phpunit/phpunit": "^7",
-        "phpunit/php-code-coverage": "^6"
+        "phpunit/phpunit": "10.0.14",
+        "phpunit/php-code-coverage": "10.0.2",
+        "phpunit/php-invoker": "~4.0"
     }
 }

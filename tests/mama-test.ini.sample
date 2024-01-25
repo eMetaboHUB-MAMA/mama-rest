@@ -21,16 +21,16 @@ filter = "ou=personnes,dc=inra,dc=fr"
 identifier = "uid="
 
 [smtp]
-host = "smtp.clermont.inra.fr"
-smtpauth = false
-username = ""
-password = ""
-secure = "" 
-port = 25
+host = "smtp.inrae.fr"
+smtpauth = true
+username = "service.pfem"
+password = "xxxx"
+secure = "STARTTLS" 
+port = 465
 from_email = "do-not-reply@mama.org"
 from_displayname ="MAMA"
 replyto_email = "do-not-reply@mama.org"
-replyto_displayname ="MAMA"
+replyto_displayname = "MAMA"
 
 [contact]
 email = "nils.paulhe+test-mama-contact@protonmail.ch"

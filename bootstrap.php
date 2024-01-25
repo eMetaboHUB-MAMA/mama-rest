@@ -195,3 +195,4 @@ $config->setAutoGenerateProxyClasses(true);
 
 // create EM
 $entityManager = EntityManager::create($conn, $config);
+$GLOBALS ['entityManager'] = $entityManager;

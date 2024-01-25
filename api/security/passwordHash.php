@@ -1,55 +1,31 @@
 <?php
-/**
- * @param String $password
- * @return string
+
+/** 
+ * Hash a password before storing it in database
+ * @param String $password the password to hash
+ * @return string the hashed password
  */
-function create_hash($password) {
-	$salt = null;
-	
-	// load cache in this method
-	global $memcacheD;
-	
-	// check if salt in ram
-	if ($memcacheD->get( "salt" ) ) {
-		$salt = $memcacheD->get( "salt" );
-	} else {
-		// get salt
-		$saltFile = __DIR__ . "/../../config/salt.txt";
-		if (file_exists ( $saltFile )) {
-			$fh = fopen ( $saltFile, 'r' );
-			$salt = fgets ( $fh );
-		} else {
-			// create salt
-			$salt = mcrypt_create_iv ( 22, MCRYPT_DEV_URANDOM );
-			$fh = fopen ( $saltFile, 'w' );
-			fwrite ( $fh, $salt );
-			$memcacheD->set( "salt", $salt );
-		}
-		fclose ( $fh );
-	}
+function create_hash($password)
+{
+	// note PHP 8 - salt option is ignored - using default SALT
 	// encode
-	$options = [ 
-			'cost' => 12,
-			'salt' => $salt 
+	$options = [
+		'cost' => 12
 	];
-	return password_hash ( $password, PASSWORD_BCRYPT, $options );
+	return password_hash($password, PASSWORD_BCRYPT, $options);
 }
 
 /**
- *
- * @param String $password        	
- * @param String $correct_hash        	
- * @return boolean
+ * Generate a random string that can be used as temporary password when a user wants to reset it
+ * @param Integer $length the length of the generated password
  */
-function validate_password($password, $correct_hash) {
-	return (create_hash ( create_hash )) === ($correct_hash);
-}
-function generateRandomPassword($length = 6) {
+function generateRandomPassword($length = 10)
+{
 	$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-	$charactersLength = strlen ( $characters );
+	$charactersLength = strlen($characters);
 	$randomPassword = '';
-	for($i = 0; $i < $length; $i ++) {
-		$randomPassword .= $characters [rand ( 0, $charactersLength - 1 )];
+	for ($i = 0; $i < $length; $i++) {
+		$randomPassword .= $characters[rand(0, $charactersLength - 1)];
 	}
 	return $randomPassword;
 }

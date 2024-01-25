@@ -132,7 +132,7 @@ class User extends AbstractMAMAobject {
 	private $laboratoryOrCompagny;
 	
 	/**
-	 * @Column(type="string", name="workplace_address", nullable=true)
+	 * @Column(type="string", name="workplace_address", nullable=true, length=1024 )
 	 *
 	 * @var String
 	 * @access private
@@ -311,10 +311,15 @@ class User extends AbstractMAMAobject {
 	public function getLogin() {
 		return $this->login;
 	}
-	// public function getPassword() {
-	// return $this->password;
+
+	// public function getHashedPassword() {
+	// 	return $this->password;
 	// }
 	
+	public function testHashedPasswordMatch($password) {
+		return password_verify($password, $this->password);
+	}
+
 	/**
 	 *
 	 * @return string

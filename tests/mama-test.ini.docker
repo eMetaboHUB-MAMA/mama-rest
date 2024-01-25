@@ -21,7 +21,7 @@ filter = "ou=personnes,dc=inra,dc=fr"
 identifier = "uid="
 
 [smtp]
-host = "smtp.inra.fr"
+host = "smtp.inrae.fr"
 smtpauth = "true"
 username = "service.pfem"
 password = "xxxx"

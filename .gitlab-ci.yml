@@ -1,5 +1,5 @@
 # docker image
-image: metabohub/mama-rest
+image: metabohub/mama-rest:1.2.0
 
 # maven env.
 variables:
@@ -11,13 +11,13 @@ variables:
   MYSQL_USERNAME: "mama_user@'%'"
   MYSQL_USERPASSW: "mama_password"
   # docker env.
-  DOCKER_IMAGE: "metabohub/mama-rest"
+  DOCKER_IMAGE: "metabohub/mama-rest:1.2.0"
   DOCKER_CONTAINER: "mama-rest"
   DOCKER_SOCKET: "6382"
   # SSH / SCP
   SSH_OPTS: " -q -t "
   SSH_USER: "gitlab-bot"
-  SSH_HOST: "pfem-lindev.ara.inrae.fr"
+  SSH_HOST: "unh-pfemlindev.ara.inrae.fr"
   # cache
   IMAGE_FILE: "mama-rest.image"
   CACHE_BASH: "/tmp/gitlab-ci-cache"
@@ -38,21 +38,21 @@ stages:
 build docker image:
   stage: docker_env
   tags:
-    - bash
+    - shell-sauron
   except:
     refs:
       - master
       - tags
   before_script:
     - echo "==================================";
-    - echo "[info] set config. files ";
-    - echo "$CONFIG_SALT_FILE" >> config/salt.txt
+    # - echo "[info] set config. files ";
+    # - echo "$CONFIG_SALT_FILE" >> config/salt.txt
     - test -f config/mama-config.ini && rm config/mama-config.ini
     - cp config/mama-config.ini.sample config/mama-config.ini
     - >
         sed -i \
           -e "s/https:\/\/mama-webapp.metabohub.fr/$CONFIG_URL_WEBAPP/g"      \
-          -e "s/host = 127.0.0.1/host = 147.99.132.187/"                      \
+          -e "s/host = 127.0.0.1/host = unh-pfemlindev.ara.inrae.fr/"                      \
           -e "s/host = \"smtp-nonaut.inra.fr\"/host = \"$CONFIG_SMTP_HOST\"/" \
           -e "s/smtpauth = false/smtpauth = \"$CONFIG_SMTP_AUTH\"/"           \
           -e "s/username = \"\"/username = \"$CONFIG_SMTP_USERNAME\"/"        \
@@ -74,7 +74,7 @@ build docker image:
 tests:
   stage: tests
   tags:
-    - docker
+    - docker-sauron
   services:
     - name: mysql:5.7
       alias: mysql-test-server
@@ -97,13 +97,13 @@ tests:
     - popd
   script:
     - pushd /var/www/html/tests
-    - phpunit --coverage-text --colors=never --coverage-html $CACHE_DOCKER/coverage-report --bootstrap ../vendor/autoload.php .
+    - ../vendor/bin/phpunit --coverage-text --colors=never --coverage-html $CACHE_DOCKER/coverage-report --bootstrap ../vendor/autoload.php .
     - popd
     
 copy to dev:
   stage: copy_to_dev
   tags:
-    - docker
+    - docker-sauron
   except:
     refs:
       - master
@@ -133,3 +133,6 @@ copy to dev:
     - ssh $SSH_OPTS $SSH_USER@$SSH_HOST "docker exec -i $DOCKER_CONTAINER \"bash\" \"-c\" \"cd /var/www/html/ && php vendor/bin/doctrine orm:schema-tool:update --force\"   "
     - echo "[gitlab-ci] remove docker image on test server";
     - ssh $SSH_OPTS $SSH_USER@$SSH_HOST "rm -rf /tmp/$IMAGE_FILE ";
+  after_script:
+    - echo "[gitlab-ci] remove docker image on gitlab server";
+    - test -f $CACHE_DOCKER/$IMAGE_FILE && rm -rf $CACHE_DOCKER/$IMAGE_FILE

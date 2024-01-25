@@ -20,7 +20,7 @@ class EmailManagementServiceTest extends PHPUnit\Framework\TestCase
     public function testSend()
     {
         // test send fail
-        $success1 = EmailManagementService::sendEmailAccountCreation("nils.paulhe.FAIL@inra.fr", "Nils Paulhe", "en");
+        $success1 = EmailManagementService::sendEmailAccountCreation("nils.paulhe.FAIL@inrae.fr", "Nils Paulhe", "en");
         $this->assertEquals(true, $success1, "[error] could not send an email to an INVALIDE address");
 
         // test send success

@@ -563,9 +563,10 @@ class UserManagementService
 				break;
 		}
 
-		// pwd
-		if ($password != null)
+		// password
+		if ($password != null) {
 			$password = create_hash($password);
+		}
 
 		// init
 		$entityManager = $GLOBALS['entityManager'];
@@ -699,7 +700,7 @@ class UserManagementService
 		$user->setEmailLanguage($emailLanguage);
 
 		//mama#41
-		$mthPf = $mthPlatform !=null ? $entityManager->getRepository('MTHplatform')->find($mthPlatform) : null;
+		$mthPf = $mthPlatform != null ? $entityManager->getRepository('MTHplatform')->find($mthPlatform) : null;
 		$user->setMthPlatform($mthPf);
 
 		$user->setUpdated();
@@ -922,11 +923,9 @@ class UserManagementService
 		$user = null;
 		$entityManager = $GLOBALS['entityManager'];
 
+		// FOR LDAP USER
 		if (!strpos($login, '@')) { // || preg_match ( ldap_email_filter, $login, $matches )
 			$ldapLogin = $login;
-			// if (isset ( $matches ) && count ( $matches ) > 0) {
-			// $ldapLogin = $matches [1];
-			// }
 
 			// init ldap
 			$connect = ldap_connect(ldap_server);
@@ -954,19 +953,31 @@ class UserManagementService
 					$user = $query->getResult();
 				}
 			}
-		} else {
-			// no ldap
-			$query = $entityManager->createQuery('SELECT u FROM User u WHERE u.login = :login AND u.password = :password');
-			$query->setParameters(array(
-				'login' => $login,
-				'password' => create_hash($password)
-			));
-			$user = $query->getResult();
+			// check unser unicity 
+			if (count($user) == 1) {
+				return $user[0];
+			}
 		}
-		if (count($user) == 1)
-			return $user[0];
-		else
-			return null;
+		// FOR NON-LDAP USERS (login via email)
+		else {
+			// no ldap
+			$query = $entityManager->createQuery('SELECT u FROM User u WHERE u.login = :login');
+			$query->setParameters(
+				array(
+					'login' => $login
+				)
+			);
+			$user = $query->getResult();
+			// check unser unicity and password match
+			if (count($user) == 1 && $user[0]->testHashedPasswordMatch($password) == 1) {
+				return $user[0];
+			}
+		}
+		// if we reach this point, user can't be logged either
+		// - with LDAP
+		// - with login (email) / password combination
+		// so we return NULL
+		return null;
 	}
 
 	/**

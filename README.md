@@ -1,7 +1,7 @@
+# MAMA - REST
+
 [![pipeline status](https://services.pfem.clermont.inrae.fr/gitlab/mama/mama-rest/badges/dev/pipeline.svg)](https://services.pfem.clermont.inrae.fr/gitlab/mama/mama-rest/commits/dev)
 [![coverage report](https://services.pfem.clermont.inrae.fr/gitlab/mama/mama-rest/badges/dev/coverage.svg)](https://services.pfem.clermont.inrae.fr/gitlab/mama/mama-rest/commits/dev)
-
-# MAMA - REST
 
 ## Metadata
 
@@ -15,34 +15,34 @@ Note: the command examples are all for a **debian** system with **apache2** and 
 
 ### Requirements
 
-- Ubuntu server 20.04+ or CentOS 7+
-- php 7.4+ (`sudo apt-get install -y php7.4`)
-   - php-mcrypt, php-ldap, php-xml ⇒ `sudo apt-get install -y php7.4-ldap php7.4-curl php-xml php7.4-mysql && sudo phpenmod mcrypt`
-   - php-memcached ⇒ `sudo apt-get install -y memcached php-memcached`
-   - for phpoffice ⇒ `sudo apt-get install -y php7.4-gd php7.4-mbstring php7.4-zip`
-   - install mycrypt ⇒ `sudo apt-get -y install gcc make autoconf libc-dev pkg-config && sudo apt-get -y install php7.4-dev && sudo apt-get -y install libmcrypt-dev && sudo pecl install mcrypt-1.0.1 `; then add `extension=mcrypt.so` in `php.ini` file
-- MySQL 5+ or PostgreSQL 9+ (`sudo apt-get install -y mysql-server`)
-- apache 2+ or nginx 1.9+ (you need to enable rewrite ruls, cf next section) (`sudo apt-get install -y apache2`)
-- curl (`sudo apt-get install -y curl`)
-- composer in order to init your project with these frameworks
-   - `slim` (PHP micro framework to write simple web applications and APIs)
-   - `doctrine` (database storage and object mapping based on Object Relational Mapper (ORM) and the Database Abstraction Layer (DBAL) concepts) 
-   - `jobbyphp` (add cron expression to your PHP project [view on github](https://github.com/jobbyphp/jobby))
-   - `phpmailer` (send emails [view on github](https://github.com/PHPMailer/PHPMailer))
-   - `phpexcel` (create XLS files [view on website](https://packagist.org/packages/phpoffice/phpexcel))
+- Ubuntu server 22.04+
+- php 8.1 (`sudo apt install -y php8.1`)
+  - php-mcrypt, php-ldap, php-xml, ... ⇒ `sudo apt install -y php8.1-ldap php8.1-curl php8.1-xml php8.1-mysql php8.1-gd php8.1-zip && sudo phpenmod mcrypt`
+  - php-memcached ⇒ `sudo apt install -y memcached php-memcached`
+  - for phpoffice ⇒ `sudo apt install -y php8.1-gd php8.1-mbstring php8.1-zip`
+  - install mycrypt ⇒ `sudo apt -y install gcc make autoconf libc-dev pkg-config && sudo apt -y install php8.1-dev && sudo apt -y install libmcrypt-dev && sudo pecl install mcrypt`; then add `extension=mcrypt.so` in `php.ini` file
+- MySQL 5+ or PostgreSQL 9+ (`sudo apt install -y mysql-server`)
+- apache 2+ or nginx 1.9+ (you need to enable rewrite ruls, cf next section) (`sudo apt install -y apache2`)
+- curl (`sudo apt install -y curl`)
+- [composer](https://getcomposer.org/download/) in order to init your project with these frameworks
+  - `slim` (PHP micro framework to write simple web applications and APIs)
+  - `doctrine` (database storage and object mapping based on Object Relational Mapper (ORM) and the Database Abstraction Layer (DBAL) concepts)
+  - `jobbyphp` (add cron expression to your PHP project [view on github](https://github.com/jobbyphp/jobby))
+  - `phpmailer` (send emails [view on github](https://github.com/PHPMailer/PHPMailer))
+  - `phpexcel` (create XLS files [view on website](https://packagist.org/packages/phpoffice/phpexcel))
 - a SMTP application
 
-### Ubuntu 18.04 / apache2 / PHP 7.4 activation
+### Ubuntu 22.04 / apache2 / PHP 8.1 activation
 
 To allow apache2 to execute PHP files please run this command:
 
-`sudo apt-get install libapache2-mod-php7.4 && sudo service apache2 restart`
-
+`sudo apt install libapache2-mod-php8.1 && sudo systemctl restart apache2`
 
 ### Rewrite Rules
 
-For apache: `sudo a2enmod rewrite && sudo service apache2 restart` is fine; then add this config to your `apache2.conf` file:
-```
+For apache: `sudo a2enmod rewrite && sudo systemctl restart apache2` is fine; then add this config to your `apache2.conf` file:
+
+```html
 <Directory /var/www/html/mama-rest/>
   AllowOverride All
 </Directory>
@@ -56,15 +56,15 @@ In order to be sur that users only access to `public/` folder's scripts, you mus
 
 ### Deploy
 
-- get project data `git clone git@services.pfem.clermont.inrae.fr:mama/mama-rest.git`
+- get project data `git clone https://services.pfem.clermont.inrae.fr/gitlab/mama/mama-rest.git`
 - you propably should set the owner of all files to your web-server unix user/group (e.g. for apache: `chown -R www-data:www-data mama-rest`)
-- download in install `slim`, `doctrine`, `jobbyphp`, `phpmailer` and `phpexcel` with `composer`: `cd /tmp/ && curl -sS https://getcomposer.org/installer | php && cd /dir/to/folder/mama-rest && sudo -u www-data php /tmp/composer.phar update `
+- download in install `slim`, `doctrine`, `jobbyphp`, `phpmailer` and `phpexcel` with `composer`: `cd /tmp/ && curl -sS https://getcomposer.org/installer | php && cd /dir/to/folder/mama-rest && sudo -u www-data php /tmp/composer.phar update`
 - init cron by adding this rule to your crontab list: `* * * * * cd /dir/to/folder/mama-rest && php jobby.php 1>> /dev/null 2>&1` (you should use apache user's crontab)
 - set ownership of `uploaded_files` folder to apache (chown command)
-- set server timezone to UTC (for Ubuntu server 16.04 enter `sudo  timedatectl set-timezone Etc/UTC​`)
+- set server timezone to UTC (for Ubuntu server >=16.04 enter `sudo  timedatectl set-timezone Etc/UTC​`)
 - WARNING init the database before going any further
 
-## Database initialization:
+## Database initialization
 
 ### prod
 
@@ -72,7 +72,7 @@ In order to be sur that users only access to `public/` folder's scripts, you mus
  2. edit `config/mama-config.ini` with your database informations
  3. create your database and database-users (c.f. SQL bottom code) matching your ini file.
  4. run `vendor/bin/doctrine orm:schema-tool:create` command in order to init the database tables (from project's root)
- 
+
 ```sql
     CREATE DATABASE `your-database-name` CHARACTER SET UTF8;
     CREATE USER 'your-database-user'@'localhost' IDENTIFIED BY 'enter-a-strong-password';
@@ -106,15 +106,16 @@ Only for developpers on local computers.
     FLUSH PRIVILEGES;
 ```
 
-notes: 
- - if you update the data-model, refactor these changes in the database with `vendor/bin/doctrine orm:schema-tool:update --force` command
- - see: http://stackoverflow.com/questions/19066140/doctrine-error-failed-opening-required-tmp-cg-source-php
-    - `sudo -u www-data vendor/bin/doctrine orm:generate-proxies`
-    - `chown www-data:www-data /tmp/__*`
-    
+notes:
+
+- if you update the data-model, refactor these changes in the database with `vendor/bin/doctrine orm:schema-tool:update --force` command.
+- see: `http://stackoverflow.com/questions/19066140/doctrine-error-failed-opening-required-tmp-cg-source-php`
+  - `sudo -u www-data vendor/bin/doctrine orm:generate-proxies`
+  - `chown www-data:www-data /tmp/__*`
+
 You can build a test docker image to developp:
 
-```
+```bash
 # build ref. image (base)
 cd /path/to/mama-management && docker build -t metabohub/mama-core .
 cd /path/to/mama-rest && docker build -t metabohub/mama-rest .
@@ -124,28 +125,26 @@ cd /path/to/mama-rest && docker build -t metabohub/mama-rest-tests -f Dockerfile
 
 # run with shared volum for work. dir.
 docker run --rm -it \
-	-v $(pwd):/var/www/html/ \
-	-p 8888:80 \
-	metabohub/mama-rest-tests
+   -v $(pwd):/var/www/html/ \
+   -p 8888:80 \
+   metabohub/mama-rest-tests
 ```
-
 
 Then edit `MAMA - WebApp` config file `` like this:
 
 ```json
 {
-	"serverLanguage":"php",
-	"mamaRestApi":"http://localhost:8888/",
-	"defaultLang":"en"
+   "serverLanguage":"php",
+   "mamaRestApi":"http://localhost:8888/",
+   "defaultLang":"en"
 }
 ```
- 
+
 ## Warning
 
-The password in database are hashed with a salt; this salt is randomly generated at server first start and stored in the `config/salt.txt` file.
 The database connexion settings are in the `config/mama-config.ini` file. If the file does not exists, the web-application copy it from `config/mama-config.ini.sample` template file
-In order to improve preformances, the database connexion parameters and the salt are stored in the server RAM (random access memory).
-So if your deleted the salt file or edit the `mama-config.ini` file, you must restart the web-server (e.g. with `service apache restart`)
+In order to improve preformances, the database connexion parameters are stored in the server RAM (random access memory).
+So if you edit the `mama-config.ini` file, you must restart the web-server (e.g. with `service apache restart`)
 
 ## Unit tests
 
@@ -153,12 +152,13 @@ Developpers: unit tests require PHPUnit 5.1.3+.\
 :warning: do not forget to initialize the test database (see this readme file, `database → dev & tests` section).\
 To run test you need to install the following tools:
 
-- PHP-Unit `apt-get install phpunit`
-- PHP-dev `apt-get install php7.4-dev apt-utils`
-- xdebug: ``pecl install xdebug && echo "zend_extension=/usr/lib/php/20190902/xdebug.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`;`` 
+- PHP-Unit `apt install phpunit`
+- PHP-dev `apt install php8.1-dev apt-utils`
+- xdebug: ``pecl install xdebug && echo "zend_extension=/usr/lib/php/20190902/xdebug.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`;``
 - PHP-Code-Coverage `/tmp/composer.phar require phpunit/php-code-coverage`
 
 To run all tests and check test code coverage:
+
 ```bash
 cd /path/to/mama-rest
 cd tests
@@ -166,6 +166,7 @@ phpunit --coverage-text --colors=never  --bootstrap ../vendor/autoload.php .
 ```
 
 To test a single service:
+
 ```bash
 phpunit --bootstrap ../vendor/autoload.php tokenManagementServiceTest.php
 ```
@@ -188,6 +189,8 @@ Where the app. is in dev / prod.
 
 Please refer to [this specific documentation](docker-conf/howto.md).
 
-## License 
+## License
 
-(C) Copyright - MetaboHUB 2016
+(C) Copyright - MetaboHUB 2016.\
+
+MAMA "in-house" code is provided under [MIT license](LICENSE.md).
