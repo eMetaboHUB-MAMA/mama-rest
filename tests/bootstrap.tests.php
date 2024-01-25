@@ -54,4 +54,7 @@ define ( "smtp_replyto_displayname", $ini_array ['smtp'] ['replyto_displayname']
 
 define("app_webapp_url",  $ini_array['application']['webapp_url'] );
 
+define ( "contact_email", $ini_array ['contact'] ['email'] );
+define ( "contact_name", $ini_array ['contact'] ['name'] );
+
 $entityManager = EntityManager::create ( $conn, $config );

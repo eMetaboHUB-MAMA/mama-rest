@@ -24,6 +24,14 @@ class MTHplatform extends AbstractMAMAobject {
 	 */
 	private $name;
 	
+	/**
+	 * @OneToMany(targetEntity="User", mappedBy="metabohub_platform")
+	 *
+	 * @var User
+	 * @access private
+	 */
+	private $users;
+
 	// ////////////////////////////////////////////////////////////////////////
 	// CONSTRUCTORS
 	
@@ -61,6 +69,7 @@ class MTHplatform extends AbstractMAMAobject {
 	 */
 	public function prune() {
 		$this->id = intval ( $this->getId () );
+		$this->users = [];
 	}
 	
 	/**
@@ -71,6 +80,7 @@ class MTHplatform extends AbstractMAMAobject {
 		unset ( $var ["__initializer__"] );
 		unset ( $var ["__cloner__"] );
 		unset ( $var ["__isInitialized__"] );
+		unset ( $var ["users"] );
 		foreach ( $var as &$value ) {
 			if (is_object ( $value ) && method_exists ( $value, 'getJsonData' )) {
 				$value = $value->getJsonData ();
@@ -88,6 +98,7 @@ class MTHplatform extends AbstractMAMAobject {
 		unset ( $var ["__initializer__"] );
 		unset ( $var ["__cloner__"] );
 		unset ( $var ["__isInitialized__"] );
+		unset ( $var ["users"] );
 		foreach ( $var as $key => $val ) {
 			// if (is_object ( $val ) && method_exists ( $val, 'getArrayData' )) {
 			// $val = $val->getArrayData ();
@@ -95,6 +106,14 @@ class MTHplatform extends AbstractMAMAobject {
 			$ret [$key] = object2array ( $val );
 		}
 		return $ret;
+	}
+
+	public function getUsers() {
+		return $this->users;
+	}
+	 
+	public function setUsers($users) {
+		$this->users = $users;
 	}
 }
 ?>

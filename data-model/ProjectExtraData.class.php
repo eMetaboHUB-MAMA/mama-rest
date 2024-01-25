@@ -49,6 +49,8 @@ class ProjectExtraData extends AbstractMAMAobject
     
     public static $REJECTED_REASON__SAVED_TWICE = 208;
 
+    public static $REJECTED_REASON__CANCELED_BY_CLIENT = 209;
+
     // DIALOG BOX
     public static $DIALOG_BOX__REQUEST_NOT_CHECKED = 300;
 
@@ -461,6 +463,8 @@ class ProjectExtraData extends AbstractMAMAobject
                 return "not_funded";
             case ProjectExtraData::$REJECTED_REASON__SAVED_TWICE:
                 return "saved_twice";
+            case ProjectExtraData::$REJECTED_REASON__CANCELED_BY_CLIENT:
+                return "canceled_by_client";
             default:
                 return "";
         }
@@ -513,6 +517,10 @@ class ProjectExtraData extends AbstractMAMAobject
             case "saved_twice":
             case "_saved_twice":
                 $rejectedReasonInt = ProjectExtraData::$REJECTED_REASON__SAVED_TWICE;
+                break;
+            case "canceled_by_client":
+            case "_canceled_by_client":
+                $rejectedReasonInt = ProjectExtraData::$REJECTED_REASON__CANCELED_BY_CLIENT;
                 break;
         }
         $this->rejectedReason = $rejectedReasonInt;

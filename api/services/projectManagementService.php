@@ -481,7 +481,6 @@ class ProjectManagementService
 			$filterDateTo = $_GET['to'];
 			$where .= " (p.created < :dateTo ) ";
 		}
-
 		$query = $entityManager->createQuery('SELECT COUNT (p.id) FROM Project p ' . $join . $where);
 		// if (! is_null ( $userID ))
 		// $query->setParameter ( 'userID', $userID );

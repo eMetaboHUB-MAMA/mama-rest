@@ -31,3 +31,7 @@ from_email = "do-not-reply@mama.org"
 from_displayname ="MAMA"
 replyto_email = "do-not-reply@mama.org"
 replyto_displayname ="MAMA"
+
+[contact]
+email = "nils.paulhe+test-mama-contact@protonmail.ch"
+name = "MAMA - Contact"

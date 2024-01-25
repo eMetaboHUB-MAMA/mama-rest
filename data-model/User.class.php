@@ -250,6 +250,16 @@ class User extends AbstractMAMAobject {
 	 */
 	private $userEvents;
 	
+	/**
+	 * @ManyToOne(targetEntity="MTHplatform", inversedBy="users", fetch="EAGER")
+	 * @JoinColumn(name="platform_id", referencedColumnName="id", nullable=true)
+	 *
+	 * @var MTHplatform
+	 * @access private
+	 */
+	private $mthPlatform;
+
+	
 	// ////////////////////////////////////////////////////////////////////////
 	// CONSTRUCTORS
 	// /**
@@ -900,5 +910,12 @@ class User extends AbstractMAMAobject {
 	public function setUserEvents($userEvents) {
 		$this->userEvents = $userEvents;
 	}
+
+	public function getMthPlatform() {
+		return $this->mthPlatform;
+	}
+	public function setMthPlatform($mthPlatform) {
+		$this->mthPlatform = $mthPlatform;
+	}
+
 }
-?>

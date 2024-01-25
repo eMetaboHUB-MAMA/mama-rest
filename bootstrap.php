@@ -45,6 +45,10 @@ $cron_daily_mailler_log = null;
 $cron_weekly_mailler_log = null;
 $cron_monthly_users_inactiver_log = null;
 
+// mama#39 - contact form
+$contact_email = null;
+$contact_name = null;
+
 // check RAM
 if ($memcacheD->get("database_driver")) {
     $app_webapp_url = $memcacheD->get("app_webapp_url");
@@ -69,6 +73,10 @@ if ($memcacheD->get("database_driver")) {
     $cron_daily_mailler_log = $memcacheD->get("cron_daily_mailler_log");
     $cron_weekly_mailler_log = $memcacheD->get("cron_weekly_mailler_log");
     $cron_monthly_users_inactiver_log = $memcacheD->get("cron_monthly_users_inactiver_log");
+
+    // mama#39 - contact form
+    $contact_email = $memcacheD->get("contact_email");
+    $contact_name = $memcacheD->get("contact_name");
 } else {
 
     // if not in RAM load it from ini file
@@ -96,6 +104,10 @@ if ($memcacheD->get("database_driver")) {
     $smtp_from_displayname = $ini_array['smtp']['from_displayname'];
     $smtp_replyto_email = $ini_array['smtp']['replyto_email'];
     $smtp_replyto_displayname = $ini_array['smtp']['replyto_displayname'];
+    
+    // mama#39 - contact form
+    $contact_email =  $ini_array['contact']['email'];
+    $contact_name =  $ini_array['contact']['name'];
 
     // store in RAM
     $memcacheD->set("app_webapp_url", $app_webapp_url);
@@ -123,6 +135,10 @@ if ($memcacheD->get("database_driver")) {
     $memcacheD->set("smtp_replyto_displayname", $smtp_replyto_displayname);
 
     $memcacheD->set("projects_files_dir", $ini_array['other']['projects_files_dir']);
+    
+    // mama#39 - contact form
+    $memcacheD->set("contact_email", $ini_array['contact']['email']);
+    $memcacheD->set("contact_name", $ini_array['contact']['name']);
 
     $cron_daily_mailler_log = $ini_array['cron']['daily_mailler_log'];
     $cron_weekly_mailler_log = $ini_array['cron']['weekly_mailler_log'];
@@ -155,6 +171,10 @@ define("projects_files_dir", $ini_array['other']['projects_files_dir']);
 define("cron_daily_mailler_log", $cron_daily_mailler_log);
 define("cron_weekly_mailler_log", $cron_weekly_mailler_log);
 define("cron_monthly_users_inactiver_log", $cron_monthly_users_inactiver_log);
+
+// mama#39 - contact form
+define("contact_email", $contact_email);
+define("contact_name", $contact_name);
 
 // init data model
 $config = Setup::createAnnotationMetadataConfiguration(array(

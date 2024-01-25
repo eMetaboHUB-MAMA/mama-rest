@@ -4,7 +4,6 @@ Technical change between REST API releases
 
 <!--
 ## Template
-- **@tag**: `xxx`
 - **@version**: `xxx`
 - **@notes**:
   - describe this release's reasons
@@ -19,6 +18,38 @@ Technical change between REST API releases
 -->
 
 ## Latest
+
+- **@version**: `v1.1.0`
+- **@notes**:
+  - feedback from MTH2-WP6
+- **@new**:
+  - mama#39 - add contact form GUI and controller (only for registered users)
+  - mama#41 - a user can set its favourite MTH platform in his profile (only PM/admin) - :warning: require a database update (cf SQL code below)
+  - mama#41 - new indicator: count projects per user platform (only PM/admin)
+  - mama#53 - new 'rejected reason' value: `canceled by client`
+- **@other**:
+  - mama#40 - update vocabulary on GUI for `add new project` form
+
+```bash
+# go to mama-rest app folder
+cd /var/www/html/mama-rest
+# update entities cache
+sudo -u www-data vendor/bin/doctrine orm:generate-proxies
+chown www-data:www-data /tmp/__*
+# update database
+sudo -u www-data vendor/bin/doctrine orm:schema-tool:update --force
+```
+
+```ini
+; file config/mama-config.ini
+[contact]
+email = "mama-contact@metabohub.fr"
+name = "MAMA - Contact"
+```
+
+## Previous releases
+
+### 2021-10-29
 
 - **@version**: `v1.0.5`
 - **@new**:
@@ -46,21 +77,6 @@ Technical change between REST API releases
   - mama#28 - add users' email addresses in XLS file export
   - mama#51 - update composer dependencies
   - mama#52 - update matomo analytics code
-
-<!-- 
-- **@notes**:
-  - describe this release's reasons
-- **@new**:
-  - mama#xx - short description - short_sha or merge_request
-- **@bugs fixed**:
-  - mama#xx - short description - short_sha or merge_request
-- **@other**:
-  - mama#xx - short description - short_sha or merge_request
-- **@known bugs**:
-  - mama#xx - short description
--->
-
-## Previous releases
 
 ### 2020-10-14
 

@@ -262,6 +262,8 @@ class ProjectExtraDataClassTest extends PHPUnit\Framework\TestCase
         $this->assertEquals("not_funded", $obj->getRejectedReason());
         $obj->setRejectedReason(ProjectExtraData::$REJECTED_REASON__SAVED_TWICE);
         $this->assertEquals("saved_twice", $obj->getRejectedReason());
+        $obj->setRejectedReason(ProjectExtraData::$REJECTED_REASON__CANCELED_BY_CLIENT);
+        $this->assertEquals("canceled_by_client", $obj->getRejectedReason());
 
         // reset 1
         $obj->setRejectedReason(- 1);
@@ -288,6 +290,8 @@ class ProjectExtraDataClassTest extends PHPUnit\Framework\TestCase
         $this->assertEquals("not_funded", $obj->getRejectedReason());
         $obj->setRejectedReason("_saved_twice");
         $this->assertEquals("saved_twice", $obj->getRejectedReason());
+        $obj->setRejectedReason("_canceled_by_client");
+        $this->assertEquals("canceled_by_client", $obj->getRejectedReason());
 
         // reset 2
         $obj->setRejectedReason("toto");

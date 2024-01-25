@@ -37,5 +37,9 @@ weekly_mailler_log = "logs/weekly-mailler.log"
 monthly_users_inactiver = "0 12 1-7 * *"
 monthly_users_inactiver_log = "logs/monthly-users-inactiver.log"
 
+[contact]
+email = "Contacts-MAMA-MTH@inrae.fr"
+name = "MAMA - Contact"
+
 [other]
 projects_files_dir = "/var/www/html/mama-rest/uploaded_files"

@@ -49,7 +49,19 @@ build docker image:
     - echo "$CONFIG_SALT_FILE" >> config/salt.txt
     - test -f config/mama-config.ini && rm config/mama-config.ini
     - cp config/mama-config.ini.sample config/mama-config.ini
-    - sed -i -e "s/https:\/\/mama-webapp.metabohub.fr/$CONFIG_URL_WEBAPP/g"  -e "s/host = 127.0.0.1/host = 147.99.132.187/" -e "s/host = \"smtp-nonaut.inra.fr\"/host = \"$CONFIG_SMTP_HOST\"/" -e "s/smtpauth = false/smtpauth = \"$CONFIG_SMTP_AUTH\"/" -e "s/username = \"\"/username = \"$CONFIG_SMTP_USERNAME\"/" -e "s/password = \"\"/password = \"$CONFIG_SMTP_PASSWORD\"/" -e "s/secure = \"\"/secure = \"$CONFIG_SMTP_SECURE\"/" -e "s/port = 25/port = $CONFIG_SMTP_PORT/" -e "s/from_email = \"no-reply-mama@metabohub.fr\"/from_email = \"$CONFIG_SMTP_EMAIL_FROM\"/" config/mama-config.ini
+    - >
+        sed -i \
+          -e "s/https:\/\/mama-webapp.metabohub.fr/$CONFIG_URL_WEBAPP/g"      \
+          -e "s/host = 127.0.0.1/host = 147.99.132.187/"                      \
+          -e "s/host = \"smtp-nonaut.inra.fr\"/host = \"$CONFIG_SMTP_HOST\"/" \
+          -e "s/smtpauth = false/smtpauth = \"$CONFIG_SMTP_AUTH\"/"           \
+          -e "s/username = \"\"/username = \"$CONFIG_SMTP_USERNAME\"/"        \
+          -e "s/password = \"\"/password = \"$CONFIG_SMTP_PASSWORD\"/"        \
+          -e "s/secure = \"\"/secure = \"$CONFIG_SMTP_SECURE\"/"              \
+          -e "s/port = 25/port = $CONFIG_SMTP_PORT/"                          \
+          -e "s/from_email = \"no-reply-mama@metabohub.fr\"/from_email = \"$CONFIG_SMTP_EMAIL_FROM\"/" \
+          -e "s/email = \"Contacts-MAMA-MTH@inrae.fr\"/email = \"$CONFIG_EMAIL_CONTACT\"/"             \
+          config/mama-config.ini
   script:
     - docker build -t $DOCKER_IMAGE . 
   after_script:

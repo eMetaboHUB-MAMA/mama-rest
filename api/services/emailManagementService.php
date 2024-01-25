@@ -47,7 +47,7 @@ class EmailManagementService
 
         $mail->MsgHTML($message);
 
-        if (! $mail->send()) {
+        if (!$mail->send()) {
             // echo 'Message could not be sent.';
             // echo 'Mailer Error: ' . $mail->ErrorInfo;
             return false;
@@ -88,7 +88,7 @@ class EmailManagementService
 
         $mail->MsgHTML($message);
 
-        if (! $mail->send()) {
+        if (!$mail->send()) {
             // echo 'Message could not be sent.';
             // echo 'Mailer Error: ' . $mail->ErrorInfo;
             return false;
@@ -238,7 +238,7 @@ class EmailManagementService
             }
         }
 
-        if (! $needToSendEmail) {
+        if (!$needToSendEmail) {
             echo "[" . date("Y-m-d H:i:s") . "] no need to send a " . $loggerKey . " digest email to $email \n";
             return false;
         }
@@ -299,7 +299,7 @@ class EmailManagementService
 
         $mail->MsgHTML($message);
 
-        if (! $mail->send()) {
+        if (!$mail->send()) {
             // echo 'Message could not be sent.';
             echo "[" . date("Y-m-d H:i:s") . "] ERROR could not send " . $loggerKey . " digest email to $email because: '" . $mail->ErrorInfo . "' \n";
             return false;
@@ -323,7 +323,7 @@ class EmailManagementService
         $lang = $user->getEmailLanguage();
 
         // $emailAlertNewUserAccount
-        if (! ($user->isEmailAlertNewUserAccount() && $user->isAdmin())) {
+        if (!($user->isEmailAlertNewUserAccount() && $user->isAdmin())) {
             return false;
         }
 
@@ -347,7 +347,7 @@ class EmailManagementService
 
         $mail->MsgHTML($message);
 
-        if (! $mail->send()) {
+        if (!$mail->send()) {
             // fail!
             return false;
         } else {
@@ -373,7 +373,7 @@ class EmailManagementService
         $lang = $user->getEmailLanguage();
 
         // $emailAlertNewUserAccount
-        if (! ($user->isEmailAlertNewProject() && ($user->isAdmin() || $user->isProjectManager()))) {
+        if (!($user->isEmailAlertNewProject() && ($user->isAdmin() || $user->isProjectManager()))) {
             return false;
         }
 
@@ -398,7 +398,7 @@ class EmailManagementService
 
         $mail->MsgHTML($message);
 
-        if (! $mail->send()) {
+        if (!$mail->send()) {
             // fail!
             return false;
         } else {
@@ -442,7 +442,7 @@ class EmailManagementService
 
         $mail->MsgHTML($message);
 
-        if (! $mail->send()) {
+        if (!$mail->send()) {
             // fail!
             return false;
         } else {
@@ -467,7 +467,7 @@ class EmailManagementService
         $lang = $user->getEmailLanguage();
 
         // $emailAlertNewUserAccount
-        if (! ($user->isEmailAlertNewEventFollowedProject())) {
+        if (!($user->isEmailAlertNewEventFollowedProject())) {
             return false;
         }
 
@@ -492,7 +492,7 @@ class EmailManagementService
 
         $mail->MsgHTML($message);
 
-        if (! $mail->send()) {
+        if (!$mail->send()) {
             // fail!
             return false;
         } else {
@@ -518,7 +518,7 @@ class EmailManagementService
         $lang = $user->getEmailLanguage();
 
         // $emailAlertNewUserAccount
-        if (! ($user->isEmailAlertNewMessage())) {
+        if (!($user->isEmailAlertNewMessage())) {
             return false;
         }
 
@@ -544,7 +544,7 @@ class EmailManagementService
 
         $mail->MsgHTML($message);
 
-        if (! $mail->send()) {
+        if (!$mail->send()) {
             // fail!
             return false;
         } else {
@@ -570,7 +570,7 @@ class EmailManagementService
         $lang = $user->getEmailLanguage();
 
         // $emailAlertNewUserAccount
-        if (! ($user->isEmailAlertNewMessage())) {
+        if (!($user->isEmailAlertNewMessage())) {
             return false;
         }
 
@@ -597,7 +597,7 @@ class EmailManagementService
 
         $mail->MsgHTML($message);
 
-        if (! $mail->send()) {
+        if (!$mail->send()) {
             // fail!
             return false;
         } else {
@@ -624,7 +624,7 @@ class EmailManagementService
         $lang = $user->getEmailLanguage();
 
         // $emailAlertNewUserAccount
-        if (! ($user->isEmailAlertNewMessage())) {
+        if (!($user->isEmailAlertNewMessage())) {
             return false;
         }
 
@@ -658,7 +658,7 @@ class EmailManagementService
 
         $mail->MsgHTML($message);
 
-        if (! $mail->send()) {
+        if (!$mail->send()) {
             // fail!
             return false;
         } else {
@@ -720,4 +720,44 @@ class EmailManagementService
 
         return $message;
     }
+
+    ///////////////////////////////////////////////////////////////////////////
+
+    public static function sendContactMessageEmail($user, $contactMessage )
+    {
+
+        // INIT
+        $email = $user->getEmail();
+        $fullName = $user->getFirstName() . " " . $user->getLastName();
+
+        $mail = EmailManagementService::initEmail();
+
+        $mail->addAddress(contact_email,  contact_name); // Add a recipient
+        $mail->addReplyTo($email, $fullName);
+        $mail->isHTML(true); // Set email format to HTML
+
+        $mail->Subject = '[MAMA] new message via contact form';
+     
+        $message = file_get_contents(__DIR__ . '/../../mail_templates/tmpl_contact_message.html');
+
+        // $message = str_replace ( '%username%', $fullName, $message );
+        $message = str_replace('%userName%', $fullName, $message);
+        $message = str_replace('%userEmail%', $email, $message);
+        $message = str_replace('%contactMessage%', $contactMessage, $message); 
+         
+
+        // signature and webapp URL
+        $message = EmailManagementService::setStaticString($message);
+
+        $mail->MsgHTML($message);
+
+        if (! $mail->send()) {
+            // fail!
+            return false;
+        } else {
+            // success!
+            return true;
+        }
+    }
+
 }

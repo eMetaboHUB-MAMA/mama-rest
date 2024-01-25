@@ -83,6 +83,15 @@ $app->get('/projects-stats', function ($request, $response, $args) {
             $data['inChargeProjectsRunning'] = ProjectManagementService::countProjects($user->getId(), "running", "inCharge");
             $data['inChargeProjectsBlocked'] = ProjectManagementService::countProjects($user->getId(), "blocked", "inCharge");
             // $data ['allProjectsArchived'] = ProjectManagementService::countProjects ( null, "archived", "inCharge" );
+
+            // mama#41 - stats per platform
+            $_GET['mth_pf'] = "mth_pf_" . ($user->getMthPlatform() != null ? $user->getMthPlatform()->getId() : "0");
+            $data['myPfProjectsWaiting'] = ProjectManagementService::countProjects(null, "waiting", null);
+            $data['myPfProjectsCompleted'] = ProjectManagementService::countProjects(null, "completed", null);
+            $data['myPfProjectsAccepted'] = ProjectManagementService::countProjects(null, "accepted", null);
+            $data['myPfProjectsAssigned'] = ProjectManagementService::countProjects(null, "assigned", null);
+            $data['myPfProjectsRunning'] = ProjectManagementService::countProjects(null, "running", null);
+            $data['myPfProjectsBlocked'] = ProjectManagementService::countProjects(null, "blocked", null);
         }
     }
 

@@ -116,7 +116,7 @@ You can build a test docker image to developp:
 
 ```
 # build ref. image (base)
-cd /path/to/mama-management && docker build -t metabohub/mama-rest .
+cd /path/to/mama-management && docker build -t metabohub/mama-core .
 cd /path/to/mama-rest && docker build -t metabohub/mama-rest .
 
 # build test image (add mysql, dev tools)
