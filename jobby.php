@@ -2,6 +2,7 @@
 
 // prevent bug #95
 $_SERVER['HTTP_HOST'] = $argv[1];
+$_MAMA_SERVER_HTTP_HOST = $argv[1];
 
 // API
 require_once "vendor/autoload.php";
@@ -10,7 +11,7 @@ require_once "bootstrap.php";
 //
 // Add this line to your crontab file:
 //
-// * * * * * cd /path/to/project && php jobby.php 1>> /dev/null 2>&1
+// * * * * * cd /path/to/project && php jobby.php $_MAMA_SERVER_HTTP_HOST >> /dev/null 2>&1
 //
 
 $jobby = new \Jobby\Jobby ();
@@ -19,7 +20,7 @@ $jobby->add ( 'DailyMail', array (
 		// cmd
 		// 'command' => 'php cron_jobs/dailyMailler.php"',
 		'command' => function () {
-			echo `php cron_jobs/dailyMailler.php`;
+			echo `php cron_jobs/dailyMailler.php $_MAMA_SERVER_HTTP_HOST`;
 			return true;
 		},
 		// each day
@@ -30,7 +31,7 @@ $jobby->add ( 'DailyMail', array (
 
 $jobby->add ( 'WeeklyMail', array (
 		'command' => function () {
-			echo `php cron_jobs/weeklyMailler.php`;
+			echo `php cron_jobs/weeklyMailler.php $_MAMA_SERVER_HTTP_HOST`;
 			return true;
 		},
 		// each monday at 8 am
@@ -41,7 +42,7 @@ $jobby->add ( 'WeeklyMail', array (
 
 $jobby->add ( 'MonthlyUsersInativer', array (
 		'command' => function () {
-			echo `php cron_jobs/monthlyUsersInactiver.php`;
+			echo `php cron_jobs/monthlyUsersInactiver.php $_MAMA_SERVER_HTTP_HOST`;
 			return true;
 		},
 		// each first monday of the month
