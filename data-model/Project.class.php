@@ -61,7 +61,7 @@ class Project extends AbstractMAMAobject
 	private $status;
 
 	/**
-	 * @ManyToOne(targetEntity="User", inversedBy="projects")
+	 * @ManyToOne(targetEntity="User", inversedBy="projectsOwner")
 	 * @JoinColumn(name="owner_id", referencedColumnName="id", nullable=false)
 	 *
 	 * @var User

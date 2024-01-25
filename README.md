@@ -158,7 +158,7 @@ To run test you need to install the following tools:
 
 - PHP-Unit `apt install phpunit`
 - PHP-dev `apt install php8.1-dev apt-utils`
-- xdebug: ``pecl install xdebug && echo "zend_extension=/usr/lib/php/20190902/xdebug.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`;``
+- xdebug: `pecl install xdebug && echo "zend_extension=/usr/lib/php/20190902/xdebug.so" >> \`php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"\`;`
 - PHP-Code-Coverage `/tmp/composer.phar require phpunit/php-code-coverage`
 
 To run all tests and check test code coverage:
@@ -167,6 +167,7 @@ To run all tests and check test code coverage:
 cd /path/to/mama-rest
 cd tests
 phpunit --coverage-text --colors=never  --bootstrap ../vendor/autoload.php .
+# or ../vendor/bin/phpunit --coverage-text --colors=never  --bootstrap ../vendor/autoload.php .
 ```
 
 To test a single service:

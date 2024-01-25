@@ -45,25 +45,26 @@ $app->get('/projects-stats', function ($request, $response, $args) {
 
     if (TokenManagementService::isValide(getToken())) {
         $user = TokenManagementService::getUserFromToken(getToken());
+        $user_id = (isAdmin() && isset($_GET['userID']) && $_GET['userID'] !== '') ? intval($_GET['userID']) : $user->getId();
         $data = array(
             'userRight' => $user->getRight()
         );
         // $data ['userStatus'] = $user->getStatus ();
         //
-        $data['userProjectsRejected'] = ProjectManagementService::countProjects($user->getId(), "rejected", "owner");
-        $data['userProjectsWaiting'] = ProjectManagementService::countProjects($user->getId(), "waiting", "owner");
-        $data['userProjectsCompleted'] = ProjectManagementService::countProjects($user->getId(), "completed", "owner");
-        $data['userProjectsAccepted'] = ProjectManagementService::countProjects($user->getId(), "accepted", "owner");
-        $data['userProjectsAssigned'] = ProjectManagementService::countProjects($user->getId(), "assigned", "owner");
-        $data['userProjectsRunning'] = ProjectManagementService::countProjects($user->getId(), "running", "owner");
-        $data['userProjectsBlocked'] = ProjectManagementService::countProjects($user->getId(), "blocked", "owner");
-        $data['userProjectsArchived'] = ProjectManagementService::countProjects($user->getId(), "archived", "owner");
+        $data['userProjectsRejected'] = ProjectManagementService::countProjects($user_id, "rejected", "owner");
+        $data['userProjectsWaiting'] = ProjectManagementService::countProjects($user_id, "waiting", "owner");
+        $data['userProjectsCompleted'] = ProjectManagementService::countProjects($user_id, "completed", "owner");
+        $data['userProjectsAccepted'] = ProjectManagementService::countProjects($user_id, "accepted", "owner");
+        $data['userProjectsAssigned'] = ProjectManagementService::countProjects($user_id, "assigned", "owner");
+        $data['userProjectsRunning'] = ProjectManagementService::countProjects($user_id, "running", "owner");
+        $data['userProjectsBlocked'] = ProjectManagementService::countProjects($user_id, "blocked", "owner");
+        $data['userProjectsArchived'] = ProjectManagementService::countProjects($user_id, "archived", "owner");
         if (isAdmin() || isProjectManager()) {
             $userToFilter = null;
             $userFilter = null;
             if (isset($_GET['userFilter']) && $_GET['userFilter'] != "" && $_GET['userFilter'] != "undefined") {
                 $userFilter = $_GET['userFilter'];
-                $userToFilter = $user->getId();
+                $userToFilter = $user_id;
             }
 
             $data['allProjectsRejected'] = ProjectManagementService::countProjects($userToFilter, "rejected", $userFilter);
@@ -77,12 +78,19 @@ $app->get('/projects-stats', function ($request, $response, $args) {
 
             // $data ['allProjectsRejected'] = ProjectManagementService::countProjects ( null, "rejected", "inCharge");
             // $data ['allProjectsWaiting'] = ProjectManagementService::countProjects ( null, "waiting", "inCharge");
-            $data['inChargeProjectsCompleted'] = ProjectManagementService::countProjects($user->getId(), "completed", "inCharge");
-            $data['inChargeProjectsAccepted'] = ProjectManagementService::countProjects($user->getId(), "accepted", "inCharge");
-            $data['inChargeProjectsAssigned'] = ProjectManagementService::countProjects($user->getId(), "assigned", "inCharge");
-            $data['inChargeProjectsRunning'] = ProjectManagementService::countProjects($user->getId(), "running", "inCharge");
-            $data['inChargeProjectsBlocked'] = ProjectManagementService::countProjects($user->getId(), "blocked", "inCharge");
+            $data['inChargeProjectsCompleted'] = ProjectManagementService::countProjects($user_id, "completed", "inCharge");
+            $data['inChargeProjectsAccepted'] = ProjectManagementService::countProjects($user_id, "accepted", "inCharge");
+            $data['inChargeProjectsAssigned'] = ProjectManagementService::countProjects($user_id, "assigned", "inCharge");
+            $data['inChargeProjectsRunning'] = ProjectManagementService::countProjects($user_id, "running", "inCharge");
+            $data['inChargeProjectsBlocked'] = ProjectManagementService::countProjects($user_id, "blocked", "inCharge");
             // $data ['allProjectsArchived'] = ProjectManagementService::countProjects ( null, "archived", "inCharge" );
+
+            // mama#84
+            $data['involvedProjectsCompleted'] = ProjectManagementService::countProjects($user_id, "completed", "involved");
+            $data['involvedProjectsAccepted'] = ProjectManagementService::countProjects($user_id, "accepted", "involved");
+            $data['involvedProjectsAssigned'] = ProjectManagementService::countProjects($user_id, "assigned", "involved");
+            $data['involvedProjectsRunning'] = ProjectManagementService::countProjects($user_id, "running", "involved");
+            $data['involvedProjectsBlocked'] = ProjectManagementService::countProjects($user_id, "blocked", "involved");
 
             // mama#41 - stats per platform
             $_GET['mth_pf'] = "mth_pf_" . ($user->getMthPlatform() != null ? $user->getMthPlatform()->getId() : "0");
@@ -119,7 +127,7 @@ $app->get('/project[/{id}]', function ($request, $response, $args) {
         $data = $dataSec;
     } else if (
         $user->getId() == $dataSec->getOwner()
-        ->getId()
+            ->getId()
     ) {
         $data = $dataSec;
         // user need extra data if pj stopped / blocked!
@@ -296,20 +304,24 @@ $app->post('/project', function ($request, $response, $args) {
     http_response_code(201);
     $response = $response->withStatus(201);
 
-    $data = ProjectManagementService::create( //
+    $data = ProjectManagementService::create(
+        //
         $title,
         $user,
-        $interestInMthCollaboration, //
+        $interestInMthCollaboration,
+        //
         $demandTypeEqProvisioning,
         $demandTypeCatalogAllowance,
         $demandTypeFeasibilityStudy,
         $demandTypeTraining,
         $demandTypeDataProcessing,
-        $demandTypeOther, //
+        $demandTypeOther,
+        //
         $samplesNumber,
         $thematicWords,
         $subThematicWords,
-        $targeted, //
+        $targeted,
+        //
         $mthPlatforms,
         $canBeForwardedToCoPartner,
         $scientificContext,
@@ -366,7 +378,7 @@ $app->put(
             $isAdmin = true;
         } else if (
             $user->getId() == $dataSec->getOwner()
-            ->getId()
+                ->getId()
         ) {
             $isAdmin = false;
         } else {
@@ -750,7 +762,7 @@ $app->put('/stop-project[/{id}]', function ($request, $response, $args) {
         $isAdmin = true;
     } else if (
         $user->getId() == $dataSec->getOwner()
-        ->getId()
+            ->getId()
     ) {
         $isAdmin = false;
     } else {
@@ -844,7 +856,7 @@ $app->get('/project-file[/{id}]', function ($request, $response, $args) {
         $isAdmin = true;
     } else if (
         $user->getId() == $dataSec->getOwner()
-        ->getId()
+            ->getId()
     ) {
         $isAdmin = false;
     } else {
@@ -891,7 +903,7 @@ $app->delete('/project-file[/{id}]', function ($request, $response, $args) {
         $isAdmin = true;
     } else if (
         $user->getId() == $project->getOwner()
-        ->getId()
+            ->getId()
     ) {
         $isAdmin = false;
     } else {

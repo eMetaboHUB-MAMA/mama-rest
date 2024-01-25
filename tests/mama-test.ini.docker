@@ -4,7 +4,7 @@
 name = mama-rest
 version = 1.0
 message = "Welcome to MAMA-REST!"
-documentation = "send an email at 'mama-contact@metabohub.fr' and ask the documentation"
+documentation = "send an email at 'contacts-mama-mth@inrae.fr' and ask the documentation"
 webapp_url = "http://localhost/mama-rest/public/"
 
 [database]

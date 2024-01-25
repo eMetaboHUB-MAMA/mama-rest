@@ -7,40 +7,41 @@
  * 
  * @Entity @Table(name="users")
  */
-require_once ('AbstractMAMAobject.class.php');
-class User extends AbstractMAMAobject {
-	
+require_once('AbstractMAMAobject.class.php');
+class User extends AbstractMAMAobject
+{
+
 	// ////////////////////////////////////////////////////////////////////////
 	// STATICS
-	
+
 	// status
 	public static $STATUS_NOT_VALIDATED = 0;
 	public static $STATUS_ACTIVE = 10;
 	public static $STATUS_BLOCKED = 20;
 	public static $STATUS_INACTIVE = 30;
-	
+
 	// rights
 	public static $RIGHT_USER = 500;
 	public static $RIGHT_PROJECT_MANAGER = 510;
 	public static $RIGHT_ADMIN = 520;
-	
+
 	// labo type
 	public static $LABO_TYPE_PUBLIC = 5;
 	public static $LABO_TYPE_PUBLIC_PRIVATE = 15;
 	public static $LABO_TYPE_PRIVATE = 25;
-	
+
 	// email notification (digest or not)
 	public static $EMAIL_NOTIFICATION_EACH = 6;
 	public static $EMAIL_NOTIFICATION_DAILY = 12;
 	public static $EMAIL_NOTIFICATION_WEEKLY = 18;
-	
+
 	// email language
 	public static $EMAIL_LANGUAGE_EN = 0;
 	public static $EMAIL_LANGUAGE_FR = 1;
-	
+
 	// ////////////////////////////////////////////////////////////////////////
 	// ATTRIBUTES
-	
+
 	/**
 	 * @Column(type="string", unique=true)
 	 * @Assert\NotEmpty
@@ -49,7 +50,7 @@ class User extends AbstractMAMAobject {
 	 * @access private
 	 */
 	private $email;
-	
+
 	/**
 	 * @Column(type="string", unique=true)
 	 * @Assert\NotEmpty
@@ -58,7 +59,7 @@ class User extends AbstractMAMAobject {
 	 * @access private
 	 */
 	private $login;
-	
+
 	/**
 	 * @Column(type="string", nullable=true)
 	 *
@@ -66,7 +67,7 @@ class User extends AbstractMAMAobject {
 	 * @access private
 	 */
 	private $password;
-	
+
 	/**
 	 * @Column(type="smallint", name="user_status")
 	 *
@@ -74,7 +75,7 @@ class User extends AbstractMAMAobject {
 	 * @access private
 	 */
 	private $status;
-	
+
 	/**
 	 * @Column(type="smallint", name="user_right")
 	 *
@@ -82,7 +83,7 @@ class User extends AbstractMAMAobject {
 	 * @access private
 	 */
 	private $right;
-	
+
 	/**
 	 * @Column(type="datetime", name="last_activity")
 	 *
@@ -90,7 +91,7 @@ class User extends AbstractMAMAobject {
 	 * @access private
 	 */
 	private $lastActivity;
-	
+
 	/**
 	 * @Column(type="string", name="first_name", nullable=true)
 	 *
@@ -98,7 +99,7 @@ class User extends AbstractMAMAobject {
 	 * @access private
 	 */
 	private $firstName;
-	
+
 	/**
 	 * @Column(type="string", name="last_name", nullable=true)
 	 *
@@ -106,7 +107,7 @@ class User extends AbstractMAMAobject {
 	 * @access private
 	 */
 	private $lastName;
-	
+
 	/**
 	 * @Column(type="smallint", name="phone_groupe", nullable=true)
 	 *
@@ -114,7 +115,7 @@ class User extends AbstractMAMAobject {
 	 * @access private
 	 */
 	private $phoneGroup;
-	
+
 	/**
 	 * @Column(type="string", name="phone_number", nullable=true)
 	 *
@@ -122,7 +123,7 @@ class User extends AbstractMAMAobject {
 	 * @access private
 	 */
 	private $phoneNumber;
-	
+
 	/**
 	 * @Column(type="string", name="laboratory_or_compagny", nullable=true)
 	 *
@@ -130,7 +131,7 @@ class User extends AbstractMAMAobject {
 	 * @access private
 	 */
 	private $laboratoryOrCompagny;
-	
+
 	/**
 	 * @Column(type="string", name="workplace_address", nullable=true, length=1024 )
 	 *
@@ -138,7 +139,7 @@ class User extends AbstractMAMAobject {
 	 * @access private
 	 */
 	private $workplaceAddress;
-	
+
 	/**
 	 * @Column(type="smallint", name="laboratory_type", nullable=true)
 	 *
@@ -146,7 +147,7 @@ class User extends AbstractMAMAobject {
 	 * @access private
 	 */
 	private $laboratoryType;
-	
+
 	/**
 	 * @Column(type="smallint", name="email_reception", nullable=true)
 	 *
@@ -154,7 +155,7 @@ class User extends AbstractMAMAobject {
 	 * @access private
 	 */
 	private $emailReception;
-	
+
 	/**
 	 * @Column(type="boolean", name="email_alert_new_user")
 	 *
@@ -162,7 +163,7 @@ class User extends AbstractMAMAobject {
 	 * @access private
 	 */
 	private $emailAlertNewUserAccount = true;
-	
+
 	/**
 	 * @Column(type="boolean", name="email_alert_new_project")
 	 *
@@ -170,7 +171,7 @@ class User extends AbstractMAMAobject {
 	 * @access private
 	 */
 	private $emailAlertNewProject = true;
-	
+
 	/**
 	 * @Column(type="boolean", name="email_alert_new_event_followed_project")
 	 *
@@ -178,7 +179,7 @@ class User extends AbstractMAMAobject {
 	 * @access private
 	 */
 	private $emailAlertNewEventFollowedProject = true;
-	
+
 	/**
 	 * @Column(type="boolean", name="email_alert_new_message")
 	 *
@@ -186,7 +187,7 @@ class User extends AbstractMAMAobject {
 	 * @access private
 	 */
 	private $emailAlertNewMessage = true;
-	
+
 	/**
 	 * @Column(type="smallint", name="email_language", nullable=true)
 	 *
@@ -194,17 +195,17 @@ class User extends AbstractMAMAobject {
 	 * @access private
 	 */
 	private $emailLanguage;
-	
+
 	// ////////////////////////////////////////////////////////////////////////
-	
+
 	/**
-	 * @OneToMany(targetEntity="Project", mappedBy="users")
+	 * @OneToMany(targetEntity="Project", mappedBy="owner")
 	 *
 	 * @var Project
 	 * @access private
 	 */
 	private $projectsOwner;
-	
+
 	/**
 	 * @OneToMany(targetEntity="Project", mappedBy="users")
 	 *
@@ -212,7 +213,7 @@ class User extends AbstractMAMAobject {
 	 * @access private
 	 */
 	private $projectsInCharge;
-	
+
 	/**
 	 * @ManyToMany(targetEntity="Project", inversedBy="analystsInvolved")
 	 * @JoinTable(name="users_involved_in_projects",
@@ -224,7 +225,7 @@ class User extends AbstractMAMAobject {
 	 * @access private
 	 */
 	private $projectsInvolded;
-	
+
 	// ////////////////////////////////////////////////////////////////////////
 	/**
 	 * @OneToMany(targetEntity="Message", mappedBy="users")
@@ -233,7 +234,7 @@ class User extends AbstractMAMAobject {
 	 * @access private
 	 */
 	private $messagesSend;
-	
+
 	/**
 	 * @OneToMany(targetEntity="Message", mappedBy="users")
 	 *
@@ -241,7 +242,7 @@ class User extends AbstractMAMAobject {
 	 * @access private
 	 */
 	private $messagesReceived;
-	
+
 	/**
 	 * @OneToMany(targetEntity="UserEvent", mappedBy="users")
 	 *
@@ -249,7 +250,7 @@ class User extends AbstractMAMAobject {
 	 * @access private
 	 */
 	private $userEvents;
-	
+
 	/**
 	 * @ManyToOne(targetEntity="MTHplatform", inversedBy="users", fetch="EAGER")
 	 * @JoinColumn(name="platform_id", referencedColumnName="id", nullable=true)
@@ -259,7 +260,13 @@ class User extends AbstractMAMAobject {
 	 */
 	private $mthPlatform;
 
-	
+	/**
+	 * @Column(type="boolean", options={"default":"0"})
+	 *
+	 * @var boolean
+	 * @access private 
+	 */
+	private $anonymized = false;
 	// ////////////////////////////////////////////////////////////////////////
 	// CONSTRUCTORS
 	// /**
@@ -267,7 +274,7 @@ class User extends AbstractMAMAobject {
 	// public function __construct() {
 	// __construct( null, User::$STATUS_NOT_VALIDATED, User::$RIGHT_USER );
 	// }
-	
+
 	/**
 	 *
 	 * @param String $login        	
@@ -275,48 +282,52 @@ class User extends AbstractMAMAobject {
 	 * @param Short $status        	
 	 * @param Short $right        	
 	 */
-	public function __construct($login, $email, $status, $right) {
-		parent::__construct ();
+	public function __construct($login, $email, $status, $right)
+	{
+		parent::__construct();
 		$this->login = $login;
 		$this->email = $email;
 		$this->status = $status;
 		$this->right = $right;
 		// projects
-		$this->projectsOwner = new \Doctrine\Common\Collections\ArrayCollection ();
-		$this->projectsInCharge = new \Doctrine\Common\Collections\ArrayCollection ();
-		$this->projectsInvolded = new \Doctrine\Common\Collections\ArrayCollection ();
+		$this->projectsOwner = new \Doctrine\Common\Collections\ArrayCollection();
+		$this->projectsInCharge = new \Doctrine\Common\Collections\ArrayCollection();
+		$this->projectsInvolded = new \Doctrine\Common\Collections\ArrayCollection();
 		// messages
-		$this->messagesSend = new \Doctrine\Common\Collections\ArrayCollection ();
-		$this->messagesReceived = new \Doctrine\Common\Collections\ArrayCollection ();
+		$this->messagesSend = new \Doctrine\Common\Collections\ArrayCollection();
+		$this->messagesReceived = new \Doctrine\Common\Collections\ArrayCollection();
 		// bonus
 		$this->emailReception = User::$EMAIL_NOTIFICATION_DAILY;
 		// update -- NOW!
-		$this->lastActivity = new \DateTime ( "now" );
+		$this->lastActivity = new \DateTime("now");
 	}
-	
+
 	// ////////////////////////////////////////////////////////////////////////
 	// GETTERS
 	/**
 	 *
 	 * @return String
 	 */
-	public function getEmail() {
+	public function getEmail()
+	{
 		return $this->email;
 	}
-	
+
 	/**
 	 *
 	 * @return String
 	 */
-	public function getLogin() {
+	public function getLogin()
+	{
 		return $this->login;
 	}
 
 	// public function getHashedPassword() {
 	// 	return $this->password;
 	// }
-	
-	public function testHashedPasswordMatch($password) {
+
+	public function testHashedPasswordMatch($password)
+	{
 		return password_verify($password, $this->password);
 	}
 
@@ -324,272 +335,297 @@ class User extends AbstractMAMAobject {
 	 *
 	 * @return string
 	 */
-	public function getStatus() {
+	public function getStatus()
+	{
 		switch ($this->status) {
-			case User::$STATUS_ACTIVE :
+			case User::$STATUS_ACTIVE:
 				return "active";
-			case User::$STATUS_BLOCKED :
+			case User::$STATUS_BLOCKED:
 				return "blocked";
-			case User::$STATUS_INACTIVE :
+			case User::$STATUS_INACTIVE:
 				return "inactive";
-			case User::$STATUS_NOT_VALIDATED :
-			default :
+			case User::$STATUS_NOT_VALIDATED:
+			default:
 				return "not_validated";
 		}
 	}
-	
+
 	/**
 	 *
 	 * @return string
 	 */
-	public function getRight() {
+	public function getRight()
+	{
 		switch ($this->right) {
-			case User::$RIGHT_ADMIN :
+			case User::$RIGHT_ADMIN:
 				return "admin";
-			case User::$RIGHT_PROJECT_MANAGER :
+			case User::$RIGHT_PROJECT_MANAGER:
 				return "project_manager";
-			case User::$RIGHT_USER :
-			default :
+			case User::$RIGHT_USER:
+			default:
 				return "user";
 		}
 	}
-	
+
 	/**
 	 *
 	 * @return Date
 	 */
-	public function getLastActivity() {
+	public function getLastActivity()
+	{
 		return $this->lastActivity;
 	}
-	
+
 	/**
 	 *
 	 * @return String
 	 */
-	public function getFirstName() {
+	public function getFirstName()
+	{
 		return $this->firstName;
 	}
-	
+
 	/**
 	 *
 	 * @return String
 	 */
-	public function getLastName() {
+	public function getLastName()
+	{
 		return $this->lastName;
 	}
 	/**
 	 *
 	 * @return Integer
 	 */
-	public function getPhoneGroup() {
+	public function getPhoneGroup()
+	{
 		return $this->phoneGroup;
 	}
-	
+
 	/**
 	 *
 	 * @return String
 	 */
-	public function getPhoneNumber() {
+	public function getPhoneNumber()
+	{
 		return $this->phoneNumber;
 	}
-	
+
 	/**
 	 *
 	 * @return String
 	 */
-	public function getLaboratoryOrCompagny() {
+	public function getLaboratoryOrCompagny()
+	{
 		return $this->laboratoryOrCompagny;
 	}
-	
+
 	/**
 	 *
 	 * @return String
 	 */
-	public function getWorkplaceAddress() {
+	public function getWorkplaceAddress()
+	{
 		return $this->workplaceAddress;
 	}
-	
+
 	/**
 	 *
 	 * @return string|NULL
 	 */
-	public function getLaboratoryType() {
+	public function getLaboratoryType()
+	{
 		switch ($this->laboratoryType) {
-			case User::$LABO_TYPE_PRIVATE :
+			case User::$LABO_TYPE_PRIVATE:
 				return "private";
-			case User::$LABO_TYPE_PUBLIC_PRIVATE :
+			case User::$LABO_TYPE_PUBLIC_PRIVATE:
 				return "public_private";
-			case User::$LABO_TYPE_PUBLIC :
+			case User::$LABO_TYPE_PUBLIC:
 				return "public";
-			default :
+			default:
 				return null;
 		}
 	}
-	
+
 	/**
 	 *
 	 * @return string|NULL
 	 */
-	public function getEmailReception() {
+	public function getEmailReception()
+	{
 		switch ($this->emailReception) {
-			case User::$EMAIL_NOTIFICATION_WEEKLY :
+			case User::$EMAIL_NOTIFICATION_WEEKLY:
 				return "weekly_digest";
-			case User::$EMAIL_NOTIFICATION_EACH :
+			case User::$EMAIL_NOTIFICATION_EACH:
 				return "each_notification";
-			case User::$EMAIL_NOTIFICATION_DAILY :
-			default :
+			case User::$EMAIL_NOTIFICATION_DAILY:
+			default:
 				return "daily_digest";
 		}
 	}
-	
+
 	/**
 	 *
 	 * @return boolean
 	 */
-	public function isEmailAlertNewUserAccount() {
+	public function isEmailAlertNewUserAccount()
+	{
 		return $this->emailAlertNewUserAccount;
 	}
-	
+
 	/**
 	 *
 	 * @return boolean
 	 */
-	public function isEmailAlertNewProject() {
+	public function isEmailAlertNewProject()
+	{
 		return $this->emailAlertNewProject;
 	}
-	
+
 	/**
 	 *
 	 * @return boolean
 	 */
-	public function isEmailAlertNewEventFollowedProject() {
+	public function isEmailAlertNewEventFollowedProject()
+	{
 		return $this->emailAlertNewEventFollowedProject;
 	}
-	
+
 	/**
 	 *
 	 * @return boolean
 	 */
-	public function isEmailAlertNewMessage() {
+	public function isEmailAlertNewMessage()
+	{
 		return $this->emailAlertNewMessage;
 	}
-	
+
 	// ////////////////////////////////////////////////////////////////////////
 	// GETTERS JSON
 	/**
 	 *
 	 * @return boolean
 	 */
-	public function getFullName() {
-		return $this->getFirstName () . " " . $this->getLastName ();
+	public function getFullName()
+	{
+		return $this->getFirstName() . " " . $this->getLastName();
 	}
-	
+
 	// ////////////////////////////////////////////////////////////////////////
 	// SETTERS
-	
+
 	// public function setEmail($email) {
 	// $this->email = $email;
 	// }
-	
+
 	/**
 	 *
 	 * @param String $password        	
 	 */
-	public function setPassword($password) {
+	public function setPassword($password)
+	{
 		$this->password = $password;
 	}
-	
+
 	/**
 	 *
 	 * @param String $firstName        	
 	 */
-	public function setFirstName($firstName) {
+	public function setFirstName($firstName)
+	{
 		$this->firstName = $firstName;
 	}
-	
+
 	/**
 	 *
 	 * @param String $lastName        	
 	 */
-	public function setLastName($lastName) {
+	public function setLastName($lastName)
+	{
 		$this->lastName = $lastName;
 	}
-	
+
 	/**
 	 *
 	 * @param Integer $phoneGroup        	
 	 */
-	public function setPhoneGroup($phoneGroup) {
-		if (! is_int ( $phoneGroup ))
-			$phoneGroup = intval ( $phoneGroup );
+	public function setPhoneGroup($phoneGroup)
+	{
+		if (!is_int($phoneGroup))
+			$phoneGroup = intval($phoneGroup);
 		$this->phoneGroup = $phoneGroup;
 	}
-	
+
 	/**
 	 *
 	 * @param String $phoneNumber        	
 	 */
-	public function setPhoneNumber($phoneNumber) {
+	public function setPhoneNumber($phoneNumber)
+	{
 		$this->phoneNumber = $phoneNumber;
 	}
-	
+
 	/**
 	 *
 	 * @param String $laboratoryOrCompagny        	
 	 */
-	public function setLaboratoryOrCompagny($laboratoryOrCompagny) {
+	public function setLaboratoryOrCompagny($laboratoryOrCompagny)
+	{
 		$this->laboratoryOrCompagny = $laboratoryOrCompagny;
 	}
-	
+
 	/**
 	 *
 	 * @param String $workplaceAddress        	
 	 */
-	public function setWorkplaceAddress($workplaceAddress) {
+	public function setWorkplaceAddress($workplaceAddress)
+	{
 		$this->workplaceAddress = $workplaceAddress;
 	}
-	
+
 	/**
 	 *
 	 * @param unknown $laboratoryType        	
 	 */
-	public function setLaboratoryType($laboratoryType) {
-		$laboTypeInt = intval ( $laboratoryType );
+	public function setLaboratoryType($laboratoryType)
+	{
+		$laboTypeInt = intval($laboratoryType);
 		switch ($laboratoryType) {
-			case "public" :
+			case "public":
 				$laboTypeInt = User::$LABO_TYPE_PUBLIC;
 				break;
-			case "public_private" :
-			case "private_public" :
+			case "public_private":
+			case "private_public":
 				$laboTypeInt = User::$LABO_TYPE_PUBLIC_PRIVATE;
 				break;
-			case "private" :
+			case "private":
 				$laboTypeInt = User::$LABO_TYPE_PRIVATE;
 				break;
 		}
 		$this->laboratoryType = $laboTypeInt;
 	}
-	
+
 	/**
 	 *
 	 * @param unknown $emailReception        	
 	 */
-	public function setEmailReception($emailReception) {
-		$emailNotifInt = intval ( $emailReception );
+	public function setEmailReception($emailReception)
+	{
+		$emailNotifInt = intval($emailReception);
 		switch ($emailReception) {
-			case "each_notification" :
+			case "each_notification":
 				$emailNotifInt = User::$EMAIL_NOTIFICATION_EACH;
 				break;
-			case "weekly_digest" :
+			case "weekly_digest":
 				$emailNotifInt = User::$EMAIL_NOTIFICATION_WEEKLY;
 				break;
-			case "daily_digest" :
+			case "daily_digest":
 				$emailNotifInt = User::$EMAIL_NOTIFICATION_DAILY;
 				break;
 		}
 		$this->emailReception = $emailNotifInt;
 	}
-	
+
 	/**
 	 *
 	 * @param unknown $emailAlertNewUserAccount        	
@@ -597,278 +633,306 @@ class User extends AbstractMAMAobject {
 	 * @param unknown $emailAlertNewEventFollowedProject        	
 	 * @param unknown $emailAlertNewMessage        	
 	 */
-	public function setEmailAlert($emailAlertNewUserAccount, $emailAlertNewProject, $emailAlertNewEventFollowedProject, $emailAlertNewMessage) {
+	public function setEmailAlert($emailAlertNewUserAccount, $emailAlertNewProject, $emailAlertNewEventFollowedProject, $emailAlertNewMessage)
+	{
 		$this->emailAlertNewUserAccount = ($emailAlertNewUserAccount);
 		$this->emailAlertNewProject = ($emailAlertNewProject);
 		$this->emailAlertNewEventFollowedProject = ($emailAlertNewEventFollowedProject);
 		$this->emailAlertNewMessage = ($emailAlertNewMessage);
 	}
-	
+
 	/**
 	 *
 	 * @param string $status        	
 	 */
-	public function setStatus($status) {
-		$statusInt = intval ( $status );
+	public function setStatus($status)
+	{
+		$statusInt = intval($status);
 		switch ($status) {
-			case "active" :
+			case "active":
 				$statusInt = User::$STATUS_ACTIVE;
 				break;
-			case "blocked" :
+			case "blocked":
 				$statusInt = User::$STATUS_BLOCKED;
 				break;
-			case "inactive" :
+			case "inactive":
 				$statusInt = User::$STATUS_INACTIVE;
 				break;
-			case "not_validated" :
+			case "not_validated":
 				// default :
 				$statusInt = User::$STATUS_NOT_VALIDATED;
 				break;
 		}
 		$this->status = $statusInt;
 	}
-	
+
 	/**
 	 *
 	 * @param string $right        	
 	 */
-	public function setRight($right) {
+	public function setRight($right)
+	{
 		switch ($right) {
-			case "admin" :
+			case "admin":
 				$this->right = User::$RIGHT_ADMIN;
 				break;
-			case "project_manager" :
+			case "project_manager":
 				$this->right = User::$RIGHT_PROJECT_MANAGER;
 				break;
-			case "user" :
-			default :
+			case "user":
+			default:
 				$this->right = User::$RIGHT_USER;
 				break;
 		}
 	}
-	
+
 	/**
 	 */
-	public function setLastActivity() {
-		$this->lastActivity = new \DateTime ( "now" );
+	public function setLastActivity()
+	{
+		$this->lastActivity = new \DateTime("now");
 	}
-	
+
 	// ////////////////////////////////////////////////////////////////////////
 	// OTHER
-	
+
 	/**
 	 *
 	 * @access public
 	 * @return boolean
 	 */
-	public final function isAdmin() {
+	public final function isAdmin()
+	{
 		return $this->right == User::$RIGHT_ADMIN;
 	}
-	
+
 	/**
 	 *
 	 * @access public
 	 * @return boolean
 	 */
-	public final function isProjectManager() {
+	public final function isProjectManager()
+	{
 		return $this->right == User::$RIGHT_PROJECT_MANAGER;
 	}
-	
-    /**
+
+	/**
 	 *
 	 * @access public
 	 * @return boolean
 	 */
-	public final function isUser() {
+	public final function isUser()
+	{
 		return $this->right == User::$RIGHT_USER;
 	}
-	
+
 	/**
 	 *
 	 * @access public
 	 * @return boolean
 	 */
-	public final function isActive() {
+	public final function isActive()
+	{
 		return $this->status == User::$STATUS_ACTIVE;
 	}
-	
+
 	/**
 	 *
 	 * @return boolean
 	 */
-	public final function isBlocked() {
+	public final function isBlocked()
+	{
 		return $this->status == User::$STATUS_BLOCKED;
 	}
-	
+
 	/**
 	 *
 	 * @return boolean
 	 */
-	public final function isInactive() {
+	public final function isInactive()
+	{
 		return $this->status == User::$STATUS_INACTIVE;
 	}
-	
+
 	/**
 	 *
 	 * @return boolean
 	 */
-	public final function isNotValidated() {
+	public final function isNotValidated()
+	{
 		return $this->status == User::$STATUS_NOT_VALIDATED;
 	}
-	
+
 	/**
 	 *
 	 * @access public
 	 * @param long $projectId        	
 	 * @return boolean
 	 */
-	public final function isInvolvedInProject($projectId) {
+	public final function isInvolvedInProject($projectId)
+	{
 	}
-	
+
 	/**
 	 */
-	public function prune() {
-		$this->id = intval ( $this->getId () );
+	public function prune()
+	{
+		$this->id = intval($this->getId());
 		$this->password = null;
-		$this->status = $this->getStatus ();
-		$this->right = $this->getRight ();
-		$this->laboratoryType = $this->getLaboratoryType ();
-		$this->emailReception = $this->getEmailReception ();
-		$this->emailLanguage = $this->getEmailLanguage ();
+		$this->status = $this->getStatus();
+		$this->right = $this->getRight();
+		$this->laboratoryType = $this->getLaboratoryType();
+		$this->emailReception = $this->getEmailReception();
+		$this->emailLanguage = $this->getEmailLanguage();
 	}
-	
+
 	/**
 	 */
-	public function ultraPrune() {
-		$var = [ 
-				"id" => intval ( $this->getId () ),
-				"fullName" => $this->getFirstName () . " " . $this->getLastName () 
+	public function ultraPrune()
+	{
+		$var = [
+			"id" => intval($this->getId()),
+			"fullName" => $this->getFirstName() . " " . $this->getLastName()
 		];
 		return $var;
 	}
-	
+
 	/**
 	 */
-	public function getJsonData($ultraPrune = false) {
+	public function getJsonData($ultraPrune = false)
+	{
 		if ($ultraPrune)
-			return $this->ultraPrune ();
-		$this->prune ();
-		$var = get_object_vars ( $this );
-		unset ( $var ["__initializer__"] );
-		unset ( $var ["__cloner__"] );
-		unset ( $var ["__isInitialized__"] );
-		unset ( $var ["password"] );
-		unset ( $var ["deleted"] );
-		foreach ( $var as &$value ) {
-			if (is_object ( $value ) && method_exists ( $value, 'getJsonData' )) {
-				$value = $value->getJsonData ();
+			return $this->ultraPrune();
+		$this->prune();
+		$var = get_object_vars($this);
+		unset($var["__initializer__"]);
+		unset($var["__cloner__"]);
+		unset($var["__isInitialized__"]);
+		unset($var["password"]);
+		unset($var["deleted"]);
+		unset($var["anonymized"]);
+		foreach ($var as &$value) {
+			if (is_object($value) && method_exists($value, 'getJsonData')) {
+				$value = $value->getJsonData();
 			}
 		}
 		return $var;
 	}
-	
+
 	/**
 	 */
-	public function getArrayData($ultraPrune = false) {
+	public function getArrayData($ultraPrune = false)
+	{
 		if ($ultraPrune)
-			return $this->ultraPrune ();
-		$this->prune ();
-		$ret = Array ();
-		$var = get_object_vars ( $this );
-		unset ( $var ["__initializer__"] );
-		unset ( $var ["__cloner__"] );
-		unset ( $var ["__isInitialized__"] );
-		unset ( $var ["password"] );
-		unset ( $var ["deleted"] );
-		foreach ( $var as $key => $val ) {
+			return $this->ultraPrune();
+		$this->prune();
+		$ret = array();
+		$var = get_object_vars($this);
+		unset($var["__initializer__"]);
+		unset($var["__cloner__"]);
+		unset($var["__isInitialized__"]);
+		unset($var["password"]);
+		unset($var["deleted"]);
+		unset($var["anonymized"]);
+		foreach ($var as $key => $val) {
 			// if (is_object ( $val ) && method_exists ( $val, 'getArrayData' )) {
 			// $val = $val->getArrayData ();
 			// }
-			$ret [$key] = object2array ( $val );
+			$ret[$key] = object2array($val);
 		}
 		return $ret;
 	}
-	
+
 	// ////////////////////////////////////////////////////////////////////////
 	// OBJECTS GETTERS / SETTERS
-	
+
 	/**
 	 *
 	 * @return Project
 	 */
-	public function getProjectsOwner() {
+	public function getProjectsOwner()
+	{
 		return $this->projectsOwner;
 	}
-	
+
 	/**
 	 *
 	 * @param Project $projectsOwner        	
 	 */
-	public function setProjectsOwner($projectsOwner) {
+	public function setProjectsOwner($projectsOwner)
+	{
 		$this->projectsOwner = $projectsOwner;
 	}
-	
+
 	/**
 	 *
 	 * @return Project
 	 */
-	public function getProjectsInCharge() {
+	public function getProjectsInCharge()
+	{
 		return $this->projectsInCharge;
 	}
-	
+
 	/**
 	 *
 	 * @param Project $projectsInCharge        	
 	 */
-	public function setProjectsInCharge($projectsInCharge) {
+	public function setProjectsInCharge($projectsInCharge)
+	{
 		$this->projectsInCharge = $projectsInCharge;
 	}
-	
+
 	/**
 	 *
 	 * @return Project
 	 */
-	public function getProjectsInvolded() {
+	public function getProjectsInvolded()
+	{
 		return $this->projectsInvolded;
 	}
-	
+
 	/**
 	 *
 	 * @param Project $projectsInvolded        	
 	 */
-	public function setProjectsInvolded($projectsInvolded) {
+	public function setProjectsInvolded($projectsInvolded)
+	{
 		$this->projectsInvolded = $projectsInvolded;
 	}
-	
+
 	/**
 	 *
 	 * @return Message
 	 */
-	public function getMessagesSend() {
+	public function getMessagesSend()
+	{
 		return $this->messagesSend;
 	}
-	
+
 	/**
 	 *
 	 * @param Message $messagesSend        	
 	 */
-	public function setMessagesSend($messagesSend) {
+	public function setMessagesSend($messagesSend)
+	{
 		$this->messagesSend = $messagesSend;
 	}
-	
+
 	/**
 	 *
 	 * @return Message
 	 */
-	public function getMessagesReceived() {
+	public function getMessagesReceived()
+	{
 		return $this->messagesReceived;
 	}
-	
+
 	/**
 	 *
 	 * @param Message $messagesReceived        	
 	 */
-	public function setMessagesReceived($messagesReceived) {
+	public function setMessagesReceived($messagesReceived)
+	{
 		$this->messagesReceived = $messagesReceived;
 	}
 	// /**
@@ -885,42 +949,79 @@ class User extends AbstractMAMAobject {
 	// }
 	// return $ret;
 	// }
-	public function getEmailLanguage() {
+	public function getEmailLanguage()
+	{
 		switch ($this->emailLanguage) {
-			case User::$EMAIL_LANGUAGE_FR :
+			case User::$EMAIL_LANGUAGE_FR:
 				return "fr";
-			default :
-			case User::$EMAIL_LANGUAGE_EN :
+			default:
+			case User::$EMAIL_LANGUAGE_EN:
 				return "en";
 		}
 	}
-	public function setEmailLanguage($emailLanguage) {
-		$emailLanguageInt = intval ( $emailLanguage );
-		switch (strtolower ( $emailLanguage )) {
-			case "fr" :
+	public function setEmailLanguage($emailLanguage)
+	{
+		$emailLanguageInt = intval($emailLanguage);
+		switch (strtolower($emailLanguage)) {
+			case "fr":
 				$emailLanguageInt = User::$EMAIL_LANGUAGE_FR;
 				break;
-			default :
-			case "en" :
+			default:
+			case "en":
 				$emailLanguageInt = User::$EMAIL_LANGUAGE_EN;
 				break;
 		}
 		$this->emailLanguage = $emailLanguageInt;
 	}
-	
+
 	//
-	public function getUserEvents() {
+	public function getUserEvents()
+	{
 		return $this->userEvents;
 	}
-	public function setUserEvents($userEvents) {
+	public function setUserEvents($userEvents)
+	{
 		$this->userEvents = $userEvents;
 	}
 
-	public function getMthPlatform() {
+	public function getMthPlatform()
+	{
 		return $this->mthPlatform;
 	}
-	public function setMthPlatform($mthPlatform) {
+	public function setMthPlatform($mthPlatform)
+	{
 		$this->mthPlatform = $mthPlatform;
+	}
+
+
+	// mama#84
+	public function isAnonymized()
+	{
+		return $this->anonymized;
+	}
+
+	/**
+	 */
+	public function anonymize()
+	{
+		if (!$this->anonymized) {
+			// 2023-09-27 13:55:04
+			$salt = $this->created->format('Y-m-d H:i:s');
+			$salt .= " ";
+			// anonymize login / email 
+			$this->login = md5($salt . $this->login);
+			$this->email = md5($salt . $this->email);
+			// anonymize firstname / lastname
+			$this->firstName = md5($salt . $this->firstName);
+			$this->lastName = md5($salt . $this->lastName);
+			// other anonymization (phone / address)
+			$this->phoneNumber = "******";
+			$this->workplaceAddress = "******";
+			// set 'anonymized' to true
+			$this->anonymized = true;
+			return TRUE;
+		}
+		return FALSE;
 	}
 
 }

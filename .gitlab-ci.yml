@@ -94,6 +94,7 @@ tests:
     - pushd /var/www/html/tests
     - ../vendor/bin/phpunit --coverage-text --colors=never --coverage-html $CACHE_DOCKER/coverage-report --bootstrap ../vendor/autoload.php .
     - popd
+  coverage: '/^\s*Lines:\s*(\d+\.?\d+\%)/' #
     
 copy to dev:
   stage: copy_to_dev

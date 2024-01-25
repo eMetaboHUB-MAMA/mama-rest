@@ -723,7 +723,7 @@ class EmailManagementService
 
     ///////////////////////////////////////////////////////////////////////////
 
-    public static function sendContactMessageEmail($user, $contactMessage )
+    public static function sendContactMessageEmail($user, $contactMessage)
     {
 
         // INIT
@@ -732,26 +732,26 @@ class EmailManagementService
 
         $mail = EmailManagementService::initEmail();
 
-        $mail->addAddress(contact_email,  contact_name); // Add a recipient
+        $mail->addAddress(contact_email, contact_name); // Add a recipient
         $mail->addReplyTo($email, $fullName);
         $mail->isHTML(true); // Set email format to HTML
 
         $mail->Subject = '[MAMA] new message via contact form';
-     
+
         $message = file_get_contents(__DIR__ . '/../../mail_templates/tmpl_contact_message.html');
 
         // $message = str_replace ( '%username%', $fullName, $message );
         $message = str_replace('%userName%', $fullName, $message);
         $message = str_replace('%userEmail%', $email, $message);
-        $message = str_replace('%contactMessage%', $contactMessage, $message); 
-         
+        $message = str_replace('%contactMessage%', $contactMessage, $message);
+
 
         // signature and webapp URL
         $message = EmailManagementService::setStaticString($message);
 
         $mail->MsgHTML($message);
 
-        if (! $mail->send()) {
+        if (!$mail->send()) {
             // fail!
             return false;
         } else {
@@ -760,4 +760,39 @@ class EmailManagementService
         }
     }
 
+
+    public static function sendWarningAnonymizationEmail($user)
+    {
+        // INIT
+        $email = $user->getEmail();
+        $fullName = $user->getFirstName() . " " . $user->getLastName();
+        $lang = $user->getEmailLanguage();
+        $titleKeyEn = '[MAMA] warning: your account will be soon deactivated';
+        $titleKeyFr = '[MAMA] attention : votre compte sera bientôt désactivé';
+
+        $mail = EmailManagementService::initEmail();
+        $mail->addAddress($email, $fullName); // Add a recipient
+        $mail->isHTML(true); // Set email format to HTML
+
+        $mail->Subject = $titleKeyEn;
+        if ($lang == "fr")
+            $mail->Subject = $titleKeyFr;
+
+        $message = file_get_contents(__DIR__ . '/../../mail_templates/tmpl_anonymization_warning_' . $lang . '.html');
+        $message = str_replace('%username%', $fullName, $message);
+
+        // signature and webapp URL
+        $message = EmailManagementService::setStaticString($message);
+
+        $mail->MsgHTML($message);
+
+        if (!$mail->send()) {
+            // echo 'Message could not be sent.';
+            echo "[" . date("Y-m-d H:i:s") . "] ERROR could not send anonymization warning email to $email because: '" . $mail->ErrorInfo . "' \n";
+            return false;
+        } else {
+            echo "[" . date("Y-m-d H:i:s") . "] send anonymization warning email to $email \n";
+            return true;
+        }
+    }
 }

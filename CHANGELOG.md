@@ -19,13 +19,28 @@ Technical change between REST API releases
 
 ## Latest
 
+- **@version**: `1.4.0`
+- **@notes**:
+  - describe this release's reasons
+- **@new**:
+  - mama#84 - add methods to anynimize users personal data (GDRP compliant)
+  - mama#85 - add cron to detect users that can be anonymized and warn them / anonymize their data (GDRP compliant)
+- **@bugs fixed**:
+  - mama#89 - fix 'clean lab. RNSR value' bug
+- **@other**:
+  - mama#87 - update contact email addresses
+- **@known bugs**:
+  - mama#xx - short description
+
+## Previous releases
+
+### 2023-09-08-bis
+
 - **@version**: `1.3.3`
 - **@notes**:
   - load missing `$_SERVER['HTTP_HOST']` variables for all sub-cron jobs
 - **@bugs fixed**:
   - mama#95 - load variables used by jobby (cron task like daily / weekly emails)
-
-## Previous releases
 
 ### 2023-09-08
 

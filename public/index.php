@@ -31,7 +31,10 @@ require_once '../email_jobs/specialEventMailler.php';
 
 // mama#65
 require_once '../api/services/mthSubPlatformManagementService.php';
+// mama#84
+require_once '../api/services/gdprManagementService.php'; 
 
+// init
 $app = new Slim\App();
 
 // //////////////////////////////////////////////////////////////////////////////////////////////
@@ -77,6 +80,7 @@ require_once '__dashboard_methods.php';
 // OTHER
 require_once '__admin_methods.php';
 require_once '__contact_methods.php';
+require_once '__gdpr_methods.php'; // mama#84
 
 // //////////////////////////////////////////////////////////////////////////////////////////////
 // RUN

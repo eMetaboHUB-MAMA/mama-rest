@@ -2,7 +2,7 @@
 
 [application]
 message = "Welcome to MAMA-REST!"
-documentation = "send an email at 'mama-contact@metabohub.fr' and ask the documentation"
+documentation = "send an email at 'contacts-mama-mth@inrae.fr' and ask the documentation"
 webapp_url = "https://mama-webapp.metabohub.fr"
 
 [database]
@@ -36,6 +36,8 @@ weekly_mailler = "0 8 * * 1"
 weekly_mailler_log = "logs/weekly-mailler.log"
 monthly_users_inactiver = "0 12 1-7 * *"
 monthly_users_inactiver_log = "logs/monthly-users-inactiver.log"
+monthly_users_anonymizer = "0 10 1-7 * *"
+monthly_users_anonymizer_log = "logs/monthly-users-anonymizer.log"
 
 [contact]
 email = "Contacts-MAMA-MTH@inrae.fr"

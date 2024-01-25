@@ -41,9 +41,16 @@ $smtp_replyto_displayname = null;
 
 $projects_files_dir = null;
 
+$cron_daily_mailler = null;
+$cron_weekly_mailler = null;
+$cron_monthly_users_inactiver = null;
 $cron_daily_mailler_log = null;
 $cron_weekly_mailler_log = null;
 $cron_monthly_users_inactiver_log = null;
+
+// mama#85
+$cron_monthly_users_anonymizer = null;
+$cron_monthly_users_anonymizer_log = null;
 
 // mama#39 - contact form
 $contact_email = null;
@@ -83,6 +90,9 @@ if ($memcacheD->get("database_driver")) {
     $cron_daily_mailler_log = $memcacheD->get("cron_daily_mailler_log");
     $cron_weekly_mailler_log = $memcacheD->get("cron_weekly_mailler_log");
     $cron_monthly_users_inactiver_log = $memcacheD->get("cron_monthly_users_inactiver_log");
+    // mama#85
+    $cron_monthly_users_anonymizer = $memcacheD->get("cron_monthly_users_anonymizer");
+    $cron_monthly_users_anonymizer_log = $memcacheD->get("cron_monthly_users_anonymizer_log");
 
     // mama#39 - contact form
     $contact_email = $memcacheD->get("contact_email");
@@ -122,8 +132,8 @@ if ($memcacheD->get("database_driver")) {
     $projects_files_dir = $ini_array['other']['projects_files_dir'];
 
     // mama#39 - contact form
-    $contact_email =  $ini_array['contact']['email'];
-    $contact_name =  $ini_array['contact']['name'];
+    $contact_email = $ini_array['contact']['email'];
+    $contact_name = $ini_array['contact']['name'];
 
     // store in RAM
     $memcacheD->set("app_webapp_url", $app_webapp_url);
@@ -169,6 +179,11 @@ if ($memcacheD->get("database_driver")) {
     $memcacheD->set("cron_daily_mailler_log", $cron_daily_mailler_log);
     $memcacheD->set("cron_weekly_mailler_log", $cron_weekly_mailler_log);
     $memcacheD->set("cron_monthly_users_inactiver_log", $cron_monthly_users_inactiver_log);
+    // mama#85
+    $cron_monthly_users_anonymizer = $ini_array['cron']['monthly_users_anonymizer'];
+    $cron_monthly_users_anonymizer_log = $ini_array['cron']['monthly_users_anonymizer_log'];
+    $memcacheD->set("cron_monthly_users_anonymizer", $cron_monthly_users_anonymizer);
+    $memcacheD->set("cron_monthly_users_anonymizer_log", $cron_monthly_users_anonymizer_log);
 }
 
 define("app_webapp_url", $app_webapp_url);
@@ -198,14 +213,21 @@ define("cron_daily_mailler_log", $cron_daily_mailler_log);
 define("cron_weekly_mailler_log", $cron_weekly_mailler_log);
 define("cron_monthly_users_inactiver_log", $cron_monthly_users_inactiver_log);
 
+// mama#85
+define("cron_monthly_users_anonymizer", $cron_monthly_users_anonymizer);
+define("cron_monthly_users_anonymizer_log", $cron_monthly_users_anonymizer_log);
+
 // mama#39 - contact form
 define("contact_email", $contact_email);
 define("contact_name", $contact_name);
 
 // init data model
-$config = Setup::createAnnotationMetadataConfiguration(array(
-    __DIR__ . "/data-model"
-), $isDevMode);
+$config = Setup::createAnnotationMetadataConfiguration(
+    array(
+        __DIR__ . "/data-model"
+    ),
+    $isDevMode
+);
 
 // Set up database connection data
 $conn = array(
