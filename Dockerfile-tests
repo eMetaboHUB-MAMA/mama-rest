@@ -1,40 +1,35 @@
 FROM metabohub/mama-rest
 
 # set author
-MAINTAINER Nils Paulhe <nils.paulhe@inrae.fr>
+LABEL maintainer="nils.paulhe@inrae.fr"
 
 # add database stuff
-RUN apt-get update && \
-    apt-get upgrade -y && \
+RUN apt-get update                     &&\
+    apt-get upgrade -y                 &&\
     apt-get install -y mysql-server
 
 # init live tests databases
-RUN service mysql start &&\
-    mysql --execute=" CREATE DATABASE mama_db CHARACTER SET UTF8; " &&\
+RUN usermod -d /var/lib/mysql/ mysql                                                   &&\
+    service mysql start                                                                &&\
+    mysql --execute=" CREATE DATABASE mama_db CHARACTER SET UTF8;                    " &&\
     mysql --execute=" CREATE USER mama_user@localhost IDENTIFIED BY 'mama_password'; " &&\
-    mysql --execute=" GRANT ALL PRIVILEGES ON mama_db.* TO mama_user@localhost; " &&\
-    mysql --execute=" FLUSH PRIVILEGES; " &&\
-    cd /var/www/html/ &&\
-    php vendor/bin/doctrine orm:schema-tool:create &&\
-    mysql --execute=" USE mama_db; \
-   		INSERT INTO users \
-    	(email, login, password, user_status, user_right,  email_reception, email_alert_new_user, email_alert_new_project, email_alert_new_event_followed_project, email_alert_new_message, created, last_activity, deleted) \
-    	VALUES ('nils.paulhe@gmail.com', 'nils.paulhe@gmail.com', 'm*****', 10, 520, 0, 0, 0, 0, 0, curdate(), curdate(), 0); \ 
-    	UPDATE users SET password = '\$2y\$12\$d2VmbHdlZnBtd2VwbXdlZesaBIqV1ghB1p2YPl7ecig3qK3cERppm' WHERE id = 1; " &&\
-	mysql --execute=" USE mama_db; \
-    	INSERT INTO thematic_words (word, created, deleted) VALUES ('tw1', curdate(), 0); " &&\
-    mysql --execute=" USE mama_db; \
-    	INSERT INTO sub_thematic_words (word, created, deleted) VALUES ('stw1', curdate(), 0); " &&\
-    mysql --execute=" USE mama_db; \
-    	INSERT INTO metabohub_platform (platform_name, created, deleted) VALUES ('pf1', curdate(), 0); " 
-
-# init unit tests database
-RUN service mysql start &&\
-	mysql --execute=" CREATE DATABASE mama_test CHARACTER SET UTF8; " &&\
-    mysql --execute=" CREATE USER mama_test_user@localhost IDENTIFIED BY 'XSaMyduyvpmLenNn'; " &&\
-    mysql --execute=" GRANT ALL PRIVILEGES ON mama_test.* TO mama_test_user@localhost; " &&\
-    mysql --execute=" FLUSH PRIVILEGES; " &&\
-    cd /var/www/html/tests &&\
+    mysql --execute=" GRANT ALL PRIVILEGES ON mama_db.* TO mama_user@localhost;      " &&\
+    mysql --execute=" FLUSH PRIVILEGES;                                              " &&\
+    cd /var/www/html/                                                                  &&\
+    php vendor/bin/doctrine orm:schema-tool:create                                     &&\
+    mysql --execute=" USE mama_db;                                                       \
+        INSERT INTO users                                                                \
+        (email, login, password, user_status, user_right,  email_reception, email_alert_new_user, email_alert_new_project, email_alert_new_event_followed_project, email_alert_new_message, created, last_activity, deleted) \
+        VALUES ('nils.paulhe@gmail.com', 'nils.paulhe@gmail.com', 'm*****', 10, 520, 0, 0, 0, 0, 0, curdate(), curdate(), 0);         \
+        UPDATE users SET password = '\$2y\$12\$d2VmbHdlZnBtd2VwbXdlZesaBIqV1ghB1p2YPl7ecig3qK3cERppm' WHERE id = 1;               " &&\
+    mysql --execute=" USE mama_db; INSERT INTO thematic_words (word, created, deleted) VALUES ('tw1', curdate(), 0);              " &&\
+    mysql --execute=" USE mama_db; INSERT INTO sub_thematic_words (word, created, deleted) VALUES ('stw1', curdate(), 0);         " &&\
+    mysql --execute=" USE mama_db; INSERT INTO metabohub_platform (platform_name, created, deleted) VALUES ('pf1', curdate(), 0); " &&\
+    mysql --execute=" CREATE DATABASE mama_test CHARACTER SET UTF8;                                                               " &&\
+    mysql --execute=" CREATE USER mama_test_user@localhost IDENTIFIED BY 'XSaMyduyvpmLenNn';                                      " &&\
+    mysql --execute=" GRANT ALL PRIVILEGES ON mama_test.* TO mama_test_user@localhost;                                            " &&\
+    mysql --execute=" FLUSH PRIVILEGES;                                                                                           " &&\
+    cd /var/www/html/tests                                                                                                          &&\
     php ../vendor/bin/doctrine orm:schema-tool:create
 
 # create entrypoint script    

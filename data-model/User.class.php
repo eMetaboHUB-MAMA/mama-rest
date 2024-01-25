@@ -707,7 +707,7 @@ class User extends AbstractMAMAobject {
 	 * @param long $projectId        	
 	 * @return boolean
 	 */
-	public final function isInvolvedInProject(long $projectId) {
+	public final function isInvolvedInProject($projectId) {
 	}
 	
 	/**

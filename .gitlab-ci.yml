@@ -17,7 +17,7 @@ variables:
   # SSH / SCP
   SSH_OPTS: " -q -t "
   SSH_USER: "gitlab-bot"
-  SSH_HOST: "147.99.132.187"
+  SSH_HOST: "pfem-lindev.ara.inrae.fr"
   # cache
   IMAGE_FILE: "mama-rest.image"
   CACHE_BASH: "/tmp/gitlab-ci-cache"
@@ -39,6 +39,10 @@ build docker image:
   stage: docker_env
   tags:
     - bash
+  except:
+    refs:
+      - master
+      - tags
   before_script:
     - echo "==================================";
     - echo "[info] set config. files ";
@@ -62,11 +66,18 @@ tests:
   services:
     - name: mysql:5.7
       alias: mysql-test-server
+  except:
+    refs:
+      - master
+      - tags
   before_script:
-    - mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=$MYSQL_HOSTNAME --execute="DROP DATABASE IF EXISTS $MYSQL_DATABASE;  CREATE DATABASE $MYSQL_DATABASE CHARACTER SET utf8; "
-    - mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=$MYSQL_HOSTNAME --execute="DROP USER IF EXISTS $MYSQL_USERNAME;          CREATE USER $MYSQL_USERNAME IDENTIFIED BY '$MYSQL_USERPASSW'; "
-    - mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=$MYSQL_HOSTNAME --execute="REVOKE ALL, GRANT OPTION FROM $MYSQL_USERNAME ; GRANT ALL PRIVILEGES ON $MYSQL_DATABASE.* TO $MYSQL_USERNAME; "
-    - mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=$MYSQL_HOSTNAME --execute="FLUSH PRIVILEGES; "
+    - mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=$MYSQL_HOSTNAME --execute="DROP DATABASE IF EXISTS $MYSQL_DATABASE;                      "
+    - mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=$MYSQL_HOSTNAME --execute="CREATE DATABASE $MYSQL_DATABASE CHARACTER SET utf8;           "
+    - mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=$MYSQL_HOSTNAME --execute="DROP USER IF EXISTS $MYSQL_USERNAME;                          "
+    - mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=$MYSQL_HOSTNAME --execute="CREATE USER $MYSQL_USERNAME IDENTIFIED BY '$MYSQL_USERPASSW'; "
+    - mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=$MYSQL_HOSTNAME --execute="REVOKE ALL, GRANT OPTION FROM $MYSQL_USERNAME;                "
+    - mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=$MYSQL_HOSTNAME --execute="GRANT ALL PRIVILEGES ON $MYSQL_DATABASE.* TO $MYSQL_USERNAME; "
+    - mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=$MYSQL_HOSTNAME --execute="FLUSH PRIVILEGES;                                             "
     - pushd /var/www/html/tests
     - cp ./mama-test.ini.docker ./mama-test.ini
     - sed -i -e "s/password = \"xxxx\"/password = \"$CONFIG_SMTP_PASSWORD\"/" ./mama-test.ini
@@ -81,6 +92,10 @@ copy to dev:
   stage: copy_to_dev
   tags:
     - docker
+  except:
+    refs:
+      - master
+      - tags
   before_script:
     - mkdir -p ~/.ssh
     - eval $(ssh-agent -s)

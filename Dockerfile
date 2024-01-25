@@ -1,7 +1,7 @@
 FROM metabohub/mama-core
 
 # set author
-MAINTAINER Nils Paulhe <nils.paulhe@inrae.fr>
+LABEL maintainer="nils.paulhe@inrae.fr"
 
 # [php] copy composer config. files
 COPY ./composer.* /var/www/html/
@@ -11,7 +11,6 @@ RUN cd /tmp/ &&\
     curl -sS https://getcomposer.org/installer | php &&\
     cd /var/www/html/ &&\
     php /tmp/composer.phar update &&\
-    /tmp/composer.phar require phpunit/php-code-coverage &&\
     rm -rf /tmp/*
 
 # [apache2] copy apache2 config.

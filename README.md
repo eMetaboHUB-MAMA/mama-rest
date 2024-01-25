@@ -1,5 +1,5 @@
-[![pipeline status](https://services.pfem.clermont.inra.fr/gitlab/mama/mama-rest/badges/dev/pipeline.svg)](https://services.pfem.clermont.inra.fr/gitlab/mama/mama-rest/commits/dev)
-[![coverage report](https://services.pfem.clermont.inra.fr/gitlab/mama/mama-rest/badges/dev/coverage.svg)](https://services.pfem.clermont.inra.fr/gitlab/mama/mama-rest/commits/dev)
+[![pipeline status](https://services.pfem.clermont.inrae.fr/gitlab/mama/mama-rest/badges/dev/pipeline.svg)](https://services.pfem.clermont.inrae.fr/gitlab/mama/mama-rest/commits/dev)
+[![coverage report](https://services.pfem.clermont.inrae.fr/gitlab/mama/mama-rest/badges/dev/coverage.svg)](https://services.pfem.clermont.inrae.fr/gitlab/mama/mama-rest/commits/dev)
 
 # MAMA - REST
 
@@ -15,12 +15,12 @@ Note: the command examples are all for a **debian** system with **apache2** and 
 
 ### Requirements
 
-- Ubuntu server 18.04+ or CentOS 7+
-- php 7.2+ (`sudo apt-get install -y php7.2`)
-   - php-mcrypt, php-ldap, php-xml ⇒ `sudo apt-get install -y php7.2-ldap php7.2-curl php-xml php7.2-mysql && sudo phpenmod mcrypt`
+- Ubuntu server 20.04+ or CentOS 7+
+- php 7.4+ (`sudo apt-get install -y php7.4`)
+   - php-mcrypt, php-ldap, php-xml ⇒ `sudo apt-get install -y php7.4-ldap php7.4-curl php-xml php7.4-mysql && sudo phpenmod mcrypt`
    - php-memcached ⇒ `sudo apt-get install -y memcached php-memcached`
-   - for phpoffice ⇒ `sudo apt-get install -y php7.2-gd php7.2-mbstring php7.2-zip`
-   - install mycrypt ⇒ `sudo apt-get -y install gcc make autoconf libc-dev pkg-config && sudo apt-get -y install php7.2-dev && sudo apt-get -y install libmcrypt-dev && sudo pecl install mcrypt-1.0.1 `; then add `extension=mcrypt.so` in `php.ini` file
+   - for phpoffice ⇒ `sudo apt-get install -y php7.4-gd php7.4-mbstring php7.4-zip`
+   - install mycrypt ⇒ `sudo apt-get -y install gcc make autoconf libc-dev pkg-config && sudo apt-get -y install php7.4-dev && sudo apt-get -y install libmcrypt-dev && sudo pecl install mcrypt-1.0.1 `; then add `extension=mcrypt.so` in `php.ini` file
 - MySQL 5+ or PostgreSQL 9+ (`sudo apt-get install -y mysql-server`)
 - apache 2+ or nginx 1.9+ (you need to enable rewrite ruls, cf next section) (`sudo apt-get install -y apache2`)
 - curl (`sudo apt-get install -y curl`)
@@ -32,11 +32,11 @@ Note: the command examples are all for a **debian** system with **apache2** and 
    - `phpexcel` (create XLS files [view on website](https://packagist.org/packages/phpoffice/phpexcel))
 - a SMTP application
 
-### Ubuntu 18.04 / apache2 / PHP 7.2 activation
+### Ubuntu 18.04 / apache2 / PHP 7.4 activation
 
 To allow apache2 to execute PHP files please run this command:
 
-`sudo apt-get install libapache2-mod-php7.2 && sudo service apache2 restart`
+`sudo apt-get install libapache2-mod-php7.4 && sudo service apache2 restart`
 
 
 ### Rewrite Rules
@@ -56,7 +56,7 @@ In order to be sur that users only access to `public/` folder's scripts, you mus
 
 ### Deploy
 
-- get project data `git clone git@services.pfem.clermont.inra.fr:mama/mama-rest.git`
+- get project data `git clone git@services.pfem.clermont.inrae.fr:mama/mama-rest.git`
 - you propably should set the owner of all files to your web-server unix user/group (e.g. for apache: `chown -R www-data:www-data mama-rest`)
 - download in install `slim`, `doctrine`, `jobbyphp`, `phpmailer` and `phpexcel` with `composer`: `cd /tmp/ && curl -sS https://getcomposer.org/installer | php && cd /dir/to/folder/mama-rest && sudo -u www-data php /tmp/composer.phar update `
 - init cron by adding this rule to your crontab list: `* * * * * cd /dir/to/folder/mama-rest && php jobby.php 1>> /dev/null 2>&1` (you should use apache user's crontab)
@@ -154,8 +154,8 @@ Developpers: unit tests require PHPUnit 5.1.3+.\
 To run test you need to install the following tools:
 
 - PHP-Unit `apt-get install phpunit`
-- PHP-dev `apt-get install php7.0-dev apt-utils`
-- xdebug: ``pecl install xdebug && echo "zend_extension=/usr/lib/php/20151012/xdebug.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`;`` 
+- PHP-dev `apt-get install php7.4-dev apt-utils`
+- xdebug: ``pecl install xdebug && echo "zend_extension=/usr/lib/php/20190902/xdebug.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`;`` 
 - PHP-Code-Coverage `/tmp/composer.phar require phpunit/php-code-coverage`
 
 To run all tests and check test code coverage:

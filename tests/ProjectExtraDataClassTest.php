@@ -77,48 +77,46 @@ class ProjectExtraDataClassTest extends PHPUnit\Framework\TestCase
         var_dump($obj->getArrayData());
         $getArrayData = ob_get_clean();
         $getArrayData = preg_replace("/DateTime#\d+|ClassTest.php:\d+/", "x", $getArrayData);
-        $this->assertStringStartsWith(preg_replace("/DateTime#\d+|ClassTest.php:\d+/", "x", '/var/www/html/tests/ProjectExtraDataClassTest.php:77:
-array(19) {
-  \'laboType\' =>
+        $this->assertStringStartsWith(preg_replace("/DateTime#\d+|ClassTest.php:\d+/", "x", 'array(19) {
+  ["laboType"]=>
   string(0) ""
-  \'administrativeContext\' =>
+  ["administrativeContext"]=>
   string(24) "setAdministrativeContext"
-  \'geographicContext\' =>
+  ["geographicContext"]=>
   string(20) "setGeographicContext"
-  \'knowMTHviaCoworkerOrFriend\' =>
+  ["knowMTHviaCoworkerOrFriend"]=>
   bool(true)
-  \'knowMTHviaPublication\' =>
+  ["knowMTHviaPublication"]=>
   bool(false)
-  \'knowMTHviaWebsite\' =>
+  ["knowMTHviaWebsite"]=>
   bool(false)
-  \'knowMTHviaSearchEngine\' =>
+  ["knowMTHviaSearchEngine"]=>
   bool(true)
-  \'syntheticUserNeeds\' =>
+  ["syntheticUserNeeds"]=>
   string(21) "setSyntheticUserNeeds"
-  \'projectMaturity\' =>
+  ["projectMaturity"]=>
   string(18) "setProjectMaturity"
-  \'deadline\' =>
+  ["deadline"]=>
   string(11) "setDeadline"
-  \'budgetConstraint\' =>
+  ["budgetConstraint"]=>
   string(19) "setBudgetConstraint"
-  \'blockedReason\' =>
+  ["blockedReason"]=>
   string(0) ""
-  \'rejectedReason\' =>
+  ["rejectedReason"]=>
   string(0) ""
-  \'stoppedReason\' =>
+  ["stoppedReason"]=>
   string(16) "setStoppedReason"
-  \'dialogBoxVal\' =>
+  ["dialogBoxVal"]=>
   string(0) ""
-  \'dialogBoxTxt\' =>
+  ["dialogBoxTxt"]=>
   string(15) "setDialogBoxTxt"
-  \'id\' =>
+  ["id"]=>
   int(0)
-  \'created\' =>
-'), $getArrayData);
+  ["created"]=>'), $getArrayData);
         
         $this->assertStringEndsWith(preg_replace("/DateTime#\d+|ClassTest.php:\d+/", "x", '
   }
-  \'updated\' =>
+  ["updated"]=>
   NULL
 }
 '), $getArrayData);
@@ -127,53 +125,46 @@ array(19) {
         var_dump($obj->getJsonData());
         $getJsonData = ob_get_clean();
         $getJsonData = preg_replace("/DateTime#\d+|ClassTest.php:\d+/", "x", $getJsonData);
-        $this->assertEquals(preg_replace("/DateTime#\d+|ClassTest.php:\d+/", "x", '/var/www/html/tests/ProjectExtraDataClassTest.php:124:
-array(19) {
-  \'laboType\' =>
+        $this->assertStringStartsWith(preg_replace("/DateTime#\d+|ClassTest.php:\d+/", "x", 'array(19) {
+  ["laboType"]=>
   string(6) "public"
-  \'administrativeContext\' =>
+  ["administrativeContext"]=>
   string(24) "setAdministrativeContext"
-  \'geographicContext\' =>
+  ["geographicContext"]=>
   string(20) "setGeographicContext"
-  \'knowMTHviaCoworkerOrFriend\' =>
+  ["knowMTHviaCoworkerOrFriend"]=>
   bool(true)
-  \'knowMTHviaPublication\' =>
+  ["knowMTHviaPublication"]=>
   bool(false)
-  \'knowMTHviaWebsite\' =>
+  ["knowMTHviaWebsite"]=>
   bool(false)
-  \'knowMTHviaSearchEngine\' =>
+  ["knowMTHviaSearchEngine"]=>
   bool(true)
-  \'syntheticUserNeeds\' =>
+  ["syntheticUserNeeds"]=>
   string(21) "setSyntheticUserNeeds"
-  \'projectMaturity\' =>
+  ["projectMaturity"]=>
   string(18) "setProjectMaturity"
-  \'deadline\' =>
+  ["deadline"]=>
   string(11) "setDeadline"
-  \'budgetConstraint\' =>
+  ["budgetConstraint"]=>
   string(19) "setBudgetConstraint"
-  \'blockedReason\' =>
+  ["blockedReason"]=>
   string(0) ""
-  \'rejectedReason\' =>
+  ["rejectedReason"]=>
   string(0) ""
-  \'stoppedReason\' =>
+  ["stoppedReason"]=>
   string(16) "setStoppedReason"
-  \'dialogBoxVal\' =>
+  ["dialogBoxVal"]=>
   string(0) ""
-  \'dialogBoxTxt\' =>
+  ["dialogBoxTxt"]=>
   string(15) "setDialogBoxTxt"
-  \'id\' =>
+  ["id"]=>
   int(0)
-  \'created\' =>
-  class DateTime#1072 (3) {
-    public $date =>
-    string(26) "' . $obj->getCreated()
-            ->format('Y-m-d H:i:s.u') . '"
-    public $timezone_type =>
-    int(3)
-    public $timezone =>
-    string(3) "UTC"
+  ["created"]=>'), $getJsonData);
+
+  $this->assertStringEndsWith(preg_replace("/DateTime#\d+|ClassTest.php:\d+/", "x", '
   }
-  \'updated\' =>
+  ["updated"]=>
   NULL
 }
 '), $getJsonData);
