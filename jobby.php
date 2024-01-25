@@ -1,5 +1,8 @@
 <?php
 
+// prevent bug #95
+$_SERVER['HTTP_HOST'] = $argv[1];
+
 // API
 require_once "vendor/autoload.php";
 require_once "bootstrap.php";

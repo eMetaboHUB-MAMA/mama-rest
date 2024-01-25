@@ -19,13 +19,21 @@ Technical change between REST API releases
 
 ## Latest
 
+- **@version**: `1.3.2`
+- **@notes**:
+  - load missing `$_SERVER['HTTP_HOST']` variable for cron jobs
+- **@bugs fixed**:
+  - mama#95 - load variables used by jobby (cron task like daily / weekly emails)
+
+## Previous releases
+
+### 2023-09-07
+
 - **@version**: `1.3.1`
 - **@notes**:
   - fix critical bug: daily/weekly email sender doesn't work any more
 - **@bugs fixed**:
   - mama#95 - load variables used by jobby (cron task like daily / weekly emails)
-
-## Previous releases
 
 ### 2023-06-12
 
