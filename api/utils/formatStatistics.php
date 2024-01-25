@@ -1,5 +1,14 @@
 <?php
 
+/**
+    * Include PHPExcel
+    */
+require_once dirname ( __FILE__ ) . '/../../vendor/autoload.php';
+
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
+
 // //////////////////////////////////////////////////////////////////////////////////////////////
 // FORMAT FUNCTIONS
 $magicAlphabet;
@@ -7,7 +16,7 @@ $currentSheet;
 
 $styleGeen = array (
 		'fill' => array (
-				'type' => PHPExcel_Style_Fill::FILL_SOLID,
+				'fillType' => Fill::FILL_SOLID,
 				'color' => array (
 						'rgb' => '00FF00' 
 				) 
@@ -15,7 +24,7 @@ $styleGeen = array (
 );
 $styleRed = array (
 		'fill' => array (
-				'type' => PHPExcel_Style_Fill::FILL_SOLID,
+				'fillType' => Fill::FILL_SOLID,
 				'color' => array (
 						'rgb' => 'FF0000' 
 				) 
@@ -28,12 +37,9 @@ $styleRed = array (
  * @param unknown $data        	
  */
 function getXLSstatisticsFile() {
-	/**
-	 * Include PHPExcel
-	 */
-	require_once dirname ( __FILE__ ) . '/../../vendor/phpoffice/phpexcel/Classes/PHPExcel.php';
+
 	// Create new PHPExcel object
-	$objPHPExcel = new PHPExcel ();
+	$objPHPExcel = new Spreadsheet ();
 	// Set document properties
 	$objPHPExcel->getProperties ()->setCreator ( "MAMA - Bot (>*.*)>" );
 	$objPHPExcel->getProperties ()->setLastModifiedBy ( "MAMA - Bot (>*.*)>" );
@@ -66,8 +72,10 @@ function getXLSstatisticsFile() {
 	header ( 'Last-Modified: ' . gmdate ( 'D, d M Y H:i:s' ) . ' GMT' ); // always modified
 	header ( 'Cache-Control: cache, must-revalidate' ); // HTTP/1.1
 	header ( 'Pragma: public' ); // HTTP/1.0
-	$objWriter = PHPExcel_IOFactory::createWriter ( $objPHPExcel, 'Excel5' );
-	$objWriter->save ( 'php://output' );
+	
+	$writer = new Xlsx($objPHPExcel);
+	$writer->save('php://output');
+	
 	exit ();
 }
 
@@ -423,7 +431,7 @@ function buildProjectsStatsSheet($objPHPExcel) {
 	$_GET ['group'] = "sample_number";
 	// $_GET ['isStatus'] = $_GET ['isNotStatus'] = "";
 	$tProject = StatisticManagementService::getProjectsStats ();
-	printXLSrowPjStatusContent ( $objPHPExcel, $listSampleNbTab, - 1, $colTotal, $currentRow, $projectsStatus, null, null, $currentSheet, $tProject );
+	printXLSrowPjStatusContent ( $objPHPExcel, $listSampleNbTab, - 1, $colTotal, $currentRow, $projectsStatus, null, null, $currentSheet, $tProject, true );
 	
 	// //////////////////////////////////////
 	$currentRow = $currentRow + 12;
@@ -489,7 +497,7 @@ function buildProjectsStatsSheet($objPHPExcel) {
 	$tProject = StatisticManagementService::getProjectsStats ();
 	// $projectsColTot = StatisticManagementService::getProjectsStats ();
 	// $projectsColTot = $projectsColTot [0];
-	printXLSrowPjStatusContent ( $objPHPExcel, $listTargetTab, - 1, $colTotal, $currentRow, $projectsStatus, null, null, $currentSheet, $tProject );
+	printXLSrowPjStatusContent ( $objPHPExcel, $listTargetTab, - 1, $colTotal, $currentRow, $projectsStatus, null, null, $currentSheet, $tProject, true );
 	
 	// //////////////////////////////////////
 	
@@ -881,9 +889,9 @@ function printXLSrowPjPfKeys($objPHPExcel, $currentSheet, $currentRow, $colNone,
  * @param unknown $projectsStatus        	
  * @param unknown $p_key        	
  */
-function printXLSrowPjStatusContent($objPHPExcel, $mthPFTab, $colNone, $colTotal, $currentRow, $projectsStatus, $p_key, $listKeywordsDelTab, $currentSheet, $allProject) {
+function printXLSrowPjStatusContent($objPHPExcel, $mthPFTab, $colNone, $colTotal, $currentRow, $projectsStatus, $p_key, $listKeywordsDelTab, $currentSheet, $allProject, $realCount = false) {
 	global $magicAlphabet;
-	
+	if ($realCount) { $projectsStatus = null; }
 	buildStatusXdataLine ( $objPHPExcel, $mthPFTab, $colNone, $colTotal, '' . ($currentRow + 2), $projectsStatus, "rejected", $p_key, $listKeywordsDelTab );
 	buildStatusXdataLine ( $objPHPExcel, $mthPFTab, $colNone, $colTotal, '' . ($currentRow + 3), $projectsStatus, "waiting", $p_key, $listKeywordsDelTab );
 	buildStatusXdataLine ( $objPHPExcel, $mthPFTab, $colNone, $colTotal, '' . ($currentRow + 4), $projectsStatus, "assigned", $p_key, $listKeywordsDelTab );

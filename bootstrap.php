@@ -4,6 +4,17 @@ use Doctrine\ORM\EntityManager;
 
 require_once "vendor/autoload.php";
 
+// init memcached
+$servers = array(
+    array(
+        'localserv',
+        11212
+    )
+);
+$memcacheD = new Memcached();
+$memcacheD->addServers($servers);
+$memcacheD->setOption(Memcached::OPT_BINARY_PROTOCOL, true);
+
 // Load entity configuration from PHP file annotations
 // This is the most versatile mode, I advise using it!
 // If you don't like it, Doctrine also supports YAML or XML
@@ -35,137 +46,132 @@ $cron_weekly_mailler_log = null;
 $cron_monthly_users_inactiver_log = null;
 
 // check RAM
-if (apc_exists ( "database_driver" )) {
-	$app_webapp_url = apc_fetch ( "app_webapp_url" );
-	
-	$database_driver = apc_fetch ( "database_driver" );
-	$database_host = apc_fetch ( "database_host" );
-	$database_dbname = apc_fetch ( "database_dbname" );
-	$database_user = apc_fetch ( "database_user" );
-	$database_password = apc_fetch ( "database_password" );
-	
-	$smtp_host = apc_fetch ( "smtp_host" );
-	$smtp_smtpauth = apc_fetch ( "smtp_smtpauth" );
-	$smtp_username = apc_fetch ( "smtp_username" );
-	$smtp_password = apc_fetch ( "smtp_password" );
-	$smtp_secure = apc_fetch ( "smtp_secure" );
-	$smtp_port = apc_fetch ( "smtp_port" );
-	$smtp_from_email = apc_fetch ( "smtp_from_email" );
-	$smtp_from_displayname = apc_fetch ( "smtp_from_displayname" );
-	$smtp_replyto_email = apc_fetch ( "smtp_replyto_email" );
-	$smtp_replyto_displayname = apc_fetch ( "smtp_replyto_displayname" );
-	
-	$cron_daily_mailler_log = apc_fetch ( "cron_daily_mailler_log" );
-	$cron_weekly_mailler_log = apc_fetch ( "cron_weekly_mailler_log" );
-	$cron_monthly_users_inactiver_log = apc_fetch ( "cron_monthly_users_inactiver_log" );
+if ($memcacheD->get("database_driver")) {
+    $app_webapp_url = $memcacheD->get("app_webapp_url");
+
+    $database_driver = $memcacheD->get("database_driver");
+    $database_host = $memcacheD->get("database_host");
+    $database_dbname = $memcacheD->get("database_dbname");
+    $database_user = $memcacheD->get("database_user");
+    $database_password = $memcacheD->get("database_password");
+
+    $smtp_host = $memcacheD->get("smtp_host");
+    $smtp_smtpauth = $memcacheD->get("smtp_smtpauth");
+    $smtp_username = $memcacheD->get("smtp_username");
+    $smtp_password = $memcacheD->get("smtp_password");
+    $smtp_secure = $memcacheD->get("smtp_secure");
+    $smtp_port = $memcacheD->get("smtp_port");
+    $smtp_from_email = $memcacheD->get("smtp_from_email");
+    $smtp_from_displayname = $memcacheD->get("smtp_from_displayname");
+    $smtp_replyto_email = $memcacheD->get("smtp_replyto_email");
+    $smtp_replyto_displayname = $memcacheD->get("smtp_replyto_displayname");
+
+    $cron_daily_mailler_log = $memcacheD->get("cron_daily_mailler_log");
+    $cron_weekly_mailler_log = $memcacheD->get("cron_weekly_mailler_log");
+    $cron_monthly_users_inactiver_log = $memcacheD->get("cron_monthly_users_inactiver_log");
 } else {
-	
-	// if not in RAM load it from ini file
-	$configFile = __DIR__ . "/config/mama-config.ini";
-	if (! file_exists ( $configFile )) {
-		$copySuccess = copy ( $configFile . ".sample", $configFile );
-	}
-	$ini_array = parse_ini_file ( $configFile, true );
-	
-	$app_webapp_url = $ini_array ['application'] ['webapp_url'];
-	
-	$database_driver = $ini_array ['database'] ['driver'];
-	$database_host = $ini_array ['database'] ['host'];
-	$database_dbname = $ini_array ['database'] ['dbname'];
-	$database_user = $ini_array ['database'] ['user'];
-	$database_password = $ini_array ['database'] ['password'];
-	
-	$smtp_host = $ini_array ['smtp'] ['host'];
-	$smtp_smtpauth = $ini_array ['smtp'] ['smtpauth'];
-	$smtp_username = $ini_array ['smtp'] ['username'];
-	$smtp_password = $ini_array ['smtp'] ['password'];
-	$smtp_secure = $ini_array ['smtp'] ['secure'];
-	$smtp_port = $ini_array ['smtp'] ['port'];
-	$smtp_from_email = $ini_array ['smtp'] ['from_email'];
-	$smtp_from_displayname = $ini_array ['smtp'] ['from_displayname'];
-	$smtp_replyto_email = $ini_array ['smtp'] ['replyto_email'];
-	$smtp_replyto_displayname = $ini_array ['smtp'] ['replyto_displayname'];
-	
-	// store in RAM
-	apc_store ( "app_webapp_url", $app_webapp_url );
-	
-	apc_store ( "database_driver", $database_driver );
-	apc_store ( "database_host", $database_host );
-	apc_store ( "database_dbname", $database_dbname );
-	apc_store ( "database_user", $database_user );
-	apc_store ( "database_password", $database_password );
-	
-	// apc_store ( "ldap_email_filter", $ini_array ['ldap'] ['email_filter'] );
-	apc_store ( "ldap_server", $ini_array ['ldap'] ['server'] );
-	apc_store ( "ldap_filter", $ini_array ['ldap'] ['filter'] );
-	apc_store ( "ldap_identifier", $ini_array ['ldap'] ['identifier'] );
-	
-	apc_store ( "smtp_host", $smtp_host );
-	apc_store ( "smtp_smtpauth", $smtp_smtpauth );
-	apc_store ( "smtp_username", $smtp_username );
-	apc_store ( "smtp_password", $smtp_password );
-	apc_store ( "smtp_secure", $smtp_secure );
-	apc_store ( "smtp_port", $smtp_port );
-	apc_store ( "smtp_from_email", $smtp_from_email );
-	apc_store ( "smtp_from_displayname", $smtp_from_displayname );
-	apc_store ( "smtp_replyto_email", $smtp_replyto_email );
-	apc_store ( "smtp_replyto_displayname", $smtp_replyto_displayname );
-	
-	apc_store ( "projects_files_dir", $ini_array ['other'] ['projects_files_dir'] );
-	
-	$cron_daily_mailler_log = $ini_array ['cron'] ['daily_mailler_log'];
-	$cron_weekly_mailler_log = $ini_array ['cron'] ['weekly_mailler_log'];
-	$cron_monthly_users_inactiver_log = $ini_array ['cron'] ['monthly_users_inactiver_log'];
-	apc_store ( "cron_daily_mailler_log", $cron_daily_mailler_log );
-	apc_store ( "cron_weekly_mailler_log", $cron_weekly_mailler_log );
-	apc_store ( "cron_monthly_users_inactiver_log", $cron_monthly_users_inactiver_log );
+
+    // if not in RAM load it from ini file
+    $configFile = __DIR__ . "/config/mama-config.ini";
+    if (! file_exists($configFile)) {
+        $copySuccess = copy($configFile . ".sample", $configFile);
+    }
+    $ini_array = parse_ini_file($configFile, true);
+
+    $app_webapp_url = $ini_array['application']['webapp_url'];
+
+    $database_driver = $ini_array['database']['driver'];
+    $database_host = $ini_array['database']['host'];
+    $database_dbname = $ini_array['database']['dbname'];
+    $database_user = $ini_array['database']['user'];
+    $database_password = $ini_array['database']['password'];
+
+    $smtp_host = $ini_array['smtp']['host'];
+    $smtp_smtpauth = $ini_array['smtp']['smtpauth'];
+    $smtp_username = $ini_array['smtp']['username'];
+    $smtp_password = $ini_array['smtp']['password'];
+    $smtp_secure = $ini_array['smtp']['secure'];
+    $smtp_port = $ini_array['smtp']['port'];
+    $smtp_from_email = $ini_array['smtp']['from_email'];
+    $smtp_from_displayname = $ini_array['smtp']['from_displayname'];
+    $smtp_replyto_email = $ini_array['smtp']['replyto_email'];
+    $smtp_replyto_displayname = $ini_array['smtp']['replyto_displayname'];
+
+    // store in RAM
+    $memcacheD->set("app_webapp_url", $app_webapp_url);
+
+    $memcacheD->set("database_driver", $database_driver);
+    $memcacheD->set("database_host", $database_host);
+    $memcacheD->set("database_dbname", $database_dbname);
+    $memcacheD->set("database_user", $database_user);
+    $memcacheD->set("database_password", $database_password);
+
+    // $memcacheD->set( "ldap_email_filter", $ini_array ['ldap'] ['email_filter'] );
+    $memcacheD->set("ldap_server", $ini_array['ldap']['server']);
+    $memcacheD->set("ldap_filter", $ini_array['ldap']['filter']);
+    $memcacheD->set("ldap_identifier", $ini_array['ldap']['identifier']);
+
+    $memcacheD->set("smtp_host", $smtp_host);
+    $memcacheD->set("smtp_smtpauth", $smtp_smtpauth);
+    $memcacheD->set("smtp_username", $smtp_username);
+    $memcacheD->set("smtp_password", $smtp_password);
+    $memcacheD->set("smtp_secure", $smtp_secure);
+    $memcacheD->set("smtp_port", $smtp_port);
+    $memcacheD->set("smtp_from_email", $smtp_from_email);
+    $memcacheD->set("smtp_from_displayname", $smtp_from_displayname);
+    $memcacheD->set("smtp_replyto_email", $smtp_replyto_email);
+    $memcacheD->set("smtp_replyto_displayname", $smtp_replyto_displayname);
+
+    $memcacheD->set("projects_files_dir", $ini_array['other']['projects_files_dir']);
+
+    $cron_daily_mailler_log = $ini_array['cron']['daily_mailler_log'];
+    $cron_weekly_mailler_log = $ini_array['cron']['weekly_mailler_log'];
+    $cron_monthly_users_inactiver_log = $ini_array['cron']['monthly_users_inactiver_log'];
+    $memcacheD->set("cron_daily_mailler_log", $cron_daily_mailler_log);
+    $memcacheD->set("cron_weekly_mailler_log", $cron_weekly_mailler_log);
+    $memcacheD->set("cron_monthly_users_inactiver_log", $cron_monthly_users_inactiver_log);
 }
 
-define ( "app_webapp_url", $app_webapp_url );
+define("app_webapp_url", $app_webapp_url);
 
-// define ( "ldap_email_filter", apc_fetch ( "ldap_email_filter" ) );
-define ( "ldap_server", apc_fetch ( "ldap_server" ) );
-define ( "ldap_filter", apc_fetch ( "ldap_filter" ) );
-define ( "ldap_identifier", apc_fetch ( "ldap_identifier" ) );
+// define ( "ldap_email_filter", $memcacheD->get( "ldap_email_filter" ) );
+define("ldap_server", $ini_array['ldap']['server']);
+define("ldap_filter", $ini_array['ldap']['filter']);
+define("ldap_identifier", $ini_array['ldap']['identifier']);
 
-define ( "smtp_host", $smtp_host );
-define ( "smtp_smtpauth", $smtp_smtpauth );
-define ( "smtp_username", $smtp_username );
-define ( "smtp_password", $smtp_password );
-define ( "smtp_secure", $smtp_secure );
-define ( "smtp_port", $smtp_port );
-define ( "smtp_from_email", $smtp_from_email );
-define ( "smtp_from_displayname", $smtp_from_displayname );
-define ( "smtp_replyto_email", $smtp_replyto_email );
-define ( "smtp_replyto_displayname", $smtp_replyto_displayname );
+define("smtp_host", $smtp_host);
+define("smtp_smtpauth", $smtp_smtpauth);
+define("smtp_username", $smtp_username);
+define("smtp_password", $smtp_password);
+define("smtp_secure", $smtp_secure);
+define("smtp_port", $smtp_port);
+define("smtp_from_email", $smtp_from_email);
+define("smtp_from_displayname", $smtp_from_displayname);
+define("smtp_replyto_email", $smtp_replyto_email);
+define("smtp_replyto_displayname", $smtp_replyto_displayname);
 
-define ( "projects_files_dir", apc_fetch ( "projects_files_dir" ) );
+define("projects_files_dir", $ini_array['other']['projects_files_dir']);
 
-define ( "cron_daily_mailler_log", $cron_daily_mailler_log );
-define ( "cron_weekly_mailler_log", $cron_weekly_mailler_log );
-define ( "cron_monthly_users_inactiver_log", $cron_monthly_users_inactiver_log );
+define("cron_daily_mailler_log", $cron_daily_mailler_log);
+define("cron_weekly_mailler_log", $cron_weekly_mailler_log);
+define("cron_monthly_users_inactiver_log", $cron_monthly_users_inactiver_log);
 
 // init data model
-$config = Setup::createAnnotationMetadataConfiguration ( array (
-		__DIR__ . "/data-model" 
-), $isDevMode );
+$config = Setup::createAnnotationMetadataConfiguration(array(
+    __DIR__ . "/data-model"
+), $isDevMode);
 
 // Set up database connection data
-$conn = array (
-		'driver' => $database_driver,
-		'host' => $database_host,
-		'dbname' => $database_dbname,
-		'user' => $database_user,
-		'password' => $database_password 
+$conn = array(
+    'driver' => $database_driver,
+    'host' => $database_host,
+    'dbname' => $database_dbname,
+    'user' => $database_user,
+    'password' => $database_password
 );
 
 // create entity cache
-$config->setAutoGenerateProxyClasses ( true );
+$config->setAutoGenerateProxyClasses(true);
 
 // create EM
-$entityManager = EntityManager::create ( $conn, $config );
-
-
-
-
-
+$entityManager = EntityManager::create($conn, $config);

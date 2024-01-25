@@ -206,7 +206,7 @@ class Project extends AbstractMAMAobject {
 	private $canBeForwardedToCoPartner;
 	
 	/**
-	 * @Column(type="string", name="scientific_context", nullable=true, length=2048)
+	 * @Column(type="string", name="scientific_context", nullable=true, length=4096)
 	 *
 	 * @var String
 	 * @access private
@@ -496,27 +496,40 @@ class Project extends AbstractMAMAobject {
 		}
 	}
 	public function setSamplesNumber($samplesNumber) {
-		// $this->samplesNumber = $samplesNumber;
-		$samplesNumberInt = intval ( $samplesNumber );
-		switch ($samplesNumber) {
-			case "<=50" :
-			case "50 or fewer" :
-				$samplesNumberInt = Project::$AD_SAMPLE_NUMBER__LESS_THAN_50;
-				break;
-			case "51<=NB<=100" :
-			case "51 to 100" :
-				$samplesNumberInt = Project::$AD_SAMPLE_NUMBER__51_TO_100;
-				break;
-			case "101<=NB<=500" :
-			case "101 to 500" :
-				$samplesNumberInt = Project::$AD_SAMPLE_NUMBER__101_TO_500;
-				break;
-			case ">=501" :
-			case "more than 501" :
-				$samplesNumberInt = Project::$AD_SAMPLE_NUMBER__MORE_THAN_501;
-				break;
-		}
-		$this->samplesNumber = $samplesNumberInt;
+	    // $this->samplesNumber = $samplesNumber;
+	    $samplesNumberInt = intval ( $samplesNumber );
+	    switch ($samplesNumber) {
+	        case "<=50" :
+	        case "50 or fewer" :
+	            $samplesNumberInt = Project::$AD_SAMPLE_NUMBER__LESS_THAN_50;
+	            break;
+	        case "51<=NB<=100" :
+	        case "51 to 100" :
+	            $samplesNumberInt = Project::$AD_SAMPLE_NUMBER__51_TO_100;
+	            break;
+	        case "101<=NB<=500" :
+	        case "101 to 500" :
+	            $samplesNumberInt = Project::$AD_SAMPLE_NUMBER__101_TO_500;
+	            break;
+	        case ">=501" :
+	        case "more than 501" :
+	            $samplesNumberInt = Project::$AD_SAMPLE_NUMBER__MORE_THAN_501;
+	            break;
+	    }
+	    $this->samplesNumber = $samplesNumberInt;
+	}
+	public function getSamplesNumberAsString() {
+	    switch ($samplesNumber) {
+	        case Project::$AD_SAMPLE_NUMBER__LESS_THAN_50 :
+	            return "50 or fewer"  ;
+	        case Project::$AD_SAMPLE_NUMBER__51_TO_100 :
+	            return "51 to 100";
+	        case Project::$AD_SAMPLE_NUMBER__101_TO_500:
+	            return "101 to 500";
+	        case Project::$AD_SAMPLE_NUMBER__MORE_THAN_501 :
+	            return "more than 501";
+	    }
+	    return "";
 	}
 	public function getThematicWords() {
 		return $this->thematicWords;
@@ -732,7 +745,7 @@ class Project extends AbstractMAMAobject {
 		}
 		$this->mthPlatforms = $platforms;
 		
-		$this->scientificContextFile = (preg_replace ( '/(\d+)-/i', "", $this->scientificContextFile ));
+		$this->scientificContextFile = (preg_replace ( '/^(\d+)-/i', "", $this->scientificContextFile ));
 	}
 	
 	/**

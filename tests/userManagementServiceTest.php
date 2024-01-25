@@ -10,7 +10,7 @@ require_once "../api/services/eventManagementService.php";
  * @author Nils Paulhe
  *        
  */
-class UserManagementServiceTest extends PHPUnit_Framework_TestCase {
+class UserManagementServiceTest extends PHPUnit\Framework\TestCase {
 	
 	/**
 	 */

@@ -12,7 +12,7 @@ user = mama_test_user
 password = XSaMyduyvpmLenNn 
 
 [ldap]
-email_filter = "/(.*)@.*\.inra\.fr/"
+email_filter = "/(.*)@.*\.inrae\.fr/"
 server = "ldap.inra.fr"
 filter = "ou=personnes,dc=inra,dc=fr"
 identifier = "uid="

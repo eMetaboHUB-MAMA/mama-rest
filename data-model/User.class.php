@@ -659,6 +659,15 @@ class User extends AbstractMAMAobject {
 		return $this->right == User::$RIGHT_PROJECT_MANAGER;
 	}
 	
+    /**
+	 *
+	 * @access public
+	 * @return boolean
+	 */
+	public final function isUser() {
+		return $this->right == User::$RIGHT_USER;
+	}
+	
 	/**
 	 *
 	 * @access public

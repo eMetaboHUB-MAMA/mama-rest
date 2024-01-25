@@ -4,4 +4,9 @@
 /.buildpath
 /.settings
 /.project
-/composer.lock
+# /composer.lock
+/vendor.bk*/
+#
+config/salt.txt
+config/mama-config.ini
+reports/

@@ -813,8 +813,8 @@ class ProjectManagementService {
 				$updated = true;
 			}
 			// select multi - financial bis
-			if ($projectInDB->getScientificContextFile () != $project->getScientificContextFile ()) {
-				$projectInDB->setFinancialContextIsProjectEU ( $project->getScientificContextFile () );
+			if ($projectInDB->getFinancialContextIsProjectEU () != $project->getFinancialContextIsProjectEU ()) {
+				$projectInDB->setFinancialContextIsProjectEU ( $project->getFinancialContextIsProjectEU () );
 				$updateBasicData = true;
 				$updated = true;
 			}

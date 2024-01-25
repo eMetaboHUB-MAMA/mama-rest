@@ -10,18 +10,20 @@ function getMamaInfos() {
 	$application_message = "?";
 	$application_documentation = "?";
 	$application_name = "?";
-	$application_version = "0.0";
+	$application_version = "0.0.0";
 	
 	// data
+	$infoFile = __DIR__ . "/../../config/mama-app.ini";
+	if (file_exists ( $infoFile )) {
+		$ini_array = parse_ini_file ( $infoFile, true );
+		$application_name = $ini_array ['application'] ['name'];
+		$application_version = $ini_array ['application'] ['version'];
+	}
 	$configFile = __DIR__ . "/../../config/mama-config.ini";
 	if (file_exists ( $configFile )) {
 		$ini_array = parse_ini_file ( $configFile, true );
 		$application_message = $ini_array ['application'] ['message'];
-		;
 		$application_documentation = $ini_array ['application'] ['documentation'];
-		;
-		$application_name = $ini_array ['application'] ['name'];
-		$application_version = $ini_array ['application'] ['version'];
 	}
 	
 	// basic infos

@@ -6,9 +6,12 @@
 function create_hash($password) {
 	$salt = null;
 	
+	// load cache in this method
+	global $memcacheD;
+	
 	// check if salt in ram
-	if (apc_exists ( "salt" )) {
-		$salt = apc_fetch ( "salt" );
+	if ($memcacheD->get( "salt" ) ) {
+		$salt = $memcacheD->get( "salt" );
 	} else {
 		// get salt
 		$saltFile = __DIR__ . "/../../config/salt.txt";
@@ -20,7 +23,7 @@ function create_hash($password) {
 			$salt = mcrypt_create_iv ( 22, MCRYPT_DEV_URANDOM );
 			$fh = fopen ( $saltFile, 'w' );
 			fwrite ( $fh, $salt );
-			apc_add ( "salt", $salt );
+			$memcacheD->set( "salt", $salt );
 		}
 		fclose ( $fh );
 	}

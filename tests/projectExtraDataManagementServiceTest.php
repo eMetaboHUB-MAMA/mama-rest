@@ -2,6 +2,7 @@
 require_once "bootstrap.tests.php";
 require_once "../api/services/userManagementService.php";
 require_once "../api/services/projectManagementService.php";
+require_once "../api/services/projectExtraDataManagementService.php";
 require_once "../api/services/eventManagementService.php";
 
 // require_once "../data-model/User.class.php";
@@ -12,7 +13,7 @@ require_once "../api/services/eventManagementService.php";
  * @author Nils Paulhe
  *        
  */
-class ProjectManagementServiceTest extends PHPUnit\Framework\TestCase
+class ProjectExtraDataManagementServiceTest extends PHPUnit\Framework\TestCase
 {
 
     /**
@@ -67,149 +68,156 @@ class ProjectManagementServiceTest extends PHPUnit\Framework\TestCase
         // Other Financial
         $financialContextIsProjectOtherValue = "rainbows and unicorns";
 
-        // create
+        // create project
         $title = "junit.test.create." . microtime() . " TITLE";
         $idProject = ProjectManagementService::create($title, $user, $mthStuff, $demand_type_eq, $demand_type_labRout, $demand_type_feasibility, $demand_type_formation, $demand_type_data_processing, $demand_type_other, $demand_sample_nb, $cloudWords, $subCloudWords, $targeted, $mthPF, $forwardAR2copartner, $scientificContext, $scientificContextFile, $financialContextIsProjectFinanced, $financialContextIsProjectInProvisioning, $financialContextIsProjectOnOwnSupply, $financialContextIsProjectNotFinanced, $financialContextIsProjectEU, $financialContextIsProjectANR, $financialContextIsProjectNational, $financialContextIsProjectRegional, $financialContextIsProjectCompagnyTutorship, $financialContextIsProjectOwnResourcesLaboratory, $financialContextIsProjectInternationalOutsideEU, $financialContextIsProjectOther, $financialContextIsProjectOtherValue);
-        // check 1
         $newProject = ProjectManagementService::get($idProject);
         $this->assertEquals($title, $newProject->getTitle(), "[error] 'create' or 'get' (by id) does not work (1)");
 
-        // check 2
-        $newProject2 = ProjectManagementService::search($title);
-        $project = $newProject2[0];
-        $this->assertEquals($idProject, $project->getId(), "[error] 'create' or 'get' (by id) does not work (2)");
+        // // count before
+        // $countBefore = ProjectExtraDataManagementService::count($idUser );
+        // $this->assertEquals(0, $countBefore);
+
+        // create project extra data
+        $extraDataId = ProjectExtraDataManagementService::create($newProject);
+        $newProjectExtraData = ProjectExtraDataManagementService::get($extraDataId);
+
+        $this->assertNotNull($newProjectExtraData);
+
+        // // count after
+        // $countAfter = ProjectExtraDataManagementService::count($idUser );
+        // $this->assertEquals(1, $countAfter);
     }
 
-    /**
-     */
-    public function testUpdate()
-    {
+    // /**
+    // */
+    // public function testUpdate()
+    // {
 
-        // create user
-        $email = "junit.test.create2." . microtime() . "@inra.fr";
-        $idUser = UserManagementService::create($email, $email, "nopTesta", "junit", "test", 44, "01 23 45 67 89", "labo of unit tests", "office truc street much", "public");
-        $user = UserManagementService::get($idUser);
+    // // create user
+    // $email = "junit.test.create2." . microtime() . "@inra.fr";
+    // $idUser = UserManagementService::create($email, $email, "nopTesta", "junit", "test", 44, "01 23 45 67 89", "labo of unit tests", "office truc street much", "public");
+    // $user = UserManagementService::get($idUser);
 
-        // create
-        // What would you like to do with MTH?
-        $mthStuff = "create MAMA REST API UNIT TEST, just because love Chuck Testa";
-        // type of demand
-        $demand_type_eq = false;
-        $demand_type_labRout = true;
-        $demand_type_feasibility = true;
-        $demand_type_formation = true;
-        $demand_type_data_processing = true;
-        $demand_type_other = true;
-        // number of sample
-        $demand_sample_nb = "50 or fewer";
-        // thematic cloud word
-        $cloudWords = null;
-        $subCloudWords = null;
-        // targeted
-        $targeted = true;
-        // MTH plateform(s)
-        $mthPF = null;
-        // Can the analysis request be forwarded to copartner
-        $forwardAR2copartner = true;
-        // scientific context
-        $scientificContext = "pancakes, i need pancakes!!!";
-        // scientific contextFile
-        $scientificContextFile = null;
-        // Financial context
-        $financialContextIsProjectFinanced = true;
-        $financialContextIsProjectInProvisioning = true;
-        $financialContextIsProjectOnOwnSupply = true;
-        $financialContextIsProjectNotFinanced = true;
-        // Financial context (bis)
-        $financialContextIsProjectEU = true;
-        $financialContextIsProjectANR = true;
-        $financialContextIsProjectNational = true;
-        $financialContextIsProjectRegional = true;
-        $financialContextIsProjectCompagnyTutorship = true;
-        $financialContextIsProjectOwnResourcesLaboratory = true;
-        $financialContextIsProjectInternationalOutsideEU = true;
-        $financialContextIsProjectOther = true;
-        // Other Financial
-        $financialContextIsProjectOtherValue = "rainbows and unicorns";
-        // create
-        $title = "junit.test.create." . microtime() . " TITLE";
-        $idProject = ProjectManagementService::create($title, $user, $mthStuff, $demand_type_eq, $demand_type_labRout, $demand_type_feasibility, $demand_type_formation, $demand_type_data_processing, $demand_type_other, $demand_sample_nb, $cloudWords, $subCloudWords, $targeted, $mthPF, $forwardAR2copartner, $scientificContext, $scientificContextFile, $financialContextIsProjectFinanced, $financialContextIsProjectInProvisioning, $financialContextIsProjectOnOwnSupply, $financialContextIsProjectNotFinanced, $financialContextIsProjectEU, $financialContextIsProjectANR, $financialContextIsProjectNational, $financialContextIsProjectRegional, $financialContextIsProjectCompagnyTutorship, $financialContextIsProjectOwnResourcesLaboratory, $financialContextIsProjectInternationalOutsideEU, $financialContextIsProjectOther, $financialContextIsProjectOtherValue);
+    // // create
+    // // What would you like to do with MTH?
+    // $mthStuff = "create MAMA REST API UNIT TEST, just because love Chuck Testa";
+    // // type of demand
+    // $demand_type_eq = false;
+    // $demand_type_labRout = true;
+    // $demand_type_feasibility = true;
+    // $demand_type_formation = true;
+    // $demand_type_data_processing = true;
+    // $demand_type_other = true;
+    // // number of sample
+    // $demand_sample_nb = "50 or fewer";
+    // // thematic cloud word
+    // $cloudWords = null;
+    // $subCloudWords = null;
+    // // targeted
+    // $targeted = true;
+    // // MTH plateform(s)
+    // $mthPF = null;
+    // // Can the analysis request be forwarded to copartner
+    // $forwardAR2copartner = true;
+    // // scientific context
+    // $scientificContext = "pancakes, i need pancakes!!!";
+    // // scientific contextFile
+    // $scientificContextFile = null;
+    // // Financial context
+    // $financialContextIsProjectFinanced = true;
+    // $financialContextIsProjectInProvisioning = true;
+    // $financialContextIsProjectOnOwnSupply = true;
+    // $financialContextIsProjectNotFinanced = true;
+    // // Financial context (bis)
+    // $financialContextIsProjectEU = true;
+    // $financialContextIsProjectANR = true;
+    // $financialContextIsProjectNational = true;
+    // $financialContextIsProjectRegional = true;
+    // $financialContextIsProjectCompagnyTutorship = true;
+    // $financialContextIsProjectOwnResourcesLaboratory = true;
+    // $financialContextIsProjectInternationalOutsideEU = true;
+    // $financialContextIsProjectOther = true;
+    // // Other Financial
+    // $financialContextIsProjectOtherValue = "rainbows and unicorns";
+    // // create
+    // $title = "junit.test.create." . microtime() . " TITLE";
+    // $idProject = ProjectManagementService::create($title, $user, $mthStuff, $demand_type_eq, $demand_type_labRout, $demand_type_feasibility, $demand_type_formation, $demand_type_data_processing, $demand_type_other, $demand_sample_nb, $cloudWords, $subCloudWords, $targeted, $mthPF, $forwardAR2copartner, $scientificContext, $scientificContextFile, $financialContextIsProjectFinanced, $financialContextIsProjectInProvisioning, $financialContextIsProjectOnOwnSupply, $financialContextIsProjectNotFinanced, $financialContextIsProjectEU, $financialContextIsProjectANR, $financialContextIsProjectNational, $financialContextIsProjectRegional, $financialContextIsProjectCompagnyTutorship, $financialContextIsProjectOwnResourcesLaboratory, $financialContextIsProjectInternationalOutsideEU, $financialContextIsProjectOther, $financialContextIsProjectOtherValue);
 
-        // test FAIL
-        $success1 = ProjectManagementService::update(- 1, "bob-marcel dans la place",
-            /* -- */
-            // 			$analystInCharge, $analystsInvolved,
-            /* -- */
-            "free vacation for bob-marcel",
-            /* -- */
-            true, false, true, true, true, false,
-            /* -- */
-            "",
-            /* -- */
-            null, null, false, null, false,
-            /* -- */
-            "", "",
-            /* -- */
-            false, false, false, false,
-            /* -- */
-            false, false, false, false, false, false, false, false,
-            /* -- */
-            "");
-        $this->assertEquals(false, $success1, "[error] 'create' or 'get' (by id) does not work");
+    // // test FAIL
+    // $success1 = ProjectManagementService::update(- 1, "bob-marcel dans la place",
+    // /* -- */
+    // // $analystInCharge, $analystsInvolved,
+    // /* -- */
+    // "free vacation for bob-marcel",
+    // /* -- */
+    // true, false, true, true, true, false,
+    // /* -- */
+    // "",
+    // /* -- */
+    // null, null, false, null, false,
+    // /* -- */
+    // "", "",
+    // /* -- */
+    // false, false, false, false,
+    // /* -- */
+    // false, false, false, false, false, false, false, false,
+    // /* -- */
+    // "");
+    // $this->assertEquals(false, $success1, "[error] 'create' or 'get' (by id) does not work");
 
-        // test SUCCESS
-        $success2 = ProjectManagementService::update($idProject, "bob-marcel à la plage",
-            /* -- */
-            // 			$analystInCharge, $analystsInvolved,
-            /* -- */
-            "free vacation for bob-marcel",
-            /* -- */
-            false, false, false, false, false, false,
-            /* -- */
-            "",
-            /* -- */
-            null, null, false, null, false,
-            /* -- */
-            "ADC power", "nope",
-            /* -- */
-            false, false, false, false,
-            /* -- */
-            false, false, false, false, false, false, false, false,
-            /* -- */
-            "abonnement VIC");
-        $this->assertEquals(true, $success2, "[error] 'create' or 'get' (by id) does not work");
+    // // test SUCCESS
+    // $success2 = ProjectManagementService::update($idProject, "bob-marcel à la plage",
+    // /* -- */
+    // // $analystInCharge, $analystsInvolved,
+    // /* -- */
+    // "free vacation for bob-marcel",
+    // /* -- */
+    // false, false, false, false, false, false,
+    // /* -- */
+    // "",
+    // /* -- */
+    // null, null, false, null, false,
+    // /* -- */
+    // "ADC power", "nope",
+    // /* -- */
+    // false, false, false, false,
+    // /* -- */
+    // false, false, false, false, false, false, false, false,
+    // /* -- */
+    // "abonnement VIC");
+    // $this->assertEquals(true, $success2, "[error] 'create' or 'get' (by id) does not work");
 
-        // test if update worker
-        $projectUpdated = ProjectManagementService::get($idProject);
-        $this->assertEquals("bob-marcel à la plage", $projectUpdated->getTitle(), "[error] 'update' does not work (title)");
-        $this->assertEquals("free vacation for bob-marcel", $projectUpdated->getInterestInMthCollaboration(), "[error] 'update' does not work (inMthCollaboration)");
-        $this->assertEquals(false, $projectUpdated->getDemandTypeEqProvisioning(), "[error] 'update' does not work (getDemandTypeEqProvisioning)");
-        $this->assertEquals(false, $projectUpdated->getDemandTypeCatalogAllowance(), "[error] 'update' does not work (getDemandTypeCatalogAllowance)");
-        $this->assertEquals(false, $projectUpdated->getDemandTypeFeasibilityStudy(), "[error] 'update' does not work (getDemandTypeFeasibilityStudy)");
-        $this->assertEquals(false, $projectUpdated->getDemandTypeTraining(), "[error] 'update' does not work (getDemandTypeTraining)");
-        $this->assertEquals(null, $projectUpdated->getSamplesNumber(), "[error] 'update' does not work (getSamplesNumber)");
-        // $this->assertEquals ( true, is_object ( $projectUpdated->getThematicWords () ), "[error] 'update' does not work (getThematicWords)" );
-        $this->assertEquals(0, sizeof($projectUpdated->getThematicWords()), "[error] 'update' does not work (getThematicWords)");
-        $this->assertEquals(false, $projectUpdated->getTargeted(), "[error] 'update' does not work (getTargeted)");
-        // $this->assertEquals ( true, is_object ( $projectUpdated->getMthPlatforms () ), "[error] 'update' does not work (getMthPlatforms)" );
-        // $this->assertEquals(0, sizeof($projectUpdated->getMthPlatforms()), "[error] 'update' does not work (getMthPlatforms)");
-        $this->assertEquals(false, $projectUpdated->getCanBeForwardedToCoPartner(), "[error] 'update' does not work (getCanBeForwardedToCoPartner)");
-        $this->assertEquals("ADC power", $projectUpdated->getScientificContext(), "[error] 'update' does not work (getScientificContext)");
-        $this->assertEquals("nope", $projectUpdated->getScientificContextFile(), "[error] 'update' does not work (getScientificContextFile)");
-        $this->assertEquals(false, $projectUpdated->getFinancialContextIsProjectFinanced(), "[error] 'update' does not work (getFinancialContextIsProjectFinanced)");
-        $this->assertEquals(false, $projectUpdated->getFinancialContextIsProjectInProvisioning(), "[error] 'update' does not work (getFinancialContextIsProjectInProvisioning)");
-        $this->assertEquals(false, $projectUpdated->getFinancialContextIsProjectOnOwnSupply(), "[error] 'update' does not work (getFinancialContextIsProjectOnOwnSupply)");
-        $this->assertEquals(false, $projectUpdated->getFinancialContextIsProjectNotFinanced(), "[error] 'update' does not work (getFinancialContextIsProjectNotFinanced)");
-        $this->assertEquals(false, $projectUpdated->getFinancialContextIsProjectEU(), "[error] 'update' does not work (getFinancialContextIsProjectEU)");
-        $this->assertEquals(false, $projectUpdated->getFinancialContextIsProjectANR(), "[error] 'update' does not work (getFinancialContextIsProjectANR)");
-        $this->assertEquals(false, $projectUpdated->getFinancialContextIsProjectNational(), "[error] 'update' does not work (getFinancialContextIsProjectNational)");
-        $this->assertEquals(false, $projectUpdated->getFinancialContextIsProjectRegional(), "[error] 'update' does not work (getFinancialContextIsProjectRegional)");
-        $this->assertEquals(false, $projectUpdated->getFinancialContextIsProjectInternationalOutsideEU(), "[error] 'update' does not work (getFinancialContextIsProjectInternationalOutsideEU)");
-        $this->assertEquals(false, $projectUpdated->getFinancialContextIsProjectOwnResourcesLaboratory(), "[error] 'update' does not work (getFinancialContextIsProjectOwnResourcesLaboratory)");
-        $this->assertEquals(false, $projectUpdated->getFinancialContextIsProjectOther(), "[error] 'update' does not work (getFinancialContextIsProjectOther)");
-        $this->assertEquals("abonnement VIC", $projectUpdated->getFinancialContextIsProjectOtherValue(), "[error] 'update' does not work (getFinancialContextIsProjectOtherValue)");
-    }
-
+    // // test if update worker
+    // $projectUpdated = ProjectManagementService::get($idProject);
+    // $this->assertEquals("bob-marcel à la plage", $projectUpdated->getTitle(), "[error] 'update' does not work (title)");
+    // $this->assertEquals("free vacation for bob-marcel", $projectUpdated->getInterestInMthCollaboration(), "[error] 'update' does not work (inMthCollaboration)");
+    // $this->assertEquals(false, $projectUpdated->getDemandTypeEqProvisioning(), "[error] 'update' does not work (getDemandTypeEqProvisioning)");
+    // $this->assertEquals(false, $projectUpdated->getDemandTypeCatalogAllowance(), "[error] 'update' does not work (getDemandTypeCatalogAllowance)");
+    // $this->assertEquals(false, $projectUpdated->getDemandTypeFeasibilityStudy(), "[error] 'update' does not work (getDemandTypeFeasibilityStudy)");
+    // $this->assertEquals(false, $projectUpdated->getDemandTypeTraining(), "[error] 'update' does not work (getDemandTypeTraining)");
+    // $this->assertEquals(null, $projectUpdated->getSamplesNumber(), "[error] 'update' does not work (getSamplesNumber)");
+    // // $this->assertEquals ( true, is_object ( $projectUpdated->getThematicWords () ), "[error] 'update' does not work (getThematicWords)" );
+    // $this->assertEquals(0, sizeof($projectUpdated->getThematicWords()), "[error] 'update' does not work (getThematicWords)");
+    // $this->assertEquals(false, $projectUpdated->getTargeted(), "[error] 'update' does not work (getTargeted)");
+    // // $this->assertEquals ( true, is_object ( $projectUpdated->getMthPlatforms () ), "[error] 'update' does not work (getMthPlatforms)" );
+    // // $this->assertEquals(0, sizeof($projectUpdated->getMthPlatforms()), "[error] 'update' does not work (getMthPlatforms)");
+    // $this->assertEquals(false, $projectUpdated->getCanBeForwardedToCoPartner(), "[error] 'update' does not work (getCanBeForwardedToCoPartner)");
+    // $this->assertEquals("ADC power", $projectUpdated->getScientificContext(), "[error] 'update' does not work (getScientificContext)");
+    // $this->assertEquals("nope", $projectUpdated->getScientificContextFile(), "[error] 'update' does not work (getScientificContextFile)");
+    // $this->assertEquals(false, $projectUpdated->getFinancialContextIsProjectFinanced(), "[error] 'update' does not work (getFinancialContextIsProjectFinanced)");
+    // $this->assertEquals(false, $projectUpdated->getFinancialContextIsProjectInProvisioning(), "[error] 'update' does not work (getFinancialContextIsProjectInProvisioning)");
+    // $this->assertEquals(false, $projectUpdated->getFinancialContextIsProjectOnOwnSupply(), "[error] 'update' does not work (getFinancialContextIsProjectOnOwnSupply)");
+    // $this->assertEquals(false, $projectUpdated->getFinancialContextIsProjectNotFinanced(), "[error] 'update' does not work (getFinancialContextIsProjectNotFinanced)");
+    // $this->assertEquals(false, $projectUpdated->getFinancialContextIsProjectEU(), "[error] 'update' does not work (getFinancialContextIsProjectEU)");
+    // $this->assertEquals(false, $projectUpdated->getFinancialContextIsProjectANR(), "[error] 'update' does not work (getFinancialContextIsProjectANR)");
+    // $this->assertEquals(false, $projectUpdated->getFinancialContextIsProjectNational(), "[error] 'update' does not work (getFinancialContextIsProjectNational)");
+    // $this->assertEquals(false, $projectUpdated->getFinancialContextIsProjectRegional(), "[error] 'update' does not work (getFinancialContextIsProjectRegional)");
+    // $this->assertEquals(false, $projectUpdated->getFinancialContextIsProjectInternationalOutsideEU(), "[error] 'update' does not work (getFinancialContextIsProjectInternationalOutsideEU)");
+    // $this->assertEquals(false, $projectUpdated->getFinancialContextIsProjectOwnResourcesLaboratory(), "[error] 'update' does not work (getFinancialContextIsProjectOwnResourcesLaboratory)");
+    // $this->assertEquals(false, $projectUpdated->getFinancialContextIsProjectOther(), "[error] 'update' does not work (getFinancialContextIsProjectOther)");
+    // $this->assertEquals("abonnement VIC", $projectUpdated->getFinancialContextIsProjectOtherValue(), "[error] 'update' does not work (getFinancialContextIsProjectOtherValue)");
+    // }
     // public function testUpdateObject()
     // {
 

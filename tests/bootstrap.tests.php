@@ -4,6 +4,12 @@ use Doctrine\ORM\EntityManager;
 
 require_once "../vendor/autoload.php";
 
+// init memcached
+$servers = array(array('localserv', 11212));
+$memcacheD = new Memcached;
+$memcacheD->addServers($servers);
+$memcacheD->setOption(Memcached::OPT_BINARY_PROTOCOL, true);
+
 // Load entity configuration from PHP file annotations
 // This is the most versatile mode, I advise using it!
 // If you don't like it, Doctrine also supports YAML or XML

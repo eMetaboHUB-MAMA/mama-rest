@@ -1,8 +1,13 @@
-# call PHP 5.6 / apache
-FROM php:5.6-apache
+# call PHP 7.0 / apache
+FROM php:7.0-apache
 
 # set author
 MAINTAINER Nils Paulhe <nils.paulhe@inra.fr>
+
+# [unix] Install third part tool
+RUN apt-get update \
+    && apt-get upgrade -y \
+    && apt-get install -y --no-install-recommends apt-utils
 
 # [php] Install mcrypc
 RUN apt-get update && apt-get install -y \
@@ -10,8 +15,9 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install -j$(nproc) mcrypt
     
 # [php] Install apc
-RUN pecl install apcu-4.0.10 \
-    && echo extension=apcu.so > /usr/local/etc/php/conf.d/apcu.ini
+RUN pecl install apcu-5.1.5 \
+    && pecl install apcu_bc-1.0.3 \
+    && echo extension=apc.so > /usr/local/etc/php/conf.d/apcu.ini
 
 # [php] Install needed php extensions: ldap
 RUN apt-get update && \

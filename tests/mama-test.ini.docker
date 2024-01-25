@@ -1,30 +1,33 @@
 ; MAMA CONFIG FILE - V1
 
 [application]
+name = mama-rest
+version = 1.0
 message = "Welcome to MAMA-REST!"
 documentation = "send an email at 'mama-contact@metabohub.fr' and ask the documentation"
-webapp_url = "https://mama-webapp.metabohub.fr"
+webapp_url = "http://localhost/mama-rest/public/"
 
 [database]
 driver = pdo_mysql
-host = 127.0.0.1
+host = mysql-test-server
 dbname = mama_db
 user = mama_user
-password = _todo_define_your_password 
+password = mama_password 
 
 [ldap]
+email_filter = "/(.*)@.*\.inra\.fr/"
 server = "ldap.inra.fr"
 filter = "ou=personnes,dc=inra,dc=fr"
 identifier = "uid="
 
 [smtp]
-host = "smtp-nonaut.inra.fr"
-smtpauth = false
-username = ""
-password = ""
-secure = ""
-port = 25
-from_email = "no-reply-mama@metabohub.fr"
+host = "smtp.inra.fr"
+smtpauth = "true"
+username = "service.pfem"
+password = "xxxx"
+secure = "STARTTLS"
+port = 465
+from_email = "service.pfem@inra.fr"
 from_displayname = "MAMA"
 replyto_email = "no-reply-mama@metabohub.fr"
 replyto_displayname = "MAMA"

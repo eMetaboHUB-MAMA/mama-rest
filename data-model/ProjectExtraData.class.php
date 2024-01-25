@@ -9,485 +9,704 @@
  * 
  */
 require_once ('AbstractMAMAobject.class.php');
-class ProjectExtraData extends AbstractMAMAobject {
-	
-	// ////////////////////////////////////////////////////////////////////////
-	// STATICS
-	
-	// LABO TYPE
-	public static $LABO_TYPE_PUBLIC = 0;
-	public static $LABO_TYPE_PRIVATE_PUBLIC = 1;
-	public static $LABO_TYPE_PRIVATE = 2;
-	
-	// PAUSED (=== blocked)
-	public static $PAUSED_REASON__WAITING_FOR_SAMPLES = 50;
-	public static $PAUSED_REASON__WAITING_FOR_SERVICE_USER_ANSWER = 51;
-	public static $PAUSED_REASON__WAITING_FOR_PROVISIONING = 52;
-	
-	// REJECT
-	public static $REJECTED_REASON__TOO_EXPENSIVE = 200;
-	public static $REJECTED_REASON__TOO_LONG_DELAYS = 201;
-	public static $REJECTED_REASON__OUTSIDE_OUR_SKILL_SPHERE = 202;
-	public static $REJECTED_REASON__NON_PRIORITARY_RAD = 203;
-	public static $REJECTED_REASON__INCOMPATIBLE_DEADLINE = 204;
-	public static $REJECTED_REASON__TOO_MANY_SAMPLES = 205;
-	public static $REJECTED_REASON__TRANSFERED_TO_PRIVILEGIED_MTH_PARTNER = 206;
-	public static $REJECTED_REASON__NOT_FUNDED = 207;
-	
-	// ////////////////////////////////////////////////////////////////////////
-	// ATTRIBUTES
-	
-	/**
-	 * @Column(type="smallint", name="laboratory_type", nullable=true)
-	 *
-	 * 0: public
-	 * 1: private/public
-	 * 2: private
-	 *
-	 * @var Short
-	 * @access private
-	 */
-	private $laboType;
-	
-	/**
-	 * @Column(type="string", nullable=true,name="administrative_context")
-	 *
-	 * @var String
-	 * @access private
-	 */
-	private $administrativeContext;
-	
-	/**
-	 * @Column(type="string", nullable=true,name="geographic_context")
-	 *
-	 * @var String
-	 * @access private
-	 */
-	private $geographicContext;
-	
-	/**
-	 * @Column(type="boolean", name="know_mth_via_coworker_or_friend", nullable=true)
-	 *
-	 * @var Boolean
-	 * @access private
-	 */
-	private $knowMTHviaCoworkerOrFriend;
-	
-	/**
-	 * @Column(type="boolean", name="know_mth_via_publication", nullable=true)
-	 *
-	 * @var Boolean
-	 * @access private
-	 */
-	private $knowMTHviaPublication;
-	
-	/**
-	 * @Column(type="boolean", name="know_mth_via_website", nullable=true)
-	 *
-	 * @var Boolean
-	 * @access private
-	 */
-	private $knowMTHviaWebsite;
-	
-	/**
-	 * @Column(type="boolean", name="know_mth_via_search_engine", nullable=true)
-	 *
-	 * @var Boolean
-	 * @access private
-	 */
-	private $knowMTHviaSearchEngine;
-	
-	/**
-	 * @Column(type="string", name="synthetic_user_needs", nullable=true)
-	 *
-	 * @var String
-	 * @access private
-	 */
-	private $syntheticUserNeeds;
-	
-	/**
-	 * @Column(type="string", name="project_maturity", nullable=true)
-	 *
-	 * @var String
-	 * @access private
-	 */
-	private $projectMaturity;
-	
-	/**
-	 * @Column(type="string", name="deadline", nullable=true)
-	 *
-	 * @var String
-	 * @access private
-	 */
-	private $deadline;
-	
-	/**
-	 * @Column(type="string", name="budget_constraint", nullable=true)
-	 *
-	 * @var String
-	 * @access private
-	 */
-	private $budgetConstraint;
-	
-	/**
-	 * @OneToOne(targetEntity="Project", inversedBy="analysisRequestExtraData")
-	 * @JoinColumn(name="project_id", referencedColumnName="id")
-	 *
-	 * @var Project
-	 * @access private
-	 */
-	private $analysisRequest;
-	
-	/**
-	 * @Column(type="smallint", name="blocked_cause", nullable=true)
-	 *
-	 * 100: can't do it
-	 * 101: deadline too short
-	 * 102: not enough time
-	 *
-	 * @var Short
-	 * @access private
-	 */
-	private $blockedReason;
-	
-	/**
-	 * @Column(type="smallint", name="rejected_cause", nullable=true)
-	 *
-	 * 500: "too expensive",
-	 * 501: "too long delays"
-	 *
-	 * @var Short
-	 * @access private
-	 */
-	private $rejectedReason;
-	
-	/**
-	 * @Column(type="string", nullable=true,name="stopped_reason")
-	 *
-	 * @var String
-	 * @access private
-	 */
-	private $stoppedReason;
-	
-	// ////////////////////////////////////////////////////////////////////////
-	// CONSTRUCTORS
-	public function __construct($analysisRequest) {
-		parent::__construct ();
-		$this->analysisRequest = $analysisRequest;
-	}
-	
-	// ////////////////////////////////////////////////////////////////////////
-	// GETTERS / SETTERS
-	public function getLaboType() {
-		// return $this->laboType;
-		if (is_null ( $this->laboType )) {
-			return "";
-		}
-		switch ($this->laboType) {
-			case ProjectExtraData::$LABO_TYPE_PRIVATE :
-				return "private";
-			case ProjectExtraData::$LABO_TYPE_PUBLIC :
-				return "public";
-			case ProjectExtraData::$LABO_TYPE_PRIVATE_PUBLIC :
-				return "private/public";
-			default :
-				return "";
-		}
-	}
-	public function setLaboType($laboType) {
-		// $this->laboType = $laboType;
-		$laboTypeInt = intval ( $laboType );
-		switch (strtolower ( $laboType )) {
-			case "private" :
-				$laboTypeInt = ProjectExtraData::$LABO_TYPE_PRIVATE;
-				break;
-			case "public" :
-				$laboTypeInt = ProjectExtraData::$LABO_TYPE_PUBLIC;
-				break;
-			case "private/public" :
-				$laboTypeInt = ProjectExtraData::$LABO_TYPE_PRIVATE_PUBLIC;
-				break;
-		}
-		$this->laboType = $laboTypeInt;
-	}
-	public function getAdministrativeContext() {
-		return $this->administrativeContext;
-	}
-	public function setAdministrativeContext($administrativeContext) {
-		$this->administrativeContext = $administrativeContext;
-	}
-	public function getGeographicContext() {
-		return $this->geographicContext;
-	}
-	public function setGeographicContext($geographicContext) {
-		$this->geographicContext = $geographicContext;
-	}
-	public function getKnowMTHviaCoworkerOrFriend() {
-		return $this->knowMTHviaCoworkerOrFriend;
-	}
-	public function setKnowMTHviaCoworkerOrFriend($knowMTHviaCoworkerOrFriend) {
-		$this->knowMTHviaCoworkerOrFriend = $knowMTHviaCoworkerOrFriend;
-	}
-	public function getKnowMTHviaPublication() {
-		return $this->knowMTHviaPublication;
-	}
-	public function setKnowMTHviaPublication($knowMTHviaPublication) {
-		$this->knowMTHviaPublication = $knowMTHviaPublication;
-	}
-	public function getKnowMTHviaWebsite() {
-		return $this->knowMTHviaWebsite;
-	}
-	public function setKnowMTHviaWebsite($knowMTHviaWebsite) {
-		$this->knowMTHviaWebsite = $knowMTHviaWebsite;
-	}
-	public function getKnowMTHviaSearchEngine() {
-		return $this->knowMTHviaSearchEngine;
-	}
-	public function setKnowMTHviaSearchEngine($knowMTHviaSearchEngine) {
-		$this->knowMTHviaSearchEngine = $knowMTHviaSearchEngine;
-	}
-	public function getSyntheticUserNeeds() {
-		return $this->syntheticUserNeeds;
-	}
-	public function setSyntheticUserNeeds($syntheticUserNeeds) {
-		$this->syntheticUserNeeds = $syntheticUserNeeds;
-	}
-	public function getProjectMaturity() {
-		return $this->projectMaturity;
-	}
-	public function setProjectMaturity($projectMaturity) {
-		$this->projectMaturity = $projectMaturity;
-	}
-	public function getDeadline() {
-		return $this->deadline;
-	}
-	public function setDeadline($deadline) {
-		$this->deadline = $deadline;
-	}
-	public function getBudgetConstraint() {
-		return $this->budgetConstraint;
-	}
-	public function setBudgetConstraint($budgetConstraint) {
-		$this->budgetConstraint = $budgetConstraint;
-	}
-	/**
-	 *
-	 * @return string
-	 */
-	public function getBlockedReason() {
-		// return $this->blockedReason;
-		if (is_null ( $this->blockedReason )) {
-			return "";
-		}
-		switch ($this->blockedReason) {
-			// case ProjectExtraData::$BLOCKED_REASON__TRANSFERED_TO_PRIVILEGIED_MTH_PARTNER :
-			// return "transfered_to_privilegied_mth_partner";
-			case ProjectExtraData::$PAUSED_REASON__WAITING_FOR_SAMPLES :
-				return "waiting_for_samples";
-			case ProjectExtraData::$PAUSED_REASON__WAITING_FOR_SERVICE_USER_ANSWER :
-				return "waiting_for_service_user_answer";
-			case ProjectExtraData::$PAUSED_REASON__WAITING_FOR_PROVISIONING :
-				return "waiting_for_provisioning";
-			default :
-				return "";
-		}
-	}
-	/**
-	 *
-	 * @param unknown $blockedReason        	
-	 */
-	public function setBlockedReason($blockedReason) {
-		// $this->blockedReason = $blockedReason;
-		$blockedReasonInt = intval ( $blockedReason );
-		switch (strtolower ( $blockedReason )) {
-			// case "transfered_to_privilegied_partner" :
-			// case "_transfered_to_privilegied_partner" :
-			// $blockedReasonInt = ProjectExtraData::$REJECTED_REASON__TRANSFERED_TO_PRIVILEGIED_MTH_PARTNER;
-			// break;
-			case "waiting_for_samples" :
-			case "_waiting_for_samples" :
-				$blockedReasonInt = ProjectExtraData::$PAUSED_REASON__WAITING_FOR_SAMPLES;
-				break;
-			case "waiting_for_service_user_answer" :
-			case "_waiting_for_service_user_answer" :
-				$blockedReasonInt = ProjectExtraData::$PAUSED_REASON__WAITING_FOR_SERVICE_USER_ANSWER;
-				break;
-			case "waiting_for_provisioning" :
-			case "_waiting_for_provisioning" :
-				$blockedReasonInt = ProjectExtraData::$PAUSED_REASON__WAITING_FOR_PROVISIONING;
-				break;
-		}
-		$this->blockedReason = $blockedReasonInt;
-	}
-	/**
-	 *
-	 * @return string
-	 */
-	public function getRejectedReason() {
-		// return $this->rejectedReason;
-		if (is_null ( $this->rejectedReason )) {
-			return "";
-		}
-		switch ($this->rejectedReason) {
-			case ProjectExtraData::$REJECTED_REASON__TOO_EXPENSIVE :
-				return "too_expensive";
-			case ProjectExtraData::$REJECTED_REASON__TOO_LONG_DELAYS :
-				return "too_long_delays";
-			case ProjectExtraData::$REJECTED_REASON__OUTSIDE_OUR_SKILL_SPHERE :
-				return "outside_our_skill_sphere";
-			case ProjectExtraData::$REJECTED_REASON__NON_PRIORITARY_RAD :
-				return "non_prioritary_rad";
-			case ProjectExtraData::$REJECTED_REASON__INCOMPATIBLE_DEADLINE :
-				return "incompatible_deadline";
-			case ProjectExtraData::$REJECTED_REASON__TOO_MANY_SAMPLES :
-				return "too_many_samples";
-			case ProjectExtraData::$REJECTED_REASON__TRANSFERED_TO_PRIVILEGIED_MTH_PARTNER :
-				return "transfered_to_privilegied_mth_partner";
-			case ProjectExtraData::$REJECTED_REASON__NOT_FUNDED :
-				return "not_funded";
-			default :
-				return "";
-		}
-	}
-	/**
-	 *
-	 * @param unknown $rejectedReason        	
-	 */
-	public function setRejectedReason($rejectedReason) {
-		// $this->rejectedReason = $rejectedReason;
-		$rejectedReasonInt = intval ( $rejectedReason );
-		switch (strtolower ( $rejectedReason )) {
-			case "too_expensive" :
-			case "_too_expensive" :
-				$rejectedReasonInt = ProjectExtraData::$REJECTED_REASON__TOO_EXPENSIVE;
-				break;
-			case "too_long_delays" :
-			case "_too_long_delays" :
-				$rejectedReasonInt = ProjectExtraData::$REJECTED_REASON__TOO_LONG_DELAYS;
-				break;
-			// case "not_enough_time" :
-			// $rejectedReasonInt = ProjectExtraData::$REJECTED_REASON__NOT_ENOUGH_TIME;
-			// break;
-			case "outside_our_skill_shere" :
-			case "_outside_our_skill_shere" :
-				$rejectedReasonInt = ProjectExtraData::$REJECTED_REASON__OUTSIDE_OUR_SKILL_SPHERE;
-				break;
-			case "non_prioritary_rad" :
-			case "_non_prioritary_rad" :
-				$rejectedReasonInt = ProjectExtraData::$REJECTED_REASON__NON_PRIORITARY_RAD;
-				break;
-			case "incompatible_deadline" :
-			case "_incompatible_deadline" :
-				$rejectedReasonInt = ProjectExtraData::$REJECTED_REASON__INCOMPATIBLE_DEADLINE;
-				break;
-			case "too_many_samples" :
-			case "_too_many_samples" :
-				$rejectedReasonInt = ProjectExtraData::$REJECTED_REASON__TOO_MANY_SAMPLES;
-				break;
-			case "transfered_to_privilegied_partner" :
-			case "_transfered_to_privilegied_partner" :
-				$rejectedReasonInt = ProjectExtraData::$REJECTED_REASON__TRANSFERED_TO_PRIVILEGIED_MTH_PARTNER;
-				break;
-			case "not_funded" :
-			case "_not_funded" :
-				$rejectedReasonInt = ProjectExtraData::$REJECTED_REASON__NOT_FUNDED;
-				break;
-		}
-		$this->rejectedReason = $rejectedReasonInt;
-	}
-	
-	/**
-	 *
-	 * @return String
-	 */
-	public function getStoppedReason() {
-		return $this->stoppedReason;
-	}
-	
-	/**
-	 *
-	 * @param unknown $stoppedReason        	
-	 */
-	public function setStoppedReason($stoppedReason) {
-		$this->stoppedReason = $stoppedReason;
-	}
-	
-	// ////////////////////////////////////////////////////////////////////////
-	// OTHER
-	/**
-	 */
-	public function prune() {
-		$this->id = intval ( $this->getId () );
-		//
-		switch ($this->laboType) {
-			case ProjectExtraData::$LABO_TYPE_PRIVATE :
-				$this->laboType = "private";
-				break;
-			case ProjectExtraData::$LABO_TYPE_PUBLIC :
-				$this->laboType = "public";
-				break;
-			case ProjectExtraData::$LABO_TYPE_PRIVATE_PUBLIC :
-				$this->laboType = "private/public";
-				break;
-			default :
-				$this->laboType = null;
-				break;
-		}
-		
-		$this->blockedReason = $this->getBlockedReason ();
-		$this->rejectedReason = $this->getRejectedReason ();
-		if (is_null ( $this->stoppedReason )) {
-			$this->stoppedReason = "";
-		}
-	}
-	
-	/**
-	 */
-	public function getJsonData() {
-		$this->prune ();
-		$var = get_object_vars ( $this );
-		unset ( $var ["__initializer__"] );
-		unset ( $var ["__cloner__"] );
-		unset ( $var ["__isInitialized__"] );
-		unset ( $var ["deleted"] );
-		unset ( $var ["analysisRequest"] );
-		foreach ( $var as &$value ) {
-			if (is_object ( $value ) && method_exists ( $value, 'getJsonData' )) {
-				$value = $value->getJsonData ();
-			}
-		}
-		return $var;
-	}
-	
-	/**
-	 */
-	public function getArrayData() {
-		$this->prune ();
-		$ret = Array ();
-		$var = get_object_vars ( $this );
-		unset ( $var ["__initializer__"] );
-		unset ( $var ["__cloner__"] );
-		unset ( $var ["__isInitialized__"] );
-		unset ( $var ["deleted"] );
-		unset ( $var ["analysisRequest"] );
-		foreach ( $var as $key => $val ) {
-			$ret [$key] = object2array ( $val );
-		}
-		return $ret;
-	}
-	
-	/**
-	 */
-	public function cleanPrivateData() {
-		$newData = new ProjectExtraData ( $this->analysisRequest );
-		$newData->blockedReason = $this->blockedReason;
-		$newData->rejectedReason = $this->rejectedReason;
-		if (is_null ( $this->stoppedReason )) {
-			$newData->stoppedReason = "";
-		} else {
-			$newData->stoppedReason = $this->stoppedReason;
-		}
-		return $newData;
-	}
+
+class ProjectExtraData extends AbstractMAMAobject
+{
+
+    // ////////////////////////////////////////////////////////////////////////
+    // STATICS
+
+    // LABO TYPE
+    public static $LABO_TYPE_PUBLIC = 0;
+
+    public static $LABO_TYPE_PRIVATE_PUBLIC = 1;
+
+    public static $LABO_TYPE_PRIVATE = 2;
+
+    // PAUSED (=== blocked)
+    public static $PAUSED_REASON__WAITING_FOR_SAMPLES = 50;
+
+    public static $PAUSED_REASON__WAITING_FOR_SERVICE_USER_ANSWER = 51;
+
+    public static $PAUSED_REASON__WAITING_FOR_PROVISIONING = 52;
+
+    // REJECT
+    public static $REJECTED_REASON__TOO_EXPENSIVE = 200;
+
+    public static $REJECTED_REASON__TOO_LONG_DELAYS = 201;
+
+    public static $REJECTED_REASON__OUTSIDE_OUR_SKILL_SPHERE = 202;
+
+    public static $REJECTED_REASON__NON_PRIORITARY_RAD = 203;
+
+    public static $REJECTED_REASON__INCOMPATIBLE_DEADLINE = 204;
+
+    public static $REJECTED_REASON__TOO_MANY_SAMPLES = 205;
+
+    public static $REJECTED_REASON__TRANSFERED_TO_PRIVILEGIED_MTH_PARTNER = 206;
+
+    public static $REJECTED_REASON__NOT_FUNDED = 207;
+
+    // DIALOG BOX
+    public static $DIALOG_BOX__REQUEST_NOT_CHECKED = 300;
+
+    public static $DIALOG_BOX__REQUEST_CHECKED_BY_MTH_STAFF = 301;
+
+    public static $DIALOG_BOX__APPOINTMENT_WITH_CLIENT_SCHEDULED = 302;
+
+    public static $DIALOG_BOX__REQUEST_UPDATED_AFTER_CLIENT_APPOINTMENT = 303;
+
+    public static $DIALOG_BOX__REQUEST_CHECKED_READY_TO_BE_PROCESSED = 304;
+
+    public static $DIALOG_BOX__SEARCHING_A_PF_ABLE_TO_PROCESS_THE_REQUEST = 305;
+
+    // ////////////////////////////////////////////////////////////////////////
+    // ATTRIBUTES
+
+    /**
+     *
+     * @Column(type="smallint", name="laboratory_type", nullable=true)
+     *
+     * 0: public
+     * 1: private/public
+     * 2: private
+     *
+     * @var Short
+     * @access private
+     */
+    private $laboType;
+
+    /**
+     *
+     * @Column(type="string", nullable=true, name="administrative_context")
+     *
+     * @var String
+     * @access private
+     */
+    private $administrativeContext;
+
+    /**
+     *
+     * @Column(type="string", nullable=true,name="geographic_context")
+     *
+     * @var String
+     * @access private
+     */
+    private $geographicContext;
+
+    /**
+     *
+     * @Column(type="boolean", name="know_mth_via_coworker_or_friend", nullable=true)
+     *
+     * @var Boolean
+     * @access private
+     */
+    private $knowMTHviaCoworkerOrFriend;
+
+    /**
+     *
+     * @Column(type="boolean", name="know_mth_via_publication", nullable=true)
+     *
+     * @var Boolean
+     * @access private
+     */
+    private $knowMTHviaPublication;
+
+    /**
+     *
+     * @Column(type="boolean", name="know_mth_via_website", nullable=true)
+     *
+     * @var Boolean
+     * @access private
+     */
+    private $knowMTHviaWebsite;
+
+    /**
+     *
+     * @Column(type="boolean", name="know_mth_via_search_engine", nullable=true)
+     *
+     * @var Boolean
+     * @access private
+     */
+    private $knowMTHviaSearchEngine;
+
+    /**
+     *
+     * @Column(type="string", name="synthetic_user_needs", nullable=true)
+     *
+     * @var String
+     * @access private
+     */
+    private $syntheticUserNeeds;
+
+    /**
+     *
+     * @Column(type="string", name="project_maturity", nullable=true)
+     *
+     * @var String
+     * @access private
+     */
+    private $projectMaturity;
+
+    /**
+     *
+     * @Column(type="string", name="deadline", nullable=true)
+     *
+     * @var String
+     * @access private
+     */
+    private $deadline;
+
+    /**
+     *
+     * @Column(type="string", name="budget_constraint", nullable=true)
+     *
+     * @var String
+     * @access private
+     */
+    private $budgetConstraint;
+
+    /**
+     *
+     * @OneToOne(targetEntity="Project", inversedBy="analysisRequestExtraData")
+     * @JoinColumn(name="project_id", referencedColumnName="id")
+     *
+     * @var Project
+     * @access private
+     */
+    private $analysisRequest;
+
+    /**
+     *
+     * @Column(type="smallint", name="blocked_cause", nullable=true)
+     *
+     * 100: can't do it
+     * 101: deadline too short
+     * 102: not enough time
+     *
+     * @var Short
+     * @access private
+     */
+    private $blockedReason;
+
+    /**
+     *
+     * @Column(type="smallint", name="rejected_cause", nullable=true)
+     *
+     * 500: "too expensive",
+     * 501: "too long delays"
+     *
+     * @var Short
+     * @access private
+     */
+    private $rejectedReason;
+
+    /**
+     *
+     * @Column(type="string", nullable=true, name="stopped_reason")
+     *
+     * @var String
+     * @access private
+     */
+    private $stoppedReason;
+
+    /**
+     *
+     * @Column(type="smallint", name="dialog_box_val", nullable=true)
+     *
+     * 300: request not checked
+     * 301: request checked by MTH staff
+     * 302: appointment with client scheduled
+     * 303: request updated after client appointment
+     * 304: request checked, ready to be processed
+     * 305: searching a PF able to process the request
+     *
+     * @var Short
+     * @access private
+     */
+    private $dialogBoxVal;
+
+    /**
+     *
+     * @Column(type="string", nullable=true, name="dialog_box_txt", length=4096)
+     *
+     * @var String
+     * @access private
+     */
+    private $dialogBoxTxt;
+
+    // ////////////////////////////////////////////////////////////////////////
+    // CONSTRUCTORS
+    public function __construct($analysisRequest)
+    {
+        parent::__construct();
+        $this->analysisRequest = $analysisRequest;
+    }
+
+    // ////////////////////////////////////////////////////////////////////////
+    // GETTERS / SETTERS
+    public function getLaboType()
+    {
+        // return $this->laboType;
+        if (is_null($this->laboType)) {
+            return "";
+        }
+        switch ($this->laboType) {
+            case ProjectExtraData::$LABO_TYPE_PRIVATE:
+                return "private";
+            case ProjectExtraData::$LABO_TYPE_PUBLIC:
+                return "public";
+            case ProjectExtraData::$LABO_TYPE_PRIVATE_PUBLIC:
+                return "private/public";
+            default:
+                return "";
+        }
+    }
+
+    public function setLaboType($laboType)
+    {
+        $laboTypeInt = null;
+        if (intval($laboType) === $laboType) {
+            $laboTypeInt = intval($laboType);
+        }
+        switch (strtolower($laboType)) {
+            case "private":
+                $laboTypeInt = ProjectExtraData::$LABO_TYPE_PRIVATE;
+                break;
+            case "public":
+                $laboTypeInt = ProjectExtraData::$LABO_TYPE_PUBLIC;
+                break;
+            case "private/public":
+            case "private-public":
+            case "private_public":
+                $laboTypeInt = ProjectExtraData::$LABO_TYPE_PRIVATE_PUBLIC;
+                break;
+        }
+        $this->laboType = $laboTypeInt;
+    }
+
+    public function getAdministrativeContext()
+    {
+        return $this->administrativeContext;
+    }
+
+    public function setAdministrativeContext($administrativeContext)
+    {
+        $this->administrativeContext = $administrativeContext;
+    }
+
+    public function getGeographicContext()
+    {
+        return $this->geographicContext;
+    }
+
+    public function setGeographicContext($geographicContext)
+    {
+        $this->geographicContext = $geographicContext;
+    }
+
+    public function getKnowMTHviaCoworkerOrFriend()
+    {
+        return $this->knowMTHviaCoworkerOrFriend;
+    }
+
+    public function setKnowMTHviaCoworkerOrFriend($knowMTHviaCoworkerOrFriend)
+    {
+        $this->knowMTHviaCoworkerOrFriend = $knowMTHviaCoworkerOrFriend;
+    }
+
+    public function getKnowMTHviaPublication()
+    {
+        return $this->knowMTHviaPublication;
+    }
+
+    public function setKnowMTHviaPublication($knowMTHviaPublication)
+    {
+        $this->knowMTHviaPublication = $knowMTHviaPublication;
+    }
+
+    public function getKnowMTHviaWebsite()
+    {
+        return $this->knowMTHviaWebsite;
+    }
+
+    public function setKnowMTHviaWebsite($knowMTHviaWebsite)
+    {
+        $this->knowMTHviaWebsite = $knowMTHviaWebsite;
+    }
+
+    public function getKnowMTHviaSearchEngine()
+    {
+        return $this->knowMTHviaSearchEngine;
+    }
+
+    public function setKnowMTHviaSearchEngine($knowMTHviaSearchEngine)
+    {
+        $this->knowMTHviaSearchEngine = $knowMTHviaSearchEngine;
+    }
+
+    public function getSyntheticUserNeeds()
+    {
+        return $this->syntheticUserNeeds;
+    }
+
+    public function setSyntheticUserNeeds($syntheticUserNeeds)
+    {
+        $this->syntheticUserNeeds = $syntheticUserNeeds;
+    }
+
+    public function getProjectMaturity()
+    {
+        return $this->projectMaturity;
+    }
+
+    public function setProjectMaturity($projectMaturity)
+    {
+        $this->projectMaturity = $projectMaturity;
+    }
+
+    public function getDeadline()
+    {
+        return $this->deadline;
+    }
+
+    public function setDeadline($deadline)
+    {
+        $this->deadline = $deadline;
+    }
+
+    public function getBudgetConstraint()
+    {
+        return $this->budgetConstraint;
+    }
+
+    public function setBudgetConstraint($budgetConstraint)
+    {
+        $this->budgetConstraint = $budgetConstraint;
+    }
+
+    /**
+     *
+     * @return string
+     */
+    public function getBlockedReason()
+    {
+        if (is_null($this->blockedReason)) {
+            return "";
+        }
+        switch ($this->blockedReason) {
+            case ProjectExtraData::$PAUSED_REASON__WAITING_FOR_SAMPLES:
+                return "waiting_for_samples";
+            case ProjectExtraData::$PAUSED_REASON__WAITING_FOR_SERVICE_USER_ANSWER:
+                return "waiting_for_service_user_answer";
+            case ProjectExtraData::$PAUSED_REASON__WAITING_FOR_PROVISIONING:
+                return "waiting_for_provisioning";
+            default:
+                return "";
+        }
+    }
+
+    /**
+     *
+     * @param unknown $blockedReason
+     */
+    public function setBlockedReason($blockedReason)
+    {
+        $blockedReasonInt = intval($blockedReason);
+        switch (strtolower($blockedReason)) {
+            case "waiting_for_samples":
+            case "_waiting_for_samples":
+                $blockedReasonInt = ProjectExtraData::$PAUSED_REASON__WAITING_FOR_SAMPLES;
+                break;
+            case "waiting_for_service_user_answer":
+            case "_waiting_for_service_user_answer":
+                $blockedReasonInt = ProjectExtraData::$PAUSED_REASON__WAITING_FOR_SERVICE_USER_ANSWER;
+                break;
+            case "waiting_for_provisioning":
+            case "_waiting_for_provisioning":
+                $blockedReasonInt = ProjectExtraData::$PAUSED_REASON__WAITING_FOR_PROVISIONING;
+                break;
+        }
+        $this->blockedReason = $blockedReasonInt;
+    }
+
+    /**
+     *
+     * @return string
+     */
+    public function getRejectedReason()
+    {
+        // return $this->rejectedReason;
+        if (is_null($this->rejectedReason)) {
+            return "";
+        }
+        switch ($this->rejectedReason) {
+            case ProjectExtraData::$REJECTED_REASON__TOO_EXPENSIVE:
+                return "too_expensive";
+            case ProjectExtraData::$REJECTED_REASON__TOO_LONG_DELAYS:
+                return "too_long_delays";
+            case ProjectExtraData::$REJECTED_REASON__OUTSIDE_OUR_SKILL_SPHERE:
+                return "outside_our_skill_sphere";
+            case ProjectExtraData::$REJECTED_REASON__NON_PRIORITARY_RAD:
+                return "non_prioritary_rad";
+            case ProjectExtraData::$REJECTED_REASON__INCOMPATIBLE_DEADLINE:
+                return "incompatible_deadline";
+            case ProjectExtraData::$REJECTED_REASON__TOO_MANY_SAMPLES:
+                return "too_many_samples";
+            case ProjectExtraData::$REJECTED_REASON__TRANSFERED_TO_PRIVILEGIED_MTH_PARTNER:
+                return "transfered_to_privilegied_mth_partner";
+            case ProjectExtraData::$REJECTED_REASON__NOT_FUNDED:
+                return "not_funded";
+            default:
+                return "";
+        }
+    }
+
+    /**
+     *
+     * @param unknown $rejectedReason
+     */
+    public function setRejectedReason($rejectedReason)
+    {
+        // $this->rejectedReason = $rejectedReason;
+        $rejectedReasonInt = intval($rejectedReason);
+        switch (strtolower($rejectedReason)) {
+            case "too_expensive":
+            case "_too_expensive":
+                $rejectedReasonInt = ProjectExtraData::$REJECTED_REASON__TOO_EXPENSIVE;
+                break;
+            case "too_long_delays":
+            case "_too_long_delays":
+                $rejectedReasonInt = ProjectExtraData::$REJECTED_REASON__TOO_LONG_DELAYS;
+                break;
+            // case "not_enough_time" :
+            // $rejectedReasonInt = ProjectExtraData::$REJECTED_REASON__NOT_ENOUGH_TIME;
+            // break;
+            case "outside_our_skill_sphere":
+            case "_outside_our_skill_sphere":
+                $rejectedReasonInt = ProjectExtraData::$REJECTED_REASON__OUTSIDE_OUR_SKILL_SPHERE;
+                break;
+            case "non_prioritary_rad":
+            case "_non_prioritary_rad":
+                $rejectedReasonInt = ProjectExtraData::$REJECTED_REASON__NON_PRIORITARY_RAD;
+                break;
+            case "incompatible_deadline":
+            case "_incompatible_deadline":
+                $rejectedReasonInt = ProjectExtraData::$REJECTED_REASON__INCOMPATIBLE_DEADLINE;
+                break;
+            case "too_many_samples":
+            case "_too_many_samples":
+                $rejectedReasonInt = ProjectExtraData::$REJECTED_REASON__TOO_MANY_SAMPLES;
+                break;
+            case "transfered_to_privilegied_partner":
+            case "_transfered_to_privilegied_partner":
+                $rejectedReasonInt = ProjectExtraData::$REJECTED_REASON__TRANSFERED_TO_PRIVILEGIED_MTH_PARTNER;
+                break;
+            case "not_funded":
+            case "_not_funded":
+                $rejectedReasonInt = ProjectExtraData::$REJECTED_REASON__NOT_FUNDED;
+                break;
+        }
+        $this->rejectedReason = $rejectedReasonInt;
+    }
+
+    /**
+     *
+     * @return String
+     */
+    public function getStoppedReason()
+    {
+        return $this->stoppedReason;
+    }
+
+    /**
+     *
+     * @param unknown $stoppedReason
+     */
+    public function setStoppedReason($stoppedReason)
+    {
+        $this->stoppedReason = $stoppedReason;
+    }
+
+    // /////////////////////////////////////////////////////////////////////////
+    // new 1.0.4
+
+    /**
+     * Get the dialog box standardized value
+     *
+     * @return string the dialog box standardized value
+     */
+    public function getDialogBoxVal(): string
+    {
+        // return $this->dialogBoxVal;
+        if (is_null($this->dialogBoxVal)) {
+            return "";
+        }
+        // return std txt
+        switch ($this->dialogBoxVal) {
+            case ProjectExtraData::$DIALOG_BOX__REQUEST_NOT_CHECKED:
+                return "request_not_checked";
+            case ProjectExtraData::$DIALOG_BOX__REQUEST_CHECKED_BY_MTH_STAFF:
+                return "request_checked_by_mth_staff";
+            case ProjectExtraData::$DIALOG_BOX__APPOINTMENT_WITH_CLIENT_SCHEDULED:
+                return "appointment_with_client_scheduled";
+            case ProjectExtraData::$DIALOG_BOX__REQUEST_UPDATED_AFTER_CLIENT_APPOINTMENT:
+                return "request_updated_after_client_appointment";
+            case ProjectExtraData::$DIALOG_BOX__REQUEST_CHECKED_READY_TO_BE_PROCESSED:
+                return "request_checked_ready_to_be_processed";
+            case ProjectExtraData::$DIALOG_BOX__SEARCHING_A_PF_ABLE_TO_PROCESS_THE_REQUEST:
+                return "searching_a_pf_able_to_process_the_request";
+            default:
+                return "";
+        }
+    }
+
+    /**
+     * Set the dialog box standardized value
+     *
+     * @param unknown $rejectedReason
+     *            the dialog box standardized value
+     */
+    public function setDialogBoxVal(string $dialogBoxVal): void
+    {
+        $dialogBoxValInt = intval($dialogBoxVal);
+        switch (strtolower($dialogBoxVal)) {
+            case "request_not_checked":
+            case "_request_not_checked":
+                $dialogBoxValInt = ProjectExtraData::$DIALOG_BOX__REQUEST_NOT_CHECKED;
+                break;
+            case "request_checked_by_mth_staff":
+            case "_request_checked_by_mth_staff":
+                $dialogBoxValInt = ProjectExtraData::$DIALOG_BOX__REQUEST_CHECKED_BY_MTH_STAFF;
+                break;
+            case "appointment_with_client_scheduled":
+            case "_appointment_with_client_scheduled":
+                $dialogBoxValInt = ProjectExtraData::$DIALOG_BOX__APPOINTMENT_WITH_CLIENT_SCHEDULED;
+                break;
+            case "request_updated_after_client_appointment":
+            case "_request_updated_after_client_appointment":
+                $dialogBoxValInt = ProjectExtraData::$DIALOG_BOX__REQUEST_UPDATED_AFTER_CLIENT_APPOINTMENT;
+                break;
+            case "request_checked_ready_to_be_processed":
+            case "_request_checked_ready_to_be_processed":
+                $dialogBoxValInt = ProjectExtraData::$DIALOG_BOX__REQUEST_CHECKED_READY_TO_BE_PROCESSED;
+                break;
+            case "searching_a_pf_able_to_process_the_request":
+            case "_searching_a_pf_able_to_process_the_request":
+                $dialogBoxValInt = ProjectExtraData::$DIALOG_BOX__SEARCHING_A_PF_ABLE_TO_PROCESS_THE_REQUEST;
+                break;
+        }
+        $this->dialogBoxVal = $dialogBoxValInt;
+    }
+
+    /**
+     * Get the dialog box text value
+     *
+     * @return String the dialog box text value
+     */
+    public function getDialogBoxTxt()
+    {
+        return $this->dialogBoxTxt;
+    }
+
+    /**
+     * Set the dialog box text value
+     *
+     * @param String $dialogBoxTxt
+     *            the value to set
+     */
+    public function setDialogBoxTxt(string $dialogBoxTxt): void
+    {
+        $this->dialogBoxTxt = $dialogBoxTxt;
+    }
+
+    // ////////////////////////////////////////////////////////////////////////
+    // OTHER
+
+    /**
+     * Prun this entity (avoid loop in graph during dump)
+     */
+    public function prune()
+    {
+        $this->id = intval($this->getId());
+        //
+        $this->laboType = $this->getLaboType();
+        $this->blockedReason = $this->getBlockedReason();
+        $this->rejectedReason = $this->getRejectedReason();
+        $this->dialogBoxVal = $this->getDialogBoxVal();
+        if (is_null($this->stoppedReason)) {
+            $this->stoppedReason = "";
+        }
+        if (is_null($this->dialogBoxTxt)) {
+            $this->dialogBoxTxt = "";
+        }
+    }
+
+    /**
+     * Get this entity as a json object
+     *
+     * @return a json object
+     */
+    public function getJsonData()
+    {
+        $this->prune();
+        $var = get_object_vars($this);
+        unset($var["__initializer__"]);
+        unset($var["__cloner__"]);
+        unset($var["__isInitialized__"]);
+        unset($var["deleted"]);
+        unset($var["analysisRequest"]);
+        foreach ($var as &$value) {
+            if (is_object($value) && method_exists($value, 'getJsonData')) {
+                $value = $value->getJsonData();
+            }
+        }
+        return $var;
+    }
+
+    /**
+     * Get this entity as an object associative array
+     *
+     * @return an associative array
+     */
+    public function getArrayData()
+    {
+        $this->prune();
+        $ret = Array();
+        $var = get_object_vars($this);
+        unset($var["__initializer__"]);
+        unset($var["__cloner__"]);
+        unset($var["__isInitialized__"]);
+        unset($var["deleted"]);
+        unset($var["analysisRequest"]);
+        foreach ($var as $key => $val) {
+            $ret[$key] = object2array($val);
+        }
+        return $ret;
+    }
+
+    /**
+     * Clean all Extra data from the linked project
+     *
+     * @return ProjectExtraData the private data cleaned
+     */
+    public function cleanPrivateData()
+    {
+        $newData = new ProjectExtraData($this->analysisRequest);
+        $newData->blockedReason = $this->blockedReason;
+        $newData->rejectedReason = $this->rejectedReason;
+        $newData->dialogBoxVal = $this->dialogBoxVal;
+        if (is_null($this->stoppedReason)) {
+            $newData->stoppedReason = "";
+        } else {
+            $newData->stoppedReason = $this->stoppedReason;
+        }
+        if (is_null($this->dialogBoxTxt)) {
+            $newData->dialogBoxTxt = "";
+        } else {
+            $newData->dialogBoxTxt = $this->dialogBoxTxt;
+        }
+        return $newData;
+    }
 }
 ?>

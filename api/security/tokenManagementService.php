@@ -178,7 +178,7 @@ class TokenManagementService {
 		// get user
 		$user = UserManagementService::authenticate ( $userLogin, $userPassword );
 		// bop
-		if ($user->isBlocked () || $user->isDeleted ())
+		if ($user == null || $user->isBlocked () || $user->isDeleted ())
 			return null;
 			// continue
 		if ($user != null) {

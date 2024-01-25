@@ -864,6 +864,7 @@ class EventManagementService {
 		
 		return $event->getId ();
 	}
+	
 	public static function createUserEvent($user, $action, $userEvent) {
 		
 		// init

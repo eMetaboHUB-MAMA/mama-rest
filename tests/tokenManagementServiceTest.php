@@ -10,7 +10,7 @@ require_once '../api/services/eventManagementService.php';
  * @author Nils Paulhe
  *        
  */
-class UserManagementServiceTest extends PHPUnit_Framework_TestCase {
+class TokenManagementServiceTest extends PHPUnit\Framework\TestCase {
 	
 	/**
 	 */
@@ -68,18 +68,18 @@ class UserManagementServiceTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals ( true, TokenManagementService::isSameUserLogin ( $tokenVal, $email ), "[error] checking admin status of token" );
 	}
 	
-	/**
-	 */
-	public function testDelete() {
-		// // create
-		// $email = "junit.test.delete" . time () . "@inra.fr";
-		// $id = UserManagementService::create ($email, $email, "nopTesta", "junit", "test", 44, "01 23 45 67 89", "labo of unit tests", "office truc street much", "public" );
-		
-		// // test FAIL
-		// $success1 = UserManagementService::delete ( $id );
-		// $this->assertEquals ( true, $success1, "[error] 'delete' does not work" );
-		
-		// $userInDB = UserManagementService::get ( $id );
-		// $this->assertEquals ( true, $userInDB->isDeleted (), "[error] 'delete' does not work" );
-	}
+// 	/**
+// 	 */
+// 	public function testDelete() {
+// 		// // create
+// 		// $email = "junit.test.delete" . time () . "@inra.fr";
+// 		// $id = UserManagementService::create ($email, $email, "nopTesta", "junit", "test", 44, "01 23 45 67 89", "labo of unit tests", "office truc street much", "public" );
+// 		
+// 		// // test FAIL
+// 		// $success1 = UserManagementService::delete ( $id );
+// 		// $this->assertEquals ( true, $success1, "[error] 'delete' does not work" );
+// 		
+// 		// $userInDB = UserManagementService::get ( $id );
+// 		// $this->assertEquals ( true, $userInDB->isDeleted (), "[error] 'delete' does not work" );
+// 	}
 }

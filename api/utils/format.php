@@ -1,5 +1,14 @@
 <?php
 
+/**
+    * Include PHPExcel
+    */
+require_once dirname ( __FILE__ ) . '/../../vendor/autoload.php';
+
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
+
 // //////////////////////////////////////////////////////////////////////////////////////////////
 // FORMAT FUNCTIONS
 /**
@@ -223,12 +232,8 @@ function xml_encode($mixed, $domElement = null, $DOMDocument = null, $ultraPrune
  */
 function getXLSfile($type, $data) {
 	
-	/**
-	 * Include PHPExcel
-	 */
-	require_once dirname ( __FILE__ ) . '/../../vendor/phpoffice/phpexcel/Classes/PHPExcel.php';
 	// Create new PHPExcel object
-	$objPHPExcel = new PHPExcel ();
+	$objPHPExcel = new Spreadsheet ();
 	// Set document properties
 	$objPHPExcel->getProperties ()->setCreator ( "MAMA - Bot (>*.*)>" );
 	$objPHPExcel->getProperties ()->setLastModifiedBy ( "MAMA - Bot (>*.*)>" );
@@ -249,8 +254,23 @@ function getXLSfile($type, $data) {
 		$objPHPExcel->setActiveSheetIndex ( 0 )->setCellValue ( 'F1', 'involved' );
 		$objPHPExcel->setActiveSheetIndex ( 0 )->setCellValue ( 'G1', 'created' );
 		$objPHPExcel->setActiveSheetIndex ( 0 )->setCellValue ( 'H1', 'updated' );
+		// project demand type
+		$objPHPExcel->setActiveSheetIndex ( 0 )->setCellValue ( 'I1', 'demand_type' );
+		$objPHPExcel->setActiveSheetIndex ( 0 )->setCellValue ( 'J1', 'samples_number' );
+		$objPHPExcel->setActiveSheetIndex ( 0 )->setCellValue ( 'K1', 'thematic_words' );
+		$objPHPExcel->setActiveSheetIndex ( 0 )->setCellValue ( 'L1', 'sub_thematic_words' );
+		// project info
+		$objPHPExcel->setActiveSheetIndex ( 0 )->setCellValue ( 'M1', 'targeted_untargeted' );
+		$objPHPExcel->setActiveSheetIndex ( 0 )->setCellValue ( 'N1', 'mth_plateforms' );
+		$objPHPExcel->setActiveSheetIndex ( 0 )->setCellValue ( 'O1', 'can_be_fwd_copartner' );
+		$objPHPExcel->setActiveSheetIndex ( 0 )->setCellValue ( 'P1', 'scientific_context' );
+		$objPHPExcel->setActiveSheetIndex ( 0 )->setCellValue ( 'Q1', 'scientific_context_file' );
+		// financing
+		$objPHPExcel->setActiveSheetIndex ( 0 )->setCellValue ( 'R1', 'financing' );
+		$objPHPExcel->setActiveSheetIndex ( 0 )->setCellValue ( 'S1', 'financing_type' );
+		$objPHPExcel->setActiveSheetIndex ( 0 )->setCellValue ( 'T1', 'financing_other' );
 		// more data? filter?
-		$objPHPExcel->getActiveSheet ()->getStyle ( 'A1:H1' )->getFont ()->setBold ( true );
+		$objPHPExcel->getActiveSheet ()->getStyle ( 'A1:T1' )->getFont ()->setBold ( true );
 		
 		// content
 		$i = 2;
@@ -267,8 +287,9 @@ function getXLSfile($type, $data) {
 			$involvedT = "";
 			if ($value->getAnalystsInvolved () != null) {
 				foreach ( $value->getAnalystsInvolved () as $k => $v ) {
-					if ($involvedT != "")
+				    if ($involvedT != "") {
 						$involvedT .= ", ";
+				    }
 					$involvedT .= $v->getFullName ();
 				}
 			}
@@ -279,6 +300,58 @@ function getXLSfile($type, $data) {
 			} else {
 				$objPHPExcel->setActiveSheetIndex ( 0 )->setCellValue ( 'H' . $i, '' );
 			}
+			// project own data
+			$demandType = "";
+			if ($value->getDemandTypeEqProvisioning())   { $demandType .= "Provision of equipment; "; }
+			if ($value->getDemandTypeCatalogAllowance()) { $demandType .= "Provision of service - in routine; "; }
+			if ($value->getDemandTypeFeasibilityStudy()) { $demandType .= "Feasibility study; "; }
+			if ($value->getDemandTypeDataProcessing())   { $demandType .= "Data processing and analysis; "; }
+			if ($value->getDemandTypeTraining())         { $demandType .= "Training; "; }
+			if ($value->getDemandTypeOther())            { $demandType .= "Other; "; }
+			$objPHPExcel->setActiveSheetIndex ( 0 )->setCellValue ( 'I' . $i, $demandType );
+			$objPHPExcel->setActiveSheetIndex ( 0 )->setCellValue ( 'J' . $i, $value->getSamplesNumberAsString() );
+			$cloudWords = "";
+			foreach ( $value->getThematicWords() as $k => $v ) {
+			    $cloudWords .= $v->getWord() . "; ";
+			}
+			$objPHPExcel->setActiveSheetIndex ( 0 )->setCellValue ( 'K' . $i, $cloudWords );
+			$subCloudWords = "";
+			foreach ( $value->getSubThematicWords() as $k => $v ) {
+			    $subCloudWords .= $v->getWord() . "; ";
+			}
+			$objPHPExcel->setActiveSheetIndex ( 0 )->setCellValue ( 'L' . $i, $subCloudWords );
+			// project info
+			$targeted = "";
+			if ($value->getTargeted() != null) { $targeted = ($value->getTargeted()) ? "targeted" : "untargeted"; }
+			$objPHPExcel->setActiveSheetIndex ( 0 )->setCellValue ( 'M' . $i, $targeted );
+			$mthPF = "";
+			foreach ( $value->getMthPlatforms() as $k => $v ) {
+			    $mthPF .= $v->getName() . "; ";
+			}
+			$objPHPExcel->setActiveSheetIndex ( 0 )->setCellValue ( 'N' . $i, $mthPF );
+			$canBeFwdCopart = "";
+			if ($value->getCanBeForwardedToCoPartner() != null) { $canBeFwdCopart = ($value->getCanBeForwardedToCoPartner()) ? "yes" : "no"; }
+			$objPHPExcel->setActiveSheetIndex ( 0 )->setCellValue ( 'O' . $i, $canBeFwdCopart );
+			$objPHPExcel->setActiveSheetIndex ( 0 )->setCellValue ( 'P' . $i, $value->getScientificContext() );
+			$objPHPExcel->setActiveSheetIndex ( 0 )->setCellValue ( 'Q' . $i, (preg_replace ( '/^(\d+)-/i', "", $value->getScientificContextFile() )) );
+			// financing
+			$financing = "";
+			if ($value->getFinancialContextIsProjectFinanced())       { $financing .= "Financed with accepted project; "; }
+			if ($value->getFinancialContextIsProjectInProvisioning()) { $financing .= "Submitted project; "; }
+			if ($value->getFinancialContextIsProjectOnOwnSupply())    { $financing .= "Own resources; "; }
+			if ($value->getFinancialContextIsProjectNotFinanced())    { $financing .= "No financing; "; }
+			$objPHPExcel->setActiveSheetIndex ( 0 )->setCellValue ( 'R' . $i, $financing );
+			$financingType = "";
+			if ($value->getFinancialContextIsProjectEU())       { $financingType .= "EU; "; }
+			if ($value->getFinancialContextIsProjectANR())      { $financingType .= "ANR; "; }
+			if ($value->getFinancialContextIsProjectNational()) { $financingType .= "National; "; }
+			if ($value->getFinancialContextIsProjectRegional()) { $financingType .= "Regional; "; }
+			if ($value->getFinancialContextIsProjectCompagnyTutorship())      { $financingType .= "Private company; "; }
+			if ($value->getFinancialContextIsProjectInternationalOutsideEU()) { $financingType .= "International outside EU; "; }
+			if ($value->getFinancialContextIsProjectOwnResourcesLaboratory()) { $financingType .= "Own resources laboratory; "; }
+			if ($value->getFinancialContextIsProjectOther())                  { $financingType .= "Other; "; }
+			$objPHPExcel->setActiveSheetIndex ( 0 )->setCellValue ( 'S' . $i, $financingType );
+			$objPHPExcel->setActiveSheetIndex ( 0 )->setCellValue ( 'T' . $i, $value->getFinancialContextIsProjectOtherValue() );
 			// more data? filter?
 			$i ++;
 		}
@@ -302,8 +375,8 @@ function getXLSfile($type, $data) {
 		header ( 'Last-Modified: ' . gmdate ( 'D, d M Y H:i:s' ) . ' GMT' ); // always modified
 		header ( 'Cache-Control: cache, must-revalidate' ); // HTTP/1.1
 		header ( 'Pragma: public' ); // HTTP/1.0
-		$objWriter = PHPExcel_IOFactory::createWriter ( $objPHPExcel, 'Excel5' );
-		$objWriter->save ( 'php://output' );
+		$writer = new Xlsx($objPHPExcel);
+		$writer->save('php://output');
 		exit ();
 	}
 }

@@ -1,0 +1,106 @@
+# docker image
+image: metabohub/mama-rest
+
+# maven env.
+variables:
+  GIT_SUBMODULE_STRATEGY: recursive
+  # database
+  MYSQL_HOSTNAME: "mysql-test-server"
+  MYSQL_ROOT_PASSWORD: "mama_password"
+  MYSQL_DATABASE: "mama_db"
+  MYSQL_USERNAME: "mama_user@'%'"
+  MYSQL_USERPASSW: "mama_password"
+  # docker env.
+  DOCKER_IMAGE: "metabohub/mama-rest"
+  DOCKER_CONTAINER: "mama-rest"
+  DOCKER_SOCKET: "6382"
+  # SSH / SCP
+  SSH_OPTS: " -q -t "
+  SSH_USER: "gitlab-bot"
+  SSH_HOST: "147.99.132.187"
+  # cache
+  IMAGE_FILE: "mama-rest.image"
+  CACHE_BASH: "/tmp/gitlab-ci-cache"
+  CACHE_DOCKER: "/root/.cache-ci"
+  
+# cache
+cache:
+  paths:
+    - vendor/
+
+# stages
+stages:
+  - docker_env
+  - tests
+  - copy_to_dev
+
+# main jobs: build docker image and test it
+build docker image:
+  stage: docker_env
+  tags:
+    - bash
+  before_script:
+    - echo "==================================";
+    - echo "[info] set config. files ";
+    - echo "$CONFIG_SALT_FILE" >> config/salt.txt
+    - test -f config/mama-config.ini && rm config/mama-config.ini
+    - cp config/mama-config.ini.sample config/mama-config.ini
+    - sed -i -e "s/https:\/\/mama-webapp.metabohub.fr/$CONFIG_URL_WEBAPP/g"  -e "s/host = 127.0.0.1/host = 147.99.132.187/" -e "s/host = \"smtp-nonaut.inra.fr\"/host = \"$CONFIG_SMTP_HOST\"/" -e "s/smtpauth = false/smtpauth = \"$CONFIG_SMTP_AUTH\"/" -e "s/username = \"\"/username = \"$CONFIG_SMTP_USERNAME\"/" -e "s/password = \"\"/password = \"$CONFIG_SMTP_PASSWORD\"/" -e "s/secure = \"\"/secure = \"$CONFIG_SMTP_SECURE\"/" -e "s/port = 25/port = $CONFIG_SMTP_PORT/" -e "s/from_email = \"no-reply-mama@metabohub.fr\"/from_email = \"$CONFIG_SMTP_EMAIL_FROM\"/" config/mama-config.ini
+  script:
+    - docker build -t $DOCKER_IMAGE . 
+  after_script:
+    - echo "[gitlab-ci] reset/init cache";
+    - test -d $CACHE_BASH || mkdir -p $CACHE_BASH
+    - test -f $CACHE_BASH/$IMAGE_FILE && rm -rf $CACHE_BASH/$IMAGE_FILE
+    - echo "[gitlab-ci] create new docker image";
+    - docker save -o $CACHE_BASH/$IMAGE_FILE $DOCKER_IMAGE
+
+tests:
+  stage: tests
+  tags:
+    - docker
+  services:
+    - name: mysql:5.7
+      alias: mysql-test-server
+  before_script:
+    - mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=$MYSQL_HOSTNAME --execute="DROP DATABASE IF EXISTS $MYSQL_DATABASE;  CREATE DATABASE $MYSQL_DATABASE CHARACTER SET utf8; "
+    - mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=$MYSQL_HOSTNAME --execute="DROP USER IF EXISTS $MYSQL_USERNAME;          CREATE USER $MYSQL_USERNAME IDENTIFIED BY '$MYSQL_USERPASSW'; "
+    - mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=$MYSQL_HOSTNAME --execute="REVOKE ALL, GRANT OPTION FROM $MYSQL_USERNAME ; GRANT ALL PRIVILEGES ON $MYSQL_DATABASE.* TO $MYSQL_USERNAME; "
+    - mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=$MYSQL_HOSTNAME --execute="FLUSH PRIVILEGES; "
+    - pushd /var/www/html/tests
+    - cp ./mama-test.ini.docker ./mama-test.ini
+    - sed -i -e "s/password = \"xxxx\"/password = \"$CONFIG_SMTP_PASSWORD\"/" ./mama-test.ini
+    - ../vendor/bin/doctrine orm:schema-tool:create
+    - popd
+  script:
+    - pushd /var/www/html/tests
+    - phpunit --coverage-text --colors=never --coverage-html $CACHE_DOCKER/coverage-report --bootstrap ../vendor/autoload.php .
+    - popd
+    
+copy to dev:
+  stage: copy_to_dev
+  tags:
+    - docker
+  before_script:
+    - mkdir -p ~/.ssh
+    - eval $(ssh-agent -s)
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+    - ssh-add <(echo "$SSH_PRIVATE_KEY" | base64 -d)
+  script:
+    - echo "[gitlab-ci] remove old code report on test server";
+    - ssh $SSH_OPTS $SSH_USER@$SSH_HOST "rm -rf /var/www/html/code_report_mama/rest "
+    - echo "[gitlab-ci] copy code report to test server";
+    - scp -r $CACHE_DOCKER/coverage-report $SSH_USER@$SSH_HOST:/var/www/html/code_report_mama/rest
+    - echo "[gitlab-ci] remove old docker image";
+    - ssh $SSH_OPTS $SSH_USER@$SSH_HOST "rm -rf /tmp/$IMAGE_FILE "
+    - echo "[gitlab-ci] stop and remove docker container";
+    - ssh $SSH_OPTS $SSH_USER@$SSH_HOST "docker stop $DOCKER_CONTAINER || echo \"container not started\" ";
+    - ssh $SSH_OPTS $SSH_USER@$SSH_HOST "docker rm $DOCKER_CONTAINER || echo \"container not init\" ";
+    - echo "[gitlab-ci] copy new docker image to test server ";
+    - scp -r $CACHE_DOCKER/$IMAGE_FILE $SSH_USER@$SSH_HOST:/tmp/
+    - echo "[gitlab-ci] load new docker image ";
+    - ssh $SSH_OPTS $SSH_USER@$SSH_HOST "cat /tmp/$IMAGE_FILE | docker load";
+    - echo "[gitlab-ci] start new docker container as deamon";
+    - ssh $SSH_OPTS $SSH_USER@$SSH_HOST "docker run --restart unless-stopped --name $DOCKER_CONTAINER -it -p $DOCKER_SOCKET:80 -d $DOCKER_IMAGE ";
+    - echo "[gitlab-ci] update database schema";
+    - ssh $SSH_OPTS $SSH_USER@$SSH_HOST "docker exec -i $DOCKER_CONTAINER \"bash\" \"-c\" \"cd /var/www/html/ && php vendor/bin/doctrine orm:schema-tool:update --force\"   "
